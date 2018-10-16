@@ -8,27 +8,27 @@ import SingOut from '../auth/SingOut'
 const Navbar = ()=>{
 
     return (
-        <div className='container'>
+        <header className='container'>
            <nav>
                 <div className="nav-wrapper">
-                <a href="#!" className="brand-logo">Logo</a>
-                <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+                <NavLink to="/" className="brand-logo">welcomebelarus.ru</NavLink>
+                <NavLink to='/' data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></NavLink>
                 <ul className="right hide-on-med-and-down">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
-                    <li><a href="collapsible.html">Javascript</a></li>
-                    <li><a href="mobile.html">Mobile</a></li>
+                    <li><NavLink to="/about">About</NavLink></li>
+                    <li><NavLink to="/contacts">Contacts</NavLink></li>
+      
                 </ul>
                 </div>
             </nav>
 
             <ul className="sidenav" id="mobile-demo">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">Javascript</a></li>
-                <li><a href="mobile.html">Mobile</a></li>
+            <li><NavLink to="/">Main</NavLink></li>
+            <li><NavLink to="/about">About</NavLink></li>
+            <li><NavLink to="/contacts">Contacts</NavLink></li>
+            
+            <li><NavLink to="mobile.html">Mobile</NavLink></li>
             </ul>
-        </div>
+        </header>
                     
     )
 

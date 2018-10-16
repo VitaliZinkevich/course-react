@@ -6,6 +6,8 @@ import {fetchHotels} from '../../redux/actions'
 
 class Search extends Component{
 
+  // запрашивает каждый раз как переходит по ссылке. 
+  // запрос нужно делать 1 раз
   componentWillMount() {
       this.props.fetchHotels()
   }
@@ -13,9 +15,9 @@ class Search extends Component{
   render() {
       console.log (this.props)
     return (
-    <div>
-      im search
-    </div> 
+    <main className='container'>
+        im search
+    </main> 
       
     );
   }

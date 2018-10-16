@@ -7,9 +7,9 @@ import React from 'react'
 const About = ()=>{
 
     return (
-    <div>
+    <main className='container blue'>
         im contact
-    </div>
+    </main>
     )
 
 
