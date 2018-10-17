@@ -16,19 +16,21 @@ const rootReducer = (state = initState, action) => {
     switch (action.type) {
         
         case 'FOO_PENDING':{
-        console.log ('inside foo pending')
         let newState = state.set('hotelPending', true)
-        
-        console.log (newState)
         return newState
         
         }
         
         case 'FOO_FULFILLED':{
-        let newState = state.set('hotelPending',false)
-        newState = newState.set ('hotels', action.payload.data)
+        // можно писать в цепочку    
+        let newState = state.set('hotelPending',false).set ('hotels', action.payload.data)
         return newState}
+
+        case 'FOO_REJECTED':{
         
+        let newState = state.set('hotelPending',false).set ('hotelPendingErrors', action.payload)
+        return newState}
+
         default:
         return state
         }
