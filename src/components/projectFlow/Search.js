@@ -29,9 +29,11 @@ class Search extends Component{
         document.addEventListener('DOMContentLoaded', function() {
             let elems = document.querySelectorAll('select');
             let instances = M.FormSelect.init(elems, {
-
+            
             });
+          
             this.personSelects = instances
+            
             });
     
           
@@ -47,7 +49,7 @@ class Search extends Component{
 
     handleChange=(e)=>{
         // как брать значения с даты выбора
-        console.log (e.target.name)
+        
         
         this.datepickers.map((e)=>{
             console.log (e.toString())

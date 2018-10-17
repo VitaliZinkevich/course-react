@@ -3,18 +3,35 @@ import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
 // components
 import Search from './components/projectFlow/Search'
-import Navbar from './components/layout/Navbar'
+import NavbarApp from './components/layout/NavbarApp'
 import Footer from './components/layout/Footer'
 import About from './components/dummyComponents/About'
 import Contacts from './components/dummyComponents/Contacts'
 //import './App.css';
 
+// react materialize 
+import {SideNav, Navbar, NavItem, Button} from 'react-materialize'
+import $ from 'jquery'
+
+
 class App extends Component{
+  componentDidMount(){
+   
+  }
   render() {
     return (
     <BrowserRouter>
     <div className='appbody'>
-      <Navbar/>      
+
+    <Navbar brand='logo' right fixed={true} trigger={<Button>SIDE NAV DEMO</Button>}>
+      <NavItem> Components1</NavItem>
+      <NavItem href='components.html'>Components</NavItem>
+    </Navbar> 
+    
+    
+
+    <Button>SIDE NAV DEMO</Button>
+
           <Switch>
             <Route exact path='/' component={Search}/>
             <Route path='/about' component={About}/>
