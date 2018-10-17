@@ -23,9 +23,9 @@ class App extends Component{
     <BrowserRouter>
     <div className='appbody'>
 
-    <Navbar brand='logo' right fixed={true} trigger={<Button>SIDE NAV DEMO</Button>}>
+    <Navbar brand='logo' right fixed={true}>
       <NavItem> Components1</NavItem>
-      <NavItem href='components.html'>Components</NavItem>
+      <NavItem href='components.html'></NavItem>
     </Navbar> 
     
     
@@ -41,7 +41,7 @@ class App extends Component{
     </div>  
     </BrowserRouter>
       
-    );
+    )
   }
 }
 
