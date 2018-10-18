@@ -15,7 +15,7 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     
     setTimeout(function () {
-        console.log ('after 3000 wait')
+        
         res.json(
             [
                 {"_id" : "5b06859e5089ec123b9e668c",
@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
                   "stars" : 4,}
               ]
         )
-      }, 3000)
+      }, 1500)
     
     
     }

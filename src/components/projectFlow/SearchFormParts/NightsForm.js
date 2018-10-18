@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Input, Navbar, NavItem, Button, Row} from 'react-materialize'
 import './NightsForm.css'
 
+import {mainFormFillEvents} from '../../../events/events'
+
 // + 1 ночь к расчетам
 
 
@@ -10,7 +12,7 @@ class NightsForm extends Component {
   handleNights=(e, ind)=>{
     console.log (e.target.name)
     console.log (e, ind)
-
+    mainFormFillEvents.emit ('handleSearchFormChange' , {name: e.target.name, value: ind+1})
   }
 
   render() {

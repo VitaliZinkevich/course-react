@@ -1,13 +1,11 @@
 import React from 'react'
 import {Input, Navbar, NavItem, Button, Row} from 'react-materialize'
 
+import {mainFormFillEvents} from '../../../events/events'
 class Persons extends React.Component{
 
 handlePersons=(e)=>{
-
-    console.log (e.target.name)
-    console.log (e.target.value)
-
+    mainFormFillEvents.emit ('handleSearchFormChange' , {name: e.target.name,value:e.target.value})
 }
 
 render (){
@@ -18,7 +16,7 @@ render (){
             name ='Adults'
             s={6} 
             type='select' 
-            label="Adults" 
+            label="adults" 
             labelClassName='black-text'
             onChange={this.handlePersons}>
                 <option value='1'>1 Adult</option>
@@ -27,7 +25,7 @@ render (){
             </Input>
 
             <Input 
-            name ='Children'
+            name ='children'
             s={6} 
             type='select' 
             label="Children" 

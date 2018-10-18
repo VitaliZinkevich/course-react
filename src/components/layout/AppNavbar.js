@@ -14,10 +14,11 @@ class NavbarApp extends React.Component{
 render (){
     return (
         
-    <Navbar brand='welcomebelarus.ru' right>
-      
-        <NavItem href='/about'>About</NavItem>
-        <NavItem href='/contacts'>Contacts</NavItem>
+    <Navbar brand={<div><Link to ='/'>welcomebelarus.ru</Link></div>} right>
+        
+        <NavItem onClick={console.log ('click')}><NavLink className='black-text' to='/'>Home</NavLink></NavItem>
+        <NavItem><NavLink className='black-text' to='/about'> About</NavLink></NavItem>
+        <NavItem><NavLink className='black-text' to='/contacts'>Contacts </NavLink></NavItem>
         
     </Navbar>
         

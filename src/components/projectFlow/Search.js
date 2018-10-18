@@ -10,12 +10,14 @@ import {fetchHotels} from '../../redux/actions'
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
 import Persons from './SearchFormParts/Persons'
+import DatePikers from './SearchFormParts/DatePickers'
 // react materialize
 import {Input, Navbar, NavItem, Button, Row, Col, Preloader} from 'react-materialize'
 
 //jquery
 import $ from 'jquery'
-
+// events flow
+import {mainFormFillEvents} from '../../events/events'
 
 
 class Search extends Component{
@@ -33,38 +35,48 @@ class Search extends Component{
         
         searchForm: {
             dateFrom:null,
-            dateTo:null,}
+            dateTo:null,
+            nights:[],
+            adults: null,
+            children: null
+        }
         
     }      
         
     }
 
     componentDidMount(){
-        console.log ('MOUNT PROPS', this.props)
-        console.log ('MOUNT STATE', this.state)
-
-        
-
+                
+        console.log (this.props.hotels)
         if (this.props.hotels.toJS().length === 0){
             console.log ('ask for hotels')
             this.props.getHotels()
         } else {
-            console.log (this.props.hotels.toJS().length)
+           
         }
-        
+    // events listners
+    mainFormFillEvents.addListener('handleSearchFormChange', this.handleChange )
+    }
+
+    componentWillUnmount (){
+        mainFormFillEvents.removeListener('handleSearchFormChange', this.handleChange)
     }
 
     componentWillReceiveProps(newProps){
-        console.log ('RECIVE PROPS', newProps)        
+        //console.log ('RECIVE PROPS', newProps)        
         let hotelList = newProps.hotels.toJS() ;
         this.setState ({pending:newProps.hotelPending, hotels:hotelList })
     }
 
-    handleChange=(e, value)=>{
-        console.log (e.target.name)
+    handleChange=(data)=>{
+               
+        let {name, value} = data
+        console.log (name)
         console.log (value)
 
     }
+
+
   
     render() {
        //console.log (this.props)
@@ -73,26 +85,7 @@ class Search extends Component{
         <main>
            
             <Row>
-                
-                    <Input 
-                    s={6} 
-                    label='Start from'
-                    labelClassName='black-text' 
-                    name='dateFrom' 
-                    type='date' 
-                    onChange={(e, value)=>{this.handleChange(e, value)}} 
-                    />
-                
-
-                
-                    <Input
-                    s={6} 
-                    label='Start to'
-                    labelClassName='black-text'  
-                    name='dateFrom1' 
-                    type='date' 
-                    onChange={(e, value)=>{this.handleChange(e, value)}} 
-                    />
+             <DatePikers/>   
             </Row>
 
             <Row>
@@ -102,6 +95,7 @@ class Search extends Component{
             <Row>
             <Persons/>
             </Row>
+
             {this.state.pending == true ? (<Row className='center'><Col s={12}>
                                                 <Preloader flashing/>
                                          </Col></Row>) : ""}
