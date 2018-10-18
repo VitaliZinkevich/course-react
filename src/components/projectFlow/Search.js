@@ -2,147 +2,131 @@ import React, { Component } from 'react';
 // redux
 import { connect } from 'react-redux'
 // materialize and custom css
-import 'materialize-css/dist/css/materialize.min.css'
-import M from 'materialize-css'
+// import 'materialize-css/dist/css/materialize.min.css'
+// import M from 'materialize-css'
 
 // action
 import {fetchHotels} from '../../redux/actions'
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
+import Persons from './SearchFormParts/Persons'
+// react materialize
+import {Input, Navbar, NavItem, Button, Row, Col, Preloader} from 'react-materialize'
+
+//jquery
+import $ from 'jquery'
+
+
 
 class Search extends Component{
     
 
     constructor(props) {
-        super(props);
+       super(props);
         
-
-        document.addEventListener('DOMContentLoaded', ()=> {
-            let elems = document.querySelectorAll('.datepicker');
-            let instances = M.Datepicker.init( elems, {
-                format: 'dd mmmm yyyy'
-              
-            });
-            this.datepickers = instances 
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            let elems = document.querySelectorAll('select');
-            let instances = M.FormSelect.init(elems, {
-            
-            });
-          
-            this.personSelects = instances
-            
-            });
-    
-          
     this.state={
+        pending:this.props.hotelPending,
+        hotels:this.props.hotels,
         foodTypes:this.props.foodTypes.toJS(),
         starsTypes:this.props.starsTypes.toJS(),
-        hotels: this.props.hotels.toJS(),
-        dateFrom:null,
-        dateTo:null,
+         
+        
+        searchForm: {
+            dateFrom:null,
+            dateTo:null,}
+        
     }      
         
     }
 
-    handleChange=(e)=>{
-        // как брать значения с даты выбора
-        
-        
-        this.datepickers.map((e)=>{
-            console.log (e.toString())
-        })
+    componentDidMount(){
+        console.log ('MOUNT PROPS', this.props)
+        console.log ('MOUNT STATE', this.state)
 
+        
 
+        if (this.props.hotels.toJS().length === 0){
+            console.log ('ask for hotels')
+            this.props.getHotels()
+        } else {
+            console.log (this.props.hotels.toJS().length)
+        }
+        
     }
 
-    checkInstaces= ()=>{
-        console.log (this.datepickers)
-        console.log (this.personSelects)
+    componentWillReceiveProps(newProps){
+        console.log ('RECIVE PROPS', newProps)        
+        let hotelList = newProps.hotels.toJS() ;
+        this.setState ({pending:newProps.hotelPending, hotels:hotelList })
     }
 
+    handleChange=(e, value)=>{
+        console.log (e.target.name)
+        console.log (value)
+
+    }
+  
     render() {
-        
-
-   
-
-    
-        
+       //console.log (this.props)
     return (
 
-    <main className='container'>
+        <main>
+           
+            <Row>
+                
+                    <Input 
+                    s={6} 
+                    label='Start from'
+                    labelClassName='black-text' 
+                    name='dateFrom' 
+                    type='date' 
+                    onChange={(e, value)=>{this.handleChange(e, value)}} 
+                    />
+                
 
-    <div className='row'>
-    <div className='col s6'>
+                
+                    <Input
+                    s={6} 
+                    label='Start to'
+                    labelClassName='black-text'  
+                    name='dateFrom1' 
+                    type='date' 
+                    onChange={(e, value)=>{this.handleChange(e, value)}} 
+                    />
+            </Row>
 
-    <h3>Start date</h3>
-    <p className='text-flow'> From</p>   
-    <input  name='dateFrom' type="text" className="datepicker"/>
-    <p className='text-flow'> To</p> 
-    <input  name='dateTo' type="text" className="datepicker"/> 
-    </div>
+            <Row>
+                <NightsForm/>
+            </Row>
 
-    <div className='col s6'>
-    <h3>For how many nights</h3>
-    <NightsForm />
-    </div>
-    </div>
+            <Row>
+            <Persons/>
+            </Row>
+            {this.state.pending == true ? (<Row className='center'><Col s={12}>
+                                                <Preloader flashing/>
+                                         </Col></Row>) : ""}
+            <Button floating large className='red right' waves='light' icon='search' />
 
-    <div className='row'>
-    <h3>Guests</h3>
-        <div className="input-field col s6">
-        <select>
-        <option value="" disabled >Number of children</option>
-        <option value="0"> 0</option>
-        <option value="1"> 1</option>
-        <option value="2"> 2</option>
-        <option value="3"> 3</option>
-        </select>
-        <label>Children</label>
-        </div>
-
-        <div className="input-field col s6">
-            <select>
-            <option value="" disabled >Number of adults</option>
-            <option value="0"> 0</option>
-            <option value="1"> 1</option>
-            <option value="2"> 2</option>
-            <option value="3"> 3</option>
-            </select>
-            <label>Adult</label>
-        </div>
-
-    </div>
-
-    
-    <div className='row right'>
-    <button 
-    onClick={this.checkInstaces}
-    className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">search</i></button>
-    </div>
-    
-    
-    
-
-
-
-    </main> 
+        </main> 
       
     );
   }
 }
 
-const mapStateToProps = (state) => {
+let mapStateToProps = (state) => {
     return {
-      
+        hotels: state.get ('hotels'),
+        hotelPending: state.get("hotelPending"),
         foodTypes: state.get ('foodTypes'),
         starsTypes: state.get ('starsTypes'),
-        hotels: state.get('hotels')
-      }
+        }
+  }
+
+  let mapDispatchToProps = (dispath)=>{
+    return {
+        getHotels: ()=>{dispath (fetchHotels)}
+    }
   }
 
 
-
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps,mapDispatchToProps)(Search);

@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
 // components
 import Search from './components/projectFlow/Search'
-import NavbarApp from './components/layout/NavbarApp'
-import Footer from './components/layout/Footer'
+import AppNavbar from './components/layout/AppNavbar'
+import AppFooter from './components/layout/AppFooter'
 import About from './components/dummyComponents/About'
 import Contacts from './components/dummyComponents/Contacts'
 //import './App.css';
 
 // react materialize 
-import {SideNav, Navbar, NavItem, Button} from 'react-materialize'
+import {Input, Navbar, NavItem, Button, Row} from 'react-materialize'
 import $ from 'jquery'
 
 
@@ -20,26 +20,26 @@ class App extends Component{
   }
   render() {
     return (
-    <BrowserRouter>
-    <div className='appbody'>
+  <BrowserRouter>
+    <div className='container appbody'>
 
-    <Navbar brand='logo' right fixed={true}>
-      <NavItem> Components1</NavItem>
-      <NavItem href='components.html'></NavItem>
-    </Navbar> 
+      <header>
+        <AppNavbar/>
+      </header>
+
     
-    
-
-    <Button>SIDE NAV DEMO</Button>
-
-          <Switch>
-            <Route exact path='/' component={Search}/>
-            <Route path='/about' component={About}/>
-            <Route exact path='/contacts' component={Contacts}/>
-          </Switch>
-      <Footer/>
-    </div>  
-    </BrowserRouter>
+      
+      <Switch>
+        <Route exact path='/' component={Search}/>
+        <Route path='/about' component={About}/>
+        <Route exact path='/contacts' component={Contacts}/>
+      </Switch>
+      
+      
+      <AppFooter/>
+      
+    </div>
+  </BrowserRouter>
       
     )
   }

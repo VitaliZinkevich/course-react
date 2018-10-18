@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import 'materialize-css/dist/css/materialize.min.css'
-import './NightsForm.css';
+import {Input, Navbar, NavItem, Button, Row} from 'react-materialize'
+import './NightsForm.css'
+
+// + 1 ночь к расчетам
+
 
 class NightsForm extends Component {
   
-  
+  handleNights=(e, ind)=>{
+    console.log (e.target.name)
+    console.log (e, ind)
+
+  }
 
   render() {
+
     let startArray = []
     for (let i = 1; i!==22;  i++) {
       startArray.push(i)
@@ -15,12 +23,14 @@ class NightsForm extends Component {
     let formView = startArray.map ((el, ind)=>{
       return (
         
-        <p key={ind}>
-        <label >
-        <input type="checkbox"/>
-        <span className='darken-3'>{ind+1}</span>
-        </label>
-        </p>
+        <div key={ind}>
+        <Input 
+        name='nights' 
+        type='checkbox' 
+        labelClassName='black-text' 
+        label={el} 
+        onChange={(e)=>{this.handleNights(e,ind)}}/>
+        </div>
         
       )
       

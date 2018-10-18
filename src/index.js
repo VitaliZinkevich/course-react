@@ -26,8 +26,8 @@ const store = createStore(rootReducer, applyMiddleware(promise(),thunk, logger))
 // store.dispatch((dispatch)=>{
 //     dispatch (fetchHotels)
 // })
-
-store.dispatch(fetchHotels)
+// вызывается на каждый компонент при его создании
+//store.dispatch(fetchHotels) 
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

@@ -12,29 +12,39 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/', (req, res) => res.json(
-    [
-        {"_id" : "5b06859e5089ec123b9e668c",
-         "type" : "санаторий",
-         "name" : "Берестье",
-         "region" : "Минская область",
-         "stars" : 2},
-         {"_id" : "5b06859e5089ec123b9e668f",
-          "type" : "санаторий",
-          "name" : "Белая вежа",
-          "region" : "Минская область",
-          "stars" : 3,},
-          {"_id" : "5b06859e5089ec123b9e668d",
-          "type" : "ДРОЦ",
-          "name" : "Свитанак",
-          "region" : "Витебская область",
-          "stars" : 4,},
-          {"_id" : "5b06859e5089ec123b9e668e",
-          "type" : "санаторий",
-          "name" : "Буг",
-          "region" : "Минская область",
-          "stars" : 4,}
-      ]
-))
+app.get('/', (req, res) => {
+    
+    setTimeout(function () {
+        console.log ('after 3000 wait')
+        res.json(
+            [
+                {"_id" : "5b06859e5089ec123b9e668c",
+                 "type" : "санаторий",
+                 "name" : "Берестье",
+                 "region" : "Минская область",
+                 "stars" : 2},
+                 {"_id" : "5b06859e5089ec123b9e668f",
+                  "type" : "санаторий",
+                  "name" : "Белая вежа",
+                  "region" : "Минская область",
+                  "stars" : 3,},
+                  {"_id" : "5b06859e5089ec123b9e668d",
+                  "type" : "ДРОЦ",
+                  "name" : "Свитанак",
+                  "region" : "Витебская область",
+                  "stars" : 4,},
+                  {"_id" : "5b06859e5089ec123b9e668e",
+                  "type" : "санаторий",
+                  "name" : "Буг",
+                  "region" : "Минская область",
+                  "stars" : 4,}
+              ]
+        )
+      }, 3000)
+    
+    
+    }
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+)
+
+app.listen(port, () => console.log(`app listening on port ${port}!`))
