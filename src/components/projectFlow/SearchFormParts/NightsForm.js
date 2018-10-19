@@ -10,8 +10,6 @@ import {mainFormFillEvents} from '../../../events/events'
 class NightsForm extends Component {
   
   handleNights=(e, ind)=>{
-    console.log (e.target.name)
-    console.log (e, ind)
     mainFormFillEvents.emit ('handleSearchFormChange' , {name: e.target.name, value: ind+1})
   }
 

@@ -5,12 +5,16 @@ import { connect } from 'react-redux'
 // import 'materialize-css/dist/css/materialize.min.css'
 // import M from 'materialize-css'
 
+//immutable 
+import { fromJS } from 'immutable';
+
 // action
 import {fetchHotels} from '../../redux/actions'
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
 import Persons from './SearchFormParts/Persons'
 import DatePikers from './SearchFormParts/DatePickers'
+import HotelsLists from './SearchFormParts/HotelsLists'
 // react materialize
 import {Input, Navbar, NavItem, Button, Row, Col, Preloader} from 'react-materialize'
 
@@ -31,15 +35,14 @@ class Search extends Component{
         hotels:this.props.hotels,
         foodTypes:this.props.foodTypes.toJS(),
         starsTypes:this.props.starsTypes.toJS(),
-         
-        
-        searchForm: {
+
             dateFrom:null,
             dateTo:null,
             nights:[],
             adults: null,
-            children: null
-        }
+            children: null,
+            selectedHotels:fromJS([]),
+        
         
     }      
         
@@ -47,7 +50,8 @@ class Search extends Component{
 
     componentDidMount(){
                 
-        console.log (this.props.hotels)
+        //console.log (this.props.hotels)
+       
         if (this.props.hotels.toJS().length === 0){
             console.log ('ask for hotels')
             this.props.getHotels()
@@ -63,15 +67,56 @@ class Search extends Component{
     }
 
     componentWillReceiveProps(newProps){
-        //console.log ('RECIVE PROPS', newProps)        
-        let hotelList = newProps.hotels.toJS() ;
-        this.setState ({pending:newProps.hotelPending, hotels:hotelList })
+        //console.log ('RECIVE PROPS', newProps) 
+        // обновляется только в том случае если отелей нет в стейте        console.log ((this.state.hotels.lenght === 0 ))
+        console.log ("RECEIVE PROPS")    
+        console.log (newProps.hotels.toJS().length)
+
+            this.setState ({pending:newProps.hotelPending, hotels:newProps.hotels })
+             
+        
     }
 
     handleChange=(data)=>{
                
         let {name, value} = data
-        console.log (name)
+
+        switch(name) {
+            case 'mainList':{
+                let newSelectedList = this.state.selectedHotels
+    
+                
+
+                    
+                        
+                        if  (this.state.selectedHotels.indexOf(value) === -1) {
+                            newSelectedList = newSelectedList.push (value)
+                            this.setState ({selectedHotels: newSelectedList})
+                        } else {
+                            newSelectedList= newSelectedList.deleteIn([this.state.selectedHotels.indexOf(value)])
+                            this.setState ({selectedHotels: newSelectedList})
+                        }    
+                                   
+            break;
+
+            }
+                
+               
+            case 'selectedList':{
+                    let newSelectedList = this.state.selectedHotels
+
+                    console.log (this.state.selectedHotels.indexOf(value))
+                    newSelectedList= newSelectedList.deleteIn([this.state.selectedHotels.indexOf(value)]) // почему это работает??
+                   
+                    this.setState ({selectedHotels: newSelectedList})
+                break;
+            }
+                           
+            default:
+            break;
+        }
+
+         console.log (name)
         console.log (value)
 
     }
@@ -79,7 +124,8 @@ class Search extends Component{
 
   
     render() {
-       //console.log (this.props)
+
+       console.log ("RENDER SEARCH")
     return (
 
         <main>
@@ -96,10 +142,27 @@ class Search extends Component{
             <Persons/>
             </Row>
 
-            {this.state.pending == true ? (<Row className='center'><Col s={12}>
-                                                <Preloader flashing/>
-                                         </Col></Row>) : ""}
-            <Button floating large className='red right' waves='light' icon='search' />
+            
+            {this.state.pending === true ? (
+            <Row className='center'><Col s={12}>
+                <Preloader flashing/>
+            </Col></Row>) : (
+
+            <Row >
+                <HotelsLists 
+                hotels={this.state.hotels}
+                selectedHotels={this.state.selectedHotels}
+                />
+            </Row>)}
+            
+            
+
+            <Button 
+            floating 
+            large 
+            className='red right' 
+            waves='light' 
+            icon='search' />
 
         </main> 
       
