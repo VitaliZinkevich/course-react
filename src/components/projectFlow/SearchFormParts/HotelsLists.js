@@ -65,6 +65,7 @@ export class HotelsLists extends Component {
           return (
           <div key={element._id}>
             <Input 
+            
             onChange={this.handleChange} 
             labelClassName='black-text'
             name='selectedList' 

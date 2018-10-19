@@ -16,7 +16,7 @@ render (){
             name ='Adults'
             s={6} 
             type='select' 
-            label="adults" 
+            label="Adults" 
             labelClassName='black-text'
             onChange={this.handlePersons}>
                 <option value='1'>1 Adult</option>
@@ -26,6 +26,7 @@ render (){
 
             <Input 
             name ='children'
+            
             s={6} 
             type='select' 
             label="Children" 

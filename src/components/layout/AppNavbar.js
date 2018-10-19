@@ -14,7 +14,7 @@ class NavbarApp extends React.Component{
 render (){
     return (
         
-    <Navbar brand={<div><Link to ='/'>welcomebelarus.ru</Link></div>} right>
+    <Navbar brand={<Link to ='/'>welcomebelarus.ru</Link>} right>
         
         <NavItem onClick={console.log ()}><NavLink className='black-text' to='/'>Home</NavLink></NavItem>
         <NavItem><NavLink className='black-text' to='/about'> About</NavLink></NavItem>
