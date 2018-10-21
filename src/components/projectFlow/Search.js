@@ -9,14 +9,17 @@ import { connect } from 'react-redux'
 import { fromJS } from 'immutable';
 
 // action
-import {fetchHotels} from '../../redux/actions'
+import {fetchHotels} from '../../redux/hotelsActions'
+import {seacrhFormHandleChangeRedux} from '../../redux/searchFormActions'
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
 import Persons from './SearchFormParts/Persons'
 import DatePikers from './SearchFormParts/DatePickers'
 import HotelsLists from './SearchFormParts/HotelsLists'
+import StarsForm from './SearchFormParts/StarsForm'
+import FoodForm from './SearchFormParts/FoodFrom'
 // react materialize
-import {Input, Navbar, NavItem, Button, Row, Col, Preloader} from 'react-materialize'
+import {Input, Navbar, NavItem, Button, Row, Col, Preloader, Icon} from 'react-materialize'
 
 //jquery
 import $ from 'jquery'
@@ -25,41 +28,18 @@ import {mainFormFillEvents} from '../../events/events'
 
 
 class Search extends Component{
+           
     
-
-    constructor(props) {
-       super(props);
-        
-    this.state={
-        pending:this.props.hotelPending,
-        hotels:this.props.hotels,
-        foodTypes:this.props.foodTypes.toJS(),
-        starsTypes:this.props.starsTypes.toJS(),
-
-            dateFrom:null,
-            dateTo:null,
-            nights:[],
-            adults: null,
-            children: null,
-            selectedHotels:fromJS([]),
-        
-        
-    }      
-        
-    }
-
     componentDidMount(){
-                
-        //console.log (this.props.hotels)
-       
-        if (this.props.hotels.toJS().length === 0){
-            console.log ('ask for hotels')
-            this.props.getHotels()
+    // Берем список отелей с сервера      
+        if (this.props.hotels.length === 0){
+            //console.log ('ask for hotels')
+            this.props.dispatch (fetchHotels)
         } else {
            
         }
     // events listners
-    mainFormFillEvents.addListener('handleSearchFormChange', this.handleChange )
+        mainFormFillEvents.addListener('handleSearchForm', this.handleChange )
     }
 
     componentWillUnmount (){
@@ -67,57 +47,55 @@ class Search extends Component{
     }
 
     componentWillReceiveProps(newProps){
-        //console.log ('RECIVE PROPS', newProps) 
-        // обновляется только в том случае если отелей нет в стейте        console.log ((this.state.hotels.lenght === 0 ))
-        console.log ("RECEIVE PROPS")    
-        console.log (newProps.hotels.toJS().length)
-
-            this.setState ({pending:newProps.hotelPending, hotels:newProps.hotels })
-             
-        
+        //console.log ('RECIVE NEW PROPS', newProps) 
+        this.setState ({pending:newProps.hotelPending, hotels:newProps.hotels })
+               
     }
 
     handleChange=(data)=>{
-               
-        let {name, value} = data
+        let {value, name} = data
+        console.log (value, name)
 
-        switch(name) {
-            case 'mainList':{
-                let newSelectedList = this.state.selectedHotels
+        
+        this.props.dispatch (seacrhFormHandleChangeRedux ())       
+        
+        
+        
+
+        // switch(name) {
+        //     case 'mainList':{
+        //         let newSelectedList = this.state.selectedHotels
     
-                
-
-                    
                         
-                        if  (this.state.selectedHotels.indexOf(value) === -1) {
-                            newSelectedList = newSelectedList.push (value)
-                            this.setState ({selectedHotels: newSelectedList})
-                        } else {
-                            newSelectedList= newSelectedList.deleteIn([this.state.selectedHotels.indexOf(value)])
-                            this.setState ({selectedHotels: newSelectedList})
-                        }    
+        //                 if  (this.state.selectedHotels.indexOf(value) === -1) {
+        //                     newSelectedList = newSelectedList.push (value)
+        //                     this.setState ({selectedHotels: newSelectedList})
+        //                 } else {
+        //                     newSelectedList= newSelectedList.deleteIn([this.state.selectedHotels.indexOf(value)])
+        //                     this.setState ({selectedHotels: newSelectedList})
+        //                 }    
                                    
-            break;
+        //     break;
 
-            }
+        //     }
                 
                
-            case 'selectedList':{
-                    let newSelectedList = this.state.selectedHotels
+        //     case 'selectedList':{
+        //             let newSelectedList = this.state.selectedHotels
 
-                    console.log (this.state.selectedHotels.indexOf(value))
-                    newSelectedList= newSelectedList.deleteIn([this.state.selectedHotels.indexOf(value)]) // почему это работает??
+        //             console.log (this.state.selectedHotels.indexOf(value))
+        //             newSelectedList= newSelectedList.deleteIn([this.state.selectedHotels.indexOf(value)]) // почему это работает??
                    
-                    this.setState ({selectedHotels: newSelectedList})
-                break;
-            }
+        //             this.setState ({selectedHotels: newSelectedList})
+        //         break;
+        //     }
                            
-            default:
-            break;
-        }
+        //     default:
+        //     break;
+        // }
 
-         console.log (name)
-        console.log (value)
+        //  console.log (name)
+        // console.log (value)
 
     }
 
@@ -126,12 +104,13 @@ class Search extends Component{
     render() {
 
        console.log ("RENDER SEARCH")
+       //console.log (this.props)
     return (
 
         <main>
            
             <Row>
-             <DatePikers/>   
+                <DatePikers/>   
             </Row>
 
             <Row>
@@ -139,19 +118,40 @@ class Search extends Component{
             </Row>
 
             <Row>
-            <Persons/>
+                <Persons/>
             </Row>
 
+            <Row>
+                <Col s={6}>
+                    <StarsForm 
+                    stars={this.props.starsTypes}/>
+                </Col>
+
+                <Col s={6}>
+                    <FoodForm
+                    food={this.props.foodTypes}/>
+                </Col>
+            </Row>
             
-            {this.state.pending === true ? (
+            <Row>
+                       
+                <Input s={12} 
+                className='center' 
+                label="Search"
+                >
+                <Icon>search</Icon>
+                </Input>
+            </Row>
+            
+            {this.props.hotelPending === true ? (
             <Row className='center'><Col s={12}>
                 <Preloader flashing/>
             </Col></Row>) : (
-
             <Row >
                 <HotelsLists 
-                hotels={this.state.hotels}
-                selectedHotels={this.state.selectedHotels}
+                
+                hotels={this.props.mainList}
+                selectedHotels={this.props.selectedHotels}
                 />
             </Row>)}
             
@@ -171,19 +171,20 @@ class Search extends Component{
 }
 
 let mapStateToProps = (state) => {
+    
     return {
-        hotels: state.get ('hotels'),
-        hotelPending: state.get("hotelPending"),
-        foodTypes: state.get ('foodTypes'),
-        starsTypes: state.get ('starsTypes'),
+        hotels: state.hotelsData.hotels,
+        mainList: state.hotelsData.mainList,
+        hotelPending: state.hotelsData.hotelPending,
+        foodTypes: state.hotelsData.foodTypes,
+        starsTypes: state.hotelsData.starsTypes,
+        
+        selectedHotels:state.searchForm.selectedHotels 
+
         }
   }
 
-  let mapDispatchToProps = (dispath)=>{
-    return {
-        getHotels: ()=>{dispath (fetchHotels)}
-    }
-  }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Search);
+
+export default connect(mapStateToProps)(Search);

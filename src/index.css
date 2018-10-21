@@ -23,20 +23,14 @@ main {
   flex: 1 0 auto;
 }
 
+.nights {
+  display: flex;
+  flex-wrap: wrap;
+  }
+
 .hotelList {
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
 }
 
-/*кнопка для сайд бара*/
-.button-collapse {
-  float:left; /*работает в мозиле полюбэ но не работает в хроме*/
-  
-}
-
-
-.brand-logo {
-  float:left;
-  
-}

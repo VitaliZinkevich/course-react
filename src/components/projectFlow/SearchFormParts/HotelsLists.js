@@ -1,28 +1,18 @@
 import React, { Component } from 'react'
 import {Input, Navbar, NavItem, Button, Row, Col, Preloader, Icon} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
+import HotelListItem from './HotelListItem'
 
 export class HotelsLists extends Component {
 
-    constructor(props) {
-        super(props);
-        //let copy = this.props.selectedHotels
-        this.state ={
-           
-            hotels: this.props.hotels.toJS(),
-            selectedHotels: this.props.selectedHotels.toJS()
-        }
-    
-    
-    
-    }
+
   componentWillUnmount(){
       //console.log ("componentWillUnmount")
   }
 
   componentWillReceiveProps (newprops){
     //console.log ("componentWillReceiveProps")
-    this.setState({selectedHotels:newprops.selectedHotels.toJS()})
+    //this.setState({selectedHotels:newprops.selectedHotels})
     //console.log (newprops)
 
   }
@@ -30,9 +20,9 @@ export class HotelsLists extends Component {
   handleChange=(e)=>{
     //console.log (this.state.hotels)
     // вот тут перерендарить Hotel List что бы снять выделение с инпута в основном списке если клик по выбранным 
-    let element = this.props.hotels.find ((element)=>{ return element.get('_id')==e.target.value})
+    //let element = this.props.hotels.find ((element)=>{ return element.get('_id')==e.target.value})
     //console.log (element)
-    mainFormFillEvents.emit ('handleSearchFormChange' ,{name:e.target.name, value: element})
+    //mainFormFillEvents.emit ('handleSearchFormChange' ,{name:e.target.name, value: element})
   }
 
   render() {
@@ -41,42 +31,31 @@ export class HotelsLists extends Component {
      //console.log (this.props)
      //console.log ((typeof this.props.selectedHotels))
 
-      let hotelList = this.state.hotels.map ((element)=>{
+      let hotelList = this.props.hotels.map ((element)=>{
         return (
-            <div key={element._id} className='hotelList'>
 
-                <Input
-                onChange={this.handleChange} 
-                name='mainList' 
-                type='checkbox' 
-                value={element._id} 
-                label={element.name} 
-                className='' />
-
-                <p>{element.type}</p>
-                <p> {element.region} </p>
-                <p> Звездность {element.stars} </p>
-               
-            </div>
+            <HotelListItem
+                key={element._id}
+                hotel={element}
+                name='mainList'
+            
+            />
+       
         )
       })
 
-      let selectedHotels = this.state.selectedHotels.map ((element)=>{
+      let selectedHotels = this.props.selectedHotels.map ((element)=>{
           return (
-          <div key={element._id}>
-            <Input 
-            
-            onChange={this.handleChange} 
-            labelClassName='black-text'
-            name='selectedList' 
-            type='checkbox' 
-            value={element._id} 
-            label={element.name} 
-            checked={true} />
-            <p>{element.name}</p>
 
-          </div>
-      )
+
+            <HotelListItem
+                key={element._id}
+                hotel={element}
+                name='selectedList'
+                
+            />
+
+        )
 
       })
 
@@ -84,27 +63,21 @@ export class HotelsLists extends Component {
     return (
       <div>
             <Row>
+                <Col s={8}>
+                    <div className='center'>
+                    {hotelList}
+                    </div> 
+                </Col>
+               
+            </Row>
 
             <Row>
+                <Col s={4}>
+                    <div className='center'>
+                    {selectedHotels}
+                    </div>
+                </Col>
                 
-                <Input s={12} 
-                className='center' 
-                label="Search" 
-                validate type='tel'>
-                <Icon>search</Icon>
-                </Input>
-
-            </Row>
-            
-               <div className='col s12 center '>
-               {hotelList}
-               </div> 
-                
-            </Row>
-            <Row>
-            <div className='col s12'>
-               {selectedHotels}
-            </div>
             </Row>
       </div>
     )

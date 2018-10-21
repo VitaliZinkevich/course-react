@@ -16,12 +16,12 @@ import promise from 'redux-promise-middleware'
 
 
 // import reducers 
-import rootReducer from './redux/reducer'
 
+import combinedReducer from './redux/reducer'
 // import Redux actions 
-import {fetchHotels} from './redux/actions'
+import {fetchHotels} from './redux/hotelsActions'
 
-const store = createStore(rootReducer, applyMiddleware(promise(),thunk, logger));
+const store = createStore(combinedReducer, applyMiddleware(promise(),thunk, logger));
 
 // store.dispatch((dispatch)=>{
 //     dispatch (fetchHotels)
