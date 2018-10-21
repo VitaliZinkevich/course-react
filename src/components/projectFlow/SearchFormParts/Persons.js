@@ -1,11 +1,12 @@
 import React from 'react'
-import {Input, Navbar, NavItem, Button, Row} from 'react-materialize'
+import {Input, Navbar, NavItem, Button, Row, Icon} from 'react-materialize'
 
 import {mainFormFillEvents} from '../../../events/events'
+
 class Persons extends React.Component{
 
 handlePersons=(e)=>{
-    mainFormFillEvents.emit ('handleSearchFormChange' , {name: e.target.name,value:e.target.value})
+    mainFormFillEvents.emit ('handleSearchForm' , {name: e.target.name,value:e.target.value})
 }
 
 render (){
@@ -13,7 +14,8 @@ render (){
         <div>
             
             <Input 
-            name ='Adults'
+            icon={<Icon>person</Icon>}
+            name ='adults'
             s={6} 
             type='select' 
             label="Adults" 
@@ -26,7 +28,7 @@ render (){
 
             <Input 
             name ='children'
-            
+            icon={<Icon>child_care</Icon>}
             s={6} 
             type='select' 
             label="Children" 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Input} from 'react-materialize'
+import {Input, Icon} from 'react-materialize'
+import {mainFormFillEvents} from '../../../events/events'
 
 export class StarsForm extends Component {
 //   static propTypes = {
@@ -17,9 +18,17 @@ export class StarsForm extends Component {
 
     return (
         <Input s={12} 
-        onChange={()=>{}}
+        onChange={(e)=>{
+            mainFormFillEvents.emit ('handleSearchForm', {
+                name: e.target.name,
+                value:e.target.value})
+        }}
+        name='starsType'
         type='select' 
-        label="Stars" >
+        label="Stars"
+        icon={<Icon>star</Icon>}
+        >
+        
             {startsOptions}
         </Input>
     )

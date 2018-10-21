@@ -10,7 +10,7 @@ import { fromJS } from 'immutable';
 
 // action
 import {fetchHotels} from '../../redux/hotelsActions'
-import {seacrhFormHandleChangeRedux} from '../../redux/searchFormActions'
+import {seacrhFormHandleChangeRedux} from '../../redux/hotelsActions'
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
 import Persons from './SearchFormParts/Persons'
@@ -43,7 +43,7 @@ class Search extends Component{
     }
 
     componentWillUnmount (){
-        mainFormFillEvents.removeListener('handleSearchFormChange', this.handleChange)
+        mainFormFillEvents.removeListener('handleSearchForm', this.handleChange)
     }
 
     componentWillReceiveProps(newProps){
@@ -57,7 +57,7 @@ class Search extends Component{
         console.log (value, name)
 
         
-        this.props.dispatch (seacrhFormHandleChangeRedux ())       
+        //this.props.dispatch (seacrhFormHandleChangeRedux (name, value ))       
         
         
         
@@ -110,15 +110,22 @@ class Search extends Component{
         <main>
            
             <Row>
+            <h5>Start dates </h5>
                 <DatePikers/>   
             </Row>
 
             <Row>
-                <NightsForm/>
+                <Col s={12}>
+                    <h5>Number of nights </h5>
+                    <NightsForm/>
+                </Col>
             </Row>
 
             <Row>
+                <Col s={12}>
                 <Persons/>
+                </Col>
+                
             </Row>
 
             <Row>
@@ -134,12 +141,20 @@ class Search extends Component{
             </Row>
             
             <Row>
-                       
-                <Input s={12} 
+                <Input s={12}
+                name='search'
+                onChange={(e)=>{
+                    this.handleChange({
+                        name: e.target.name,
+                        value: e.target.value,
+                        })
+
+                }}
                 className='center' 
                 label="Search"
+                icon={<Icon>search</Icon>}
                 >
-                <Icon>search</Icon>
+                
                 </Input>
             </Row>
             
@@ -148,11 +163,13 @@ class Search extends Component{
                 <Preloader flashing/>
             </Col></Row>) : (
             <Row >
+                <Col s={12}>
                 <HotelsLists 
-                
+                search={this.props.search}
                 hotels={this.props.mainList}
                 selectedHotels={this.props.selectedHotels}
                 />
+                </Col>
             </Row>)}
             
             
@@ -175,12 +192,11 @@ let mapStateToProps = (state) => {
     return {
         hotels: state.hotelsData.hotels,
         mainList: state.hotelsData.mainList,
+        selectedHotels:state.hotelsData.selectedHotels,
         hotelPending: state.hotelsData.hotelPending,
         foodTypes: state.hotelsData.foodTypes,
         starsTypes: state.hotelsData.starsTypes,
-        
-        selectedHotels:state.searchForm.selectedHotels 
-
+        search: state.hotelsData.search,
         }
   }
 

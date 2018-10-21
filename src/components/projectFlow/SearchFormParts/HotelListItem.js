@@ -18,9 +18,10 @@ export default class HotelListItem extends PureComponent {
                 label={this.props.hotel.name} 
                 className='' />
 
-                <p>{this.props.hotel.type}</p>
+                {this.props.name === 'selectedList' ? null: (<p>{this.props.hotel.type}</p>)}
+                
                 <p> {this.props.hotel.region} </p>
-                <p> Звездность {this.props.hotel.stars} </p>
+                {this.props.name === 'selectedList' ? null: (<p> Звездность {this.props.hotel.stars}</p>)}
                
             </div>
     )

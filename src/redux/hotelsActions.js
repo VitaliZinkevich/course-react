@@ -7,4 +7,14 @@ const fetchHotels = (dispatch)=>{
  
 }
 
-export {fetchHotels}
+const SEARCH_FORM_CHANGE='SEARCH_FORM_CHANGE';
+
+const seacrhFormHandleChangeRedux=function(formName, fieldValue, hotelsList) {
+  return {
+    type: SEARCH_FORM_CHANGE,
+    formName,
+    fieldValue
+  };
+}
+
+export {fetchHotels, seacrhFormHandleChangeRedux}
