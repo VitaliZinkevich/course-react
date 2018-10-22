@@ -6,7 +6,7 @@ export default class HotelListItem extends PureComponent {
     console.log (`RENDER HOTEL LIST ${this.props.hotel._id}`)
     return (
          <div  className='hotelList'>
-
+           
                 <Input
                 onChange={()=>{
                     mainFormFillEvents.emit('handleSearchForm', {value: this.props.hotel, name: this.props.name})
@@ -16,13 +16,13 @@ export default class HotelListItem extends PureComponent {
                 type='checkbox' 
                 value={this.props.hotel._id} 
                 label={this.props.hotel.name} 
-                className='' />
+                labelClassName='black-text' />
 
                 {this.props.name === 'selectedList' ? null: (<p>{this.props.hotel.type}</p>)}
                 
                 <p> {this.props.hotel.region} </p>
-                {this.props.name === 'selectedList' ? null: (<p> Звездность {this.props.hotel.stars}</p>)}
-               
+                {this.props.name === 'selectedList' ? null: (<p> <Icon>star</Icon> {this.props.hotel.stars}</p>)}
+              
             </div>
     )
   }

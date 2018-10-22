@@ -30,7 +30,7 @@ main {
 
 .hotelList {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       justify-content: space-between;
 }
 

@@ -14,7 +14,7 @@ render (){
         <div>
             
             <Input 
-            icon={<Icon>person</Icon>}
+            icon='person'
             name ='adults'
             s={6} 
             type='select' 
@@ -28,7 +28,7 @@ render (){
 
             <Input 
             name ='children'
-            icon={<Icon>child_care</Icon>}
+            icon='child_care'
             s={6} 
             type='select' 
             label="Children" 

@@ -22,7 +22,7 @@ export class FoodForm extends Component {
                 name: e.target.name,
                 value:e.target.value})
         }}
-        icon={<Icon>free_breakfast</Icon>}
+        icon='free_breakfast'
         name='foodType'
         s={12} type='select' label="Food" >
             {foodOptions}

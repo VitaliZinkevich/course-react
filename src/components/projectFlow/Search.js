@@ -47,7 +47,7 @@ class Search extends Component{
     }
 
     componentWillReceiveProps(newProps){
-        //console.log ('RECIVE NEW PROPS', newProps) 
+       
         this.setState ({pending:newProps.hotelPending, hotels:newProps.hotels })
                
     }
@@ -55,48 +55,6 @@ class Search extends Component{
     handleChange=(data)=>{
         let {value, name} = data
         console.log (value, name)
-
-        
-        //this.props.dispatch (seacrhFormHandleChangeRedux (name, value ))       
-        
-        
-        
-
-        // switch(name) {
-        //     case 'mainList':{
-        //         let newSelectedList = this.state.selectedHotels
-    
-                        
-        //                 if  (this.state.selectedHotels.indexOf(value) === -1) {
-        //                     newSelectedList = newSelectedList.push (value)
-        //                     this.setState ({selectedHotels: newSelectedList})
-        //                 } else {
-        //                     newSelectedList= newSelectedList.deleteIn([this.state.selectedHotels.indexOf(value)])
-        //                     this.setState ({selectedHotels: newSelectedList})
-        //                 }    
-                                   
-        //     break;
-
-        //     }
-                
-               
-        //     case 'selectedList':{
-        //             let newSelectedList = this.state.selectedHotels
-
-        //             console.log (this.state.selectedHotels.indexOf(value))
-        //             newSelectedList= newSelectedList.deleteIn([this.state.selectedHotels.indexOf(value)]) // почему это работает??
-                   
-        //             this.setState ({selectedHotels: newSelectedList})
-        //         break;
-        //     }
-                           
-        //     default:
-        //     break;
-        // }
-
-        //  console.log (name)
-        // console.log (value)
-
     }
 
 
@@ -104,14 +62,16 @@ class Search extends Component{
     render() {
 
        console.log ("RENDER SEARCH")
-       //console.log (this.props)
+       
     return (
 
         <main>
            
             <Row>
-            <h5>Start dates </h5>
-                <DatePikers/>   
+                <Col s={12}>
+                    <h5>Start dates </h5>
+                    <DatePikers/>   
+                </Col>        
             </Row>
 
             <Row>
@@ -152,7 +112,7 @@ class Search extends Component{
                 }}
                 className='center' 
                 label="Search"
-                icon={<Icon>search</Icon>}
+                icon='search'
                 >
                 
                 </Input>

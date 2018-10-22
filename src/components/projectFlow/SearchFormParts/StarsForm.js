@@ -26,7 +26,7 @@ export class StarsForm extends Component {
         name='starsType'
         type='select' 
         label="Stars"
-        icon={<Icon>star</Icon>}
+        icon='star'
         >
         
             {startsOptions}

@@ -76,39 +76,40 @@ export class HotelsLists extends Component {
       <div>
             <Row>
                 <Col s={8}>
-                    <div className='center'>
+                    <div className=''>
                     <h5>Hotels List</h5>
+                  
                     <Collapsible 
                     defaultActiveKey={0}>
-                            <CollapsibleItem 
-                            header='Минская область' 
-                            icon='location_on'>
-                                {collapsibleItemsMinsk}
-                            </CollapsibleItem>
-                        </Collapsible>
+                        <CollapsibleItem 
+                        header='Минская область' 
+                        icon='location_on'>
+                            {collapsibleItemsMinsk}
+                        </CollapsibleItem>
+                    </Collapsible>
 
                     <Collapsible
                     defaultActiveKey={0}>
                         <CollapsibleItem  
                             header='Витебская область' 
                             icon='location_on'>
-                                {collapsibleItemsVitebsk}
-                            </CollapsibleItem>
+                            {collapsibleItemsVitebsk}
+                        </CollapsibleItem>
                     </Collapsible>
                     </div> 
                 </Col>
+
                 <Col s={4}>
-                    <div className='center'>
-                    <h5>SelectedHotels</h5>
-                    {selectedHotels}
-                    </div>
+                        <div className='center'>
+                        <h5>SelectedHotels</h5>
+                        {selectedHotels}
+                        </div>
                 </Col>
 
             </Row>
 
             <Row>
-             
-                
+              
             </Row>
       </div>
     )
