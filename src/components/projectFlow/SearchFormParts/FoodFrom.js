@@ -2,16 +2,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {Input, Icon} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
+
 export class FoodForm extends Component {
-//   static propTypes = {
 
-//   }
+   
+  
+   render() {
 
-  render() {
+    let foodTypes = ['Любое', 'Без питания','Завтраки','Завтрак и ужин','Завтрак, обед и ужин', 'Все включено']
+    let foodTypesvalues = ['Any', 'AO','BB','HB','FB', 'ALL']
 
-    let foodOptions = this.props.food.map ((el, index)=>{
+
+    let foodOptions = foodTypes.map ((el, index)=>{
         return (
-            <option key = {index} value={el}>{el}</option>
+            <option key = {index} value={foodTypesvalues[index]}>{el}</option>
         )
     })
 

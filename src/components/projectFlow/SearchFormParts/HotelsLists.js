@@ -53,7 +53,8 @@ export class HotelsLists extends Component {
            )
        
     } )
-     
+      
+
       let selectedHotels = this.props.selectedHotels.map ((element)=>{
           return (
 
@@ -69,17 +70,15 @@ export class HotelsLists extends Component {
 
       })
 
-    //   console.log (this.props.search.length)
-    //   console.log ((this.props.search.length === 0 ))
-      //let collapse = this.props.search.length === 0  ? 1 : 0 // не раскрывает элемент по смене ключа 
     return (
       <div>
             <Row>
                 <Col s={8}>
-                    <div className=''>
-                    <h5>Hotels List</h5>
-                  
+
+                <h5>Hotels List</h5>
+               
                     <Collapsible 
+                    popout={false}
                     defaultActiveKey={0}>
                         <CollapsibleItem 
                         header='Минская область' 
@@ -96,20 +95,16 @@ export class HotelsLists extends Component {
                             {collapsibleItemsVitebsk}
                         </CollapsibleItem>
                     </Collapsible>
-                    </div> 
+                   
                 </Col>
 
                 <Col s={4}>
-                        <div className='center'>
-                        <h5>SelectedHotels</h5>
+                        <div className='left'>
+                        <h5>Selected Hotels</h5>
                         {selectedHotels}
                         </div>
                 </Col>
 
-            </Row>
-
-            <Row>
-              
             </Row>
       </div>
     )

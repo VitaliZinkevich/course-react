@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 // redux
 import { connect } from 'react-redux'
-// materialize and custom css
-// import 'materialize-css/dist/css/materialize.min.css'
-// import M from 'materialize-css'
 
 //immutable 
 import { fromJS } from 'immutable';
@@ -11,6 +8,7 @@ import { fromJS } from 'immutable';
 // action
 import {fetchHotels} from '../../redux/hotelsActions'
 import {seacrhFormHandleChangeRedux} from '../../redux/hotelsActions'
+
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
 import Persons from './SearchFormParts/Persons'
@@ -18,11 +16,10 @@ import DatePikers from './SearchFormParts/DatePickers'
 import HotelsLists from './SearchFormParts/HotelsLists'
 import StarsForm from './SearchFormParts/StarsForm'
 import FoodForm from './SearchFormParts/FoodFrom'
-// react materialize
-import {Input, Navbar, NavItem, Button, Row, Col, Preloader, Icon} from 'react-materialize'
 
-//jquery
-import $ from 'jquery'
+// react materialize
+import {Input, Button, Row, Col, Preloader} from 'react-materialize'
+
 // events flow
 import {mainFormFillEvents} from '../../events/events'
 
@@ -31,13 +28,11 @@ class Search extends Component{
            
     
     componentDidMount(){
-    // Берем список отелей с сервера      
+    // если пропсы неизменного списка пусты просим список у сервера    
         if (this.props.hotels.length === 0){
-            //console.log ('ask for hotels')
             this.props.dispatch (fetchHotels)
-        } else {
-           
         }
+
     // events listners
         mainFormFillEvents.addListener('handleSearchForm', this.handleChange )
     }
@@ -46,15 +41,13 @@ class Search extends Component{
         mainFormFillEvents.removeListener('handleSearchForm', this.handleChange)
     }
 
-    componentWillReceiveProps(newProps){
-       
-        this.setState ({pending:newProps.hotelPending, hotels:newProps.hotels })
-               
-    }
-
     handleChange=(data)=>{
         let {value, name} = data
-        console.log (value, name)
+        this.props.dispatch (seacrhFormHandleChangeRedux (name, value ))   
+    }
+
+    searchButtonClick= (e)=>{
+        alert ('clicked')
     }
 
 
@@ -69,8 +62,11 @@ class Search extends Component{
            
             <Row>
                 <Col s={12}>
-                    <h5>Start dates </h5>
-                    <DatePikers/>   
+                    <h5>Даты начала тура</h5>
+                    <DatePikers
+                   />
+
+                   {this.props.datesError}   
                 </Col>        
             </Row>
 
@@ -90,13 +86,11 @@ class Search extends Component{
 
             <Row>
                 <Col s={6}>
-                    <StarsForm 
-                    stars={this.props.starsTypes}/>
+                    <StarsForm/>
                 </Col>
 
                 <Col s={6}>
-                    <FoodForm
-                    food={this.props.foodTypes}/>
+                    <FoodForm/>
                 </Col>
             </Row>
             
@@ -119,27 +113,40 @@ class Search extends Component{
             </Row>
             
             {this.props.hotelPending === true ? (
-            <Row className='center'><Col s={12}>
-                <Preloader flashing/>
-            </Col></Row>) : (
-            <Row >
+                <Row className='center'>
                 <Col s={12}>
-                <HotelsLists 
-                search={this.props.search}
-                hotels={this.props.mainList}
-                selectedHotels={this.props.selectedHotels}
-                />
+                    <Preloader flashing/>
                 </Col>
+                </Row>) : (   
+                           <Row >
+                           {(this.props.hotelPendingErrors === null) ? (
+                                
+                            <Col s={12}>
+                            <h6>Найдено отелей {this.props.mainList.length}</h6>
+                            <HotelsLists 
+                           
+                            hotels={this.props.mainList}
+                            selectedHotels={this.props.selectedHotels}
+                            />
+                            </Col>
+            ): (
+                'NETWORK ERROR CHECK NETWORK OR RELOAD'
+            )}
             </Row>)}
             
             
-
-            <Button 
-            floating 
-            large 
-            className='red right' 
-            waves='light' 
-            icon='search' />
+            <Row>
+                <Button
+                id='searchButton'
+                disabled = {this.props.hotelPendingErrors != null || this.props.datesError.length != 0 ? true : false} 
+                large 
+                className='green right'
+                waves='light' 
+                icon='search' 
+                onClick={this.searchButtonClick}
+                />
+            </Row>    
+            
 
         </main> 
       
@@ -154,9 +161,8 @@ let mapStateToProps = (state) => {
         mainList: state.hotelsData.mainList,
         selectedHotels:state.hotelsData.selectedHotels,
         hotelPending: state.hotelsData.hotelPending,
-        foodTypes: state.hotelsData.foodTypes,
-        starsTypes: state.hotelsData.starsTypes,
-        search: state.hotelsData.search,
+        hotelPendingErrors: state.hotelsData.hotelPendingErrors,
+        datesError: state.hotelsData.datesError
         }
   }
 

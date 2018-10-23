@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Input, Navbar, NavItem, Button, Row, Col, Preloader} from 'react-materialize'
+import moment from 'moment'
 
 //event flow
 import {mainFormFillEvents} from '../../../events/events'
@@ -13,42 +14,52 @@ class DatePickers extends  Component{
     
 
 render (){
-
+    // максимальная дата доступная в календаре
+    let result = new Date()
+    result.setDate(185)
+    
     let dateOptions = {
         min: new Date(),
+        max: result,
         monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-        weekdaysShort: ['ВСК', 'ПНД', 'С', 'Ч', 'Пт', 'С', 'Вск'],
-        monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июль', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
-        weekdaysFull: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+        weekdaysShort: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+        monthsShort: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октября', 'Ноября', 'Декабря'],
+        weekdaysFull: ['Воск', 'Пон', 'Вт', 'Ср', 'Чтв', 'Птн', 'Суб'],
         firstDay: 1,
         showMonthsShort: true,
         showWeekdaysFull: true,
         format: 'dd.mm.yyyy',
-        today: 'Сегодня',
-        clear: 'Clear',
-        close: 'Close',
+        today: '',
+        clear: '',
+        close: '',
+        closeOnSelect: true,
     }
 
-    return (<div>
-    <Input 
-                        s={6} 
-                        label='Start from'
-                        labelClassName='black-text' 
-                        name='dateFrom' 
-                        type='date' 
-                        onChange={(e, value)=>{this.handleChangeDates(e, value)}}
-                        options={dateOptions}
-                        />
-                    
-                        <Input
-                        s={6} 
-                        label='Start to'
-                        labelClassName='black-text'  
-                        name='dateFrom1' 
-                        type='date' 
-                        onChange={(e, value)=>{this.handleChangeDates(e, value)}} 
-                        />
-    </div>)}
+   
+    return (
+    <div>
+        <Input 
+        s={6} 
+        label='Заселение с'
+        labelClassName='black-text' 
+        name='dateFrom' 
+        type='date' 
+        onChange={(e, value)=>{this.handleChangeDates(e, value)}}
+        options={dateOptions}
+        />
+
+        <Input
+        s={6} 
+        label='Заселение по'
+        labelClassName='black-text'  
+        name='dateTo' 
+        type='date' 
+        onChange={(e, value)=>{this.handleChangeDates(e, value)}} 
+        options={dateOptions}
+        />
+    </div>
+    )
+    }
 }
 
 export default DatePickers

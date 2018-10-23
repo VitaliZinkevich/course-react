@@ -9,8 +9,8 @@ export class StarsForm extends Component {
 //   }
 
   render() {
-
-    let startsOptions = this.props.stars.map ((el,index)=>{
+    let starsTypes = [ 'Любой','2','3','4','5']
+    let startsOptions = starsTypes.map ((el,index)=>{
         return (
             <option key = {index} value={el}>{el}</option>
         )

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
-import {Input, Icon} from 'react-materialize'
+import {Input, Icon, Row} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
+
 export default class HotelListItem extends PureComponent {
   render() {
     console.log (`RENDER HOTEL LIST ${this.props.hotel._id}`)
@@ -11,7 +12,7 @@ export default class HotelListItem extends PureComponent {
                 onChange={()=>{
                     mainFormFillEvents.emit('handleSearchForm', {value: this.props.hotel, name: this.props.name})
                 }}
-                checked ={this.props.name === 'selectedList' ? (true): (false)} 
+                checked ={this.props.name === 'selectedList' ? true: false} 
                 name={this.props.name} 
                 type='checkbox' 
                 value={this.props.hotel._id} 

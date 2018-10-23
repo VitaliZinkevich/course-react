@@ -24,7 +24,8 @@ class NightsForm extends Component {
       return (
         
         <div key={ind}>
-        <Input 
+        <Input
+        checked={ind == 0} 
         name='nights' 
         type='checkbox' 
         labelClassName='black-text' 
