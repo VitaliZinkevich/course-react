@@ -28,7 +28,7 @@ export class FoodForm extends Component {
         }}
         icon='free_breakfast'
         name='foodType'
-        s={12} type='select' label="Food" >
+        s={12} type='select' label="Питание" >
             {foodOptions}
         </Input>
     )

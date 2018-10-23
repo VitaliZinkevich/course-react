@@ -18,12 +18,12 @@ render (){
             name ='adults'
             s={6} 
             type='select' 
-            label="Adults" 
+            label="Взрослых" 
             labelClassName='black-text'
             onChange={this.handlePersons}>
-                <option value='1'>1 Adult</option>
-                <option value='2'>2 Adults</option>
-                <option value='3'>3 Adults</option>
+                <option value='1'>1 взрослый</option>
+                <option value='2'>2 взрослых</option>
+                <option value='3'>3 взрослых</option>
             </Input>
 
             <Input 
@@ -31,13 +31,13 @@ render (){
             icon='child_care'
             s={6} 
             type='select' 
-            label="Children" 
+            label="Детей" 
             labelClassName='black-text'
             onChange={this.handlePersons}>
                 <option value='0'> 0 </option>
-                <option value='1'> 1 Chield</option>
-                <option value='2'> 2 Children</option>
-                <option value='3'> 3 Children</option>
+                <option value='1'> 1 ребенок</option>
+                <option value='2'> 2 ребенка</option>
+                <option value='3'> 3 ребенка</option>
             </Input>
         </div>
             

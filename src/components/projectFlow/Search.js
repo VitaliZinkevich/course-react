@@ -47,7 +47,7 @@ class Search extends Component{
     }
 
     searchButtonClick= (e)=>{
-        alert ('clicked')
+        
     }
 
 
@@ -72,7 +72,7 @@ class Search extends Component{
 
             <Row>
                 <Col s={12}>
-                    <h5>Number of nights </h5>
+                    <h5>Количество ночей </h5>
                     <NightsForm/>
                 </Col>
             </Row>
@@ -105,7 +105,7 @@ class Search extends Component{
 
                 }}
                 className='center' 
-                label="Search"
+                label="Поиск по названию"
                 icon='search'
                 >
                 
@@ -130,12 +130,15 @@ class Search extends Component{
                             />
                             </Col>
             ): (
-                'NETWORK ERROR CHECK NETWORK OR RELOAD'
+                <div>Ошибка сети. Проверьте соединение и перезагрузите страницу</div>
+                
+                 
             )}
             </Row>)}
             
             
             <Row>
+                <Col s={12}>
                 <Button
                 id='searchButton'
                 disabled = {this.props.hotelPendingErrors != null || this.props.datesError.length != 0 ? true : false} 
@@ -145,6 +148,8 @@ class Search extends Component{
                 icon='search' 
                 onClick={this.searchButtonClick}
                 />
+                </Col>
+                
             </Row>    
             
 

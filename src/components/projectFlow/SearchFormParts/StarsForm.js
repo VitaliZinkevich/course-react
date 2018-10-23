@@ -25,7 +25,7 @@ export class StarsForm extends Component {
         }}
         name='starsType'
         type='select' 
-        label="Stars"
+        label="Категория отеля"
         icon='star'
         >
         

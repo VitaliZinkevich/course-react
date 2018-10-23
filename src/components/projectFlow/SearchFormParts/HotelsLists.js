@@ -79,7 +79,7 @@ export class HotelsLists extends Component {
                
                     <Collapsible 
                     popout={false}
-                    defaultActiveKey={0}>
+                    >
                         <CollapsibleItem 
                         header='Минская область' 
                         icon='location_on'>
@@ -88,7 +88,7 @@ export class HotelsLists extends Component {
                     </Collapsible>
 
                     <Collapsible
-                    defaultActiveKey={0}>
+                    >
                         <CollapsibleItem  
                             header='Витебская область' 
                             icon='location_on'>

@@ -70,7 +70,7 @@ const hotelsReducer = (state = initState, action) => {
                
 
                 let addtoMainList = newState.get('selectedHotels').find ((elem)=>{ return elem.get("_id") == action.fieldValue._id})
-                //console.log (addtoSelectedHotels)
+                console.log (addtoMainList)
                 let newSelectedHotels = newState.get ('selectedHotels').filter ((element)=>{
                     if (element.get('_id')===action.fieldValue._id) {
                         return false
@@ -79,10 +79,38 @@ const hotelsReducer = (state = initState, action) => {
                     }
                 })
                
-                let newMainList = newState.get ('mainList').push(addtoMainList)
-                //console.log ('RETURN')
+                newState = newState.setIn(['selectedHotels'],newSelectedHotels)
+                //console.log (newState.get ('search').indexOf (addtoMainList.get('name')))
                 
-                newState =newState.setIn(['mainList'],newMainList).setIn(['selectedHotels'],newSelectedHotels)
+                let newMainList = null
+                
+                if (newState.get ('search') === '' && (newState.get ('starsType')) === 'Любой'){
+                    console.log('ALL CLEAR')
+                    newMainList = newState.get ('mainList'). push (addtoMainList)
+                }
+
+                //console.log (addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase()))
+                if (newState.get ('starsType') === 'Любой' && newState.get ('search')!=="" && addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase()) !== -1){
+                    console.log('starsType CLEAR seacrh ++++')
+                    newMainList = newState.get ('mainList').push (addtoMainList)
+                }
+
+                if (newState.get ('search') === '' && parseInt(newState.get ('starsType')) === addtoMainList.get ('stars')) {
+                    console.log('seacrh CLEAR starsType ++++')
+
+                    newMainList = newState.get ('mainList').push (addtoMainList)
+                } 
+
+                if (newState.get ('search')!=="" && addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase())!== -1 && parseInt(newState.get ('starsType')) === addtoMainList.get ('stars')) {
+                    console.log('seacrh ++++ starsType ++++')
+                    newMainList = newState.get ('mainList').push (addtoMainList)
+                } 
+                //console.log (newMainList)
+                if (newMainList != null) {
+                    newState = newState.setIn(['mainList'],newMainList)
+                }
+                
+                
                 return newState.toJS()
             }
 
@@ -239,9 +267,9 @@ function chekStartDates (startFrom, startTo) {
 
    } else {
     errors.push(<div key={1} className ='red-text'>Введите 2 даты</div>)
-    errors.push(<br/>)
+    errors.push(<br key={4}/>)
     errors.push(<div key={2} className ='red-text'>Заселение ПО не далее 10 дней от начала</div>)
-    errors.push(<br/>)
+    errors.push(<br key={5}/>)
     errors.push(<div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>)
    }
    

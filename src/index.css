@@ -29,12 +29,18 @@ main {
   }
 
 .hotelList {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between; 
-}
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+      
+} 
 
 #searchButton i {
   color: black;
 }
+
+.picker__date-display{
+  display: none;
+}
+
 

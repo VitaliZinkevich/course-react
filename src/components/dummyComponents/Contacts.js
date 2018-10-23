@@ -7,8 +7,8 @@ import {CollapsibleItem, Collapsible} from 'react-materialize'
 const About = ()=>{
 
     return (
-    <main className='center'>
-        <Collapsible accordion defaultActiveKey={1}>
+    <main >
+        <Collapsible>
                 <CollapsibleItem header='First' icon='filter_drama'>
                     Lorem ipsum dolor sit amet.
                 </CollapsibleItem>
