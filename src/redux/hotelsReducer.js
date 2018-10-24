@@ -15,10 +15,10 @@ let initState = {
     starsType:'Любой',
     dateFrom:null,
     dateTo:null,
-    datesError:[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 10 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
+    datesError:[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
     nights:[1],
     adults: 1,
-    children: 2,
+    children: 0,
     // PriceList component connected state
     priceListStatus: false,
     
@@ -103,7 +103,7 @@ const hotelsReducer = (state = initState, action) => {
                     newMainList = newState.get ('mainList').push (addtoMainList)
                 } 
 
-                if (newState.get ('search')!=="" && addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase())!== -1 && parseInt(newState.get ('starsType')) === addtoMainList.get ('stars')) {
+                if (newState.get ('search') !== "" && addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase())!== -1 && parseInt(newState.get ('starsType')) === addtoMainList.get ('stars')) {
                     console.log('seacrh ++++ starsType ++++')
                     newMainList = newState.get ('mainList').push (addtoMainList)
                 } 
@@ -155,7 +155,6 @@ const hotelsReducer = (state = initState, action) => {
                      } else {
                         return false
                      }
-                 
                     })
                 }
                
@@ -264,8 +263,8 @@ function chekStartDates (startFrom, startTo) {
    if (start.isValid() && end.isValid()) {
        
    // console.log (end.diff (start, 'days'))
-    if (end.diff (start, 'days') > 10) {
-        errors.push(<div key={1} className ='red-text'>Заселение по не далее l0 дней от начала</div>)
+    if (end.diff (start, 'days') > 5 ){
+        errors.push(<div key={1} className ='red-text'>Заселение по не далее 5 дней от начала</div>)
         errors.push(<br/>)
     }
 
@@ -277,7 +276,7 @@ function chekStartDates (startFrom, startTo) {
    } else {
     errors.push(<div key={1} className ='red-text'>Введите 2 даты</div>)
     errors.push(<br key={4}/>)
-    errors.push(<div key={2} className ='red-text'>Заселение ПО не далее 10 дней от начала</div>)
+    errors.push(<div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>)
     errors.push(<br key={5}/>)
     errors.push(<div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>)
    }

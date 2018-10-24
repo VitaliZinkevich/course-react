@@ -5,10 +5,12 @@ export default class PriceList extends Component {
 
     
   render() {
-    console.log (this.props)
+  
+  console.log (this.props)
+
     return (
-      <div>
-       " PRICE LIST"
+       <div>
+       "PRICE LIST"
       </div>
     )
   }

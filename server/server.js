@@ -19,28 +19,44 @@ app.get('/', (req, res) => {
         res.json(
             [
                 {"_id" : "5b06859e5089ec123b9e668c",
-                 "type" : "санаторий",
-                 "name" : "Берестье",
-                 "region" : "Минская область",
-                 "stars" : 2},
+                    "type" : "санаторий",
+                    "name" : "Берестье",
+                    "region" : "Минская область",
+                    "stars" : 2,
+                    "rooms": [{name:'Одноместный номер', accomodation:['1+0', '1+1'], price:{adult: 1000, children: 300} },
+                              {name:'Двухместный номер', accomodation:['2+0', '2+1','2+2'], price:{adult: 1500, children: 400} },
+                              {name:'Двухместный номер люкс', accomodation:['2+0', '2+1','2+2','3+0'], price:{adult: 1600, children: 500} }]
+                
+                },
                  {"_id" : "5b06859e5089ec123b9e668f",
                   "type" : "санаторий",
                   "name" : "Белая вежа",
                   "region" : "Минская область",
-                  "stars" : 3,},
+                  "stars" : 3,
+                  "rooms": [{name:'Одноместный номер с балконом', accomodation:['1+0', '1+1'], price:{adult: 1000, children: 300} },
+                            {name:'Двухместный двухкомнаный номер', accomodation:['2+0', '2+1','2+2'], price:{adult: 1500, children: 400} },
+                            {name:'Двухместный номер двухкомнаный номер люкс', accomodation:['2+0', '2+1','2+2','3+0'], price:{adult: 1600, children: 500} }]
+                },
                   {"_id" : "5b06859e5089ec123b9e668d",
                   "type" : "ДРОЦ",
                   "name" : "Свитанак",
                   "region" : "Витебская область",
-                  "stars" : 4,},
+                  "stars" : 4,
+                  "rooms": [{name:'Одноместный номер 1 корпус', accomodation:['1+0', '1+1'], price:{adult: 1000, children: 300} },
+                            {name:'Двухместный номер 2 корпус', accomodation:['1+0','2+0', '2+1','2+2'], price:{adult: 1500, children: 400} },
+                            {name:'Двухместный номер 3 корпус', accomodation:['2+0', '2+1','2+2','3+0'], price:{adult: 1600, children: 500} }]
+                },
                   {"_id" : "5b06859e5089ec123b9e668e",
                   "type" : "санаторий",
                   "name" : "Буг",
                   "region" : "Минская область",
-                  "stars" : 4,}
+                  "stars" : 4,
+                  "rooms": [{name:'Одноместный номер', accomodation:['1+0', '1+1', '1+2'], price:{adult: 1000, children: 300} },
+                            {name:'Двухместный номер с террасой', accomodation:['1+1', '1+2' ,'2+0', '2+1','2+2', '3'], price:{adult: 1500, children: 400} },
+                            {name:'Двухместный номер двухкомнатный люкс', accomodation:['2+0', '2+1','2+2','3+0', '3+1','3+2'], price:{adult: 1600, children: 500} }]}
               ]
         )
-      }, 1500)
+      }, 100)
     
     
     }
