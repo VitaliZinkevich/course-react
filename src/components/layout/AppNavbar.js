@@ -32,4 +32,4 @@ render (){
 
 
 
-export default NavbarApp
+export default withRouter (NavbarApp)

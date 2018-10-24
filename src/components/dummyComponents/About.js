@@ -1,8 +1,8 @@
 import React from 'react'
 import {Button} from 'react-materialize'
 
-const About = ()=>{
-
+const About = (props)=>{
+    console.log (props)
     return (
     <main className=''> 
     <Button  faicon='fa fa-plus' className='red' 

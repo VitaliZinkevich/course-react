@@ -4,7 +4,7 @@ import moment from 'moment'
 
 let initState = {
     
-    
+    // Search component connected state
     hotelPending: false,
     hotelPendingErrors: null,
     hotels:[],
@@ -18,7 +18,9 @@ let initState = {
     datesError:[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 10 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
     nights:[1],
     adults: 1,
-    children: 0,
+    children: 2,
+    // PriceList component connected state
+    priceListStatus: false,
     
 }
 
@@ -235,6 +237,13 @@ const hotelsReducer = (state = initState, action) => {
             
         }
         
+        case 'PRICE_LIST_ACTIVATE':{
+            console.log ('PRICE_LIST_ACTIVATE CASE')
+            newState = newState.setIn (['priceListStatus'], true)
+            return newState.toJS()
+
+        }
+
         default:
         return newState.toJS()
         }

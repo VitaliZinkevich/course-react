@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // routing
-import { Route, BrowserRouter, Switch } from 'react-router-dom'
+import { Route, BrowserRouter, Switch} from 'react-router-dom'
 // components
 import Search from './components/projectFlow/Search'
 import AppNavbar from './components/layout/AppNavbar'
@@ -19,6 +19,7 @@ class App extends Component{
    
   }
   render() {
+
     return (
   <BrowserRouter>
     <div className='container appbody'>
@@ -45,4 +46,4 @@ class App extends Component{
   }
 }
 
-export default App;
+export default App

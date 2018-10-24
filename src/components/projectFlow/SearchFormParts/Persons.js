@@ -33,11 +33,13 @@ render (){
             type='select' 
             label="Детей" 
             labelClassName='black-text'
-            onChange={this.handlePersons}>
+            onChange={this.handlePersons}
+            value={this.props.children.toString()}>
                 <option value='0'> 0 </option>
                 <option value='1'> 1 ребенок</option>
                 <option value='2'> 2 ребенка</option>
                 <option value='3'> 3 ребенка</option>
+                
             </Input>
         </div>
             

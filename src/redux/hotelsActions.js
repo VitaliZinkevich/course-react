@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // запрос отелей с сервера для построения поисковой формы
 const fetchHotels = (dispatch)=>{
-  dispatch ({type: 'HOTELS', payload: axios.get('http://flocalhost:8080/')})
+  dispatch ({type: 'HOTELS', payload: axios.get('http://localhost:8080/')})
   //.then ( ()=>{dispatch ({type:'DONE_HOTELS'})}) // после асунк запроса выполнится этот
  
 }
@@ -17,4 +17,13 @@ const seacrhFormHandleChangeRedux=function(formName, fieldValue, hotelsList) {
   };
 }
 
-export {fetchHotels, seacrhFormHandleChangeRedux}
+
+const PRICE_LIST_ACTIVATE='PRICE_LIST_ACTIVATE';
+
+const priceListActivate=function() {
+  return {
+    type: PRICE_LIST_ACTIVATE,
+  };
+}
+
+export {fetchHotels, seacrhFormHandleChangeRedux, priceListActivate}

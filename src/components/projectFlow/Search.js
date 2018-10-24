@@ -5,9 +5,16 @@ import { connect } from 'react-redux'
 //immutable 
 import { fromJS } from 'immutable';
 
+// to see Router and other
+import { withRouter } from "react-router-dom";
+import { Router} from 'react-router-dom'
+import queryString from 'query-string';
+
+
 // action
 import {fetchHotels} from '../../redux/hotelsActions'
-import {seacrhFormHandleChangeRedux} from '../../redux/hotelsActions'
+import {seacrhFormHandleChangeRedux, priceListActivate} from '../../redux/hotelsActions'
+
 
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
@@ -17,11 +24,15 @@ import HotelsLists from './SearchFormParts/HotelsLists'
 import StarsForm from './SearchFormParts/StarsForm'
 import FoodForm from './SearchFormParts/FoodFrom'
 
+// main parts
+import PriceList from './PriceList'
+
 // react materialize
 import {Input, Button, Row, Col, Preloader} from 'react-materialize'
 
 // events flow
 import {mainFormFillEvents} from '../../events/events'
+
 
 
 class Search extends Component{
@@ -47,7 +58,20 @@ class Search extends Component{
     }
 
     searchButtonClick= (e)=>{
+        //queryString.stringify({ b: 1, c: 2, a: 3}, {sort: false});
+        let forURL = queryString.stringify ({color: 'red', size: 10, fine: 15} , {sort: false})
+        console.log (forURL)
+        // вызывает PriceList к показу
+        //https://stackoverflow.com/questions/40161516/how-do-you-programmatically-update-query-params-in-react-router
+        this.props.history.push({
+            pathname: '/',
+            search: forURL
+          })
+
+        // жесточайше проверять валидность строк перед их вставкай и сообщать юзеру если не проходят  
         
+        this.props.dispatch (priceListActivate())
+        //console.log (this.props)
     }
 
 
@@ -55,6 +79,7 @@ class Search extends Component{
     render() {
 
        console.log ("RENDER SEARCH")
+       console.log (this.props)
        
     return (
 
@@ -79,7 +104,9 @@ class Search extends Component{
 
             <Row>
                 <Col s={12}>
-                <Persons/>
+                <Persons
+                children={this.props.children}
+                />
                 </Col>
                 
             </Row>
@@ -152,6 +179,21 @@ class Search extends Component{
                 
             </Row>    
             
+            <Row>
+                <Col s={12}>
+                    {this.props.priceListStatus=== true ? <PriceList
+                    dateFrom={this.props.dateFrom}
+                    dateTo={this.props.dateTo}
+                    nights={this.props.nights}
+                    adults={this.props.adults}
+                    children={this.props.children}
+                    mainList={this.props.mainList}
+                    selectedHotels={this.props.selectedHotels}
+                    foodType={this.props.foodType}
+                    />: null}
+                </Col>
+
+            </Row>
 
         </main> 
       
@@ -167,7 +209,21 @@ let mapStateToProps = (state) => {
         selectedHotels:state.hotelsData.selectedHotels,
         hotelPending: state.hotelsData.hotelPending,
         hotelPendingErrors: state.hotelsData.hotelPendingErrors,
-        datesError: state.hotelsData.datesError
+        datesError: state.hotelsData.datesError,
+        
+        // props for PriceList
+        priceListStatus: state.hotelsData.priceListStatus,
+        dateFrom:state.hotelsData.dateFrom,
+        dateTo:state.hotelsData.dateTo,
+        nights:state.hotelsData.nights,
+        adults:state.hotelsData.adults,
+        children:state.hotelsData.children,
+       
+        foodType:state.hotelsData.foodType,
+
+
+
+
         }
   }
 

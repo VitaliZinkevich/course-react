@@ -8,6 +8,7 @@
     "immutable": "^3.8.2",
     "materialize-css": "^0.100.2",
     "moment": "^2.22.2",
+    "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-materialize": "^2.4.6",
