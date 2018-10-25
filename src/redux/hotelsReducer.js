@@ -15,12 +15,12 @@ let initState = {
     starsType:'Любой',
     dateFrom:null,
     dateTo:null,
-    datesError:[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
+    datesError:[],//[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
     nights:[1],
     adults: 1,
     children: 0,
     // PriceList component connected state
-    priceListStatus: false,
+    priceListStatus: true, // false as default
     
 }
 
@@ -268,7 +268,7 @@ function chekStartDates (startFrom, startTo) {
         errors.push(<br/>)
     }
 
-    if (!moment(start).isBefore(end)) {
+    if (!moment(start).isSameOrBefore(end)) {
         errors.push(<div key={2} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>)
         errors.push(<br/>)
     }

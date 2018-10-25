@@ -59,14 +59,14 @@ class Search extends Component{
 
     searchButtonClick= (e)=>{
         //queryString.stringify({ b: 1, c: 2, a: 3}, {sort: false});
-        let forURL = queryString.stringify ({color: 'red', size: 10, fine: 15} , {sort: false})
-        console.log (forURL)
+        // let forURL = queryString.stringify ({color: 'red', size: 10, fine: 15} , {sort: false})
+        // console.log (forURL)
         // вызывает PriceList к показу
         //https://stackoverflow.com/questions/40161516/how-do-you-programmatically-update-query-params-in-react-router
-        this.props.history.push({
-            pathname: '/',
-            search: forURL
-          })
+        // this.props.history.push({
+        //     pathname: '/',
+        //     search: forURL
+        //   })
 
         // жесточайше проверять валидность строк перед их вставкай и сообщать юзеру если не проходят  
         
@@ -187,9 +187,8 @@ class Search extends Component{
                     nights={this.props.nights}
                     adults={this.props.adults}
                     children={this.props.children}
-                    mainList={this.props.mainList}
-                    selectedHotels={this.props.selectedHotels}
-                    foodType={this.props.foodType}
+                    toShow={(this.props.selectedHotels.length == 0) ? this.props.hotels: this.props.selectedHotels}
+                    
                     />: null}
                 </Col>
 
@@ -218,12 +217,7 @@ let mapStateToProps = (state) => {
         nights:state.hotelsData.nights,
         adults:state.hotelsData.adults,
         children:state.hotelsData.children,
-       
-        foodType:state.hotelsData.foodType,
-
-
-
-
+ 
         }
   }
 
