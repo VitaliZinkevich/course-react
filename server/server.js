@@ -12,6 +12,8 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.listen(port, () => console.log(`app listening on port ${port}!`))
+
 app.get('/', (req, res) => {
     
     setTimeout(function () {
@@ -63,4 +65,3 @@ app.get('/', (req, res) => {
 
 )
 
-app.listen(port, () => console.log(`app listening on port ${port}!`))

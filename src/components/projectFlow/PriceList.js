@@ -1,15 +1,35 @@
 import React, { Component } from 'react'
 import PriceListItem from './PriceListParts/PriceListItem'
 import moment from 'moment'
-
+import {Pagination} from 'react-materialize'
 
 
 export default class PriceList extends Component {
 
 
+  state = {
+    currentPage: 1,
+    todosPerPage: 10
+  };
+
+
+  buyButton = (date,night ,hotel, room, adults, children)=>{
+
+    // начало процесса покупки с переходом на другой компонент и автотификации
+    console.log (date, night ,hotel, room, adults, children)
+  }
+
+  paginationSelect = (pageNum)=>{
+    this.setState ({currentPage:pageNum})
+  }
+
     
   render() {
-  
+    
+
+
+    console.log ('PRICELIST RENDER')
+
     // создаем массив дат который будет отображать список как параметр
     let dateList = []
     let start = moment(this.props.dateFrom, "DD-MM-YYYY")
@@ -46,7 +66,7 @@ export default class PriceList extends Component {
         })
 
         
-        console.log (hotel.rooms.length)
+        //console.log (hotel.rooms.length)
         // усли нет номеров в объекте его нужно удалить потом  
         return hotel
       })
@@ -60,34 +80,33 @@ export default class PriceList extends Component {
 
       if (this.props.dateTo!=null) {
         
-        dateList.forEach ((date)=>{
+        dateList.forEach ((date, dateIndex)=>{
 
-           hotelListwithSortedRooms.forEach (( hotel)=>{
-            showList.push (
-              <div key={Math.random()}>
-              <div>{date}</div>
-                <div>{hotel.name}</div>
-                <div>{hotel.type}</div>
-              </div>
-              )
-            this.props.nights.forEach ((night)=>{
+           hotelListwithSortedRooms.forEach (( hotel, hotelIndex)=>{
+           
+            this.props.nights.forEach ((night, nightIndex)=>{
             
 
                hotel.rooms.forEach((room, roomIndex)=>{
     
                 showList.push (
                   // прилично придумать как сделать ключ для каждого элемента
-                  <div key={Math.random()}>
+              <div key={dateIndex.toString()+hotelIndex.toString()+nightIndex.toString()+roomIndex.toString()}>
                   
                   <PriceListItem
+                    date={date}
                     hotel={hotel}
                     night={night}
                     room={room}
                     adult={this.props.adults}
                     chield={this.props.children}
-                    />
-                  
-                  </div>
+                  />
+                  <button 
+                    onClick={()=>{this.buyButton (date,night ,hotel, room, this.props.adults, this.props.children)}}
+                    className='waves-effect waves-light btn blue'>Купить
+                  </button>
+
+              </div>
 
                 )
     
@@ -102,17 +121,35 @@ export default class PriceList extends Component {
         //showList = showList.map (el => (<div>{el}</div>))
     
       }
+    
+    
+
+      // Logic for displaying paginator
+    const indexOfLastTodo = this.state.currentPage * this.state.todosPerPage;
+    const indexOfFirstTodo = indexOfLastTodo - this.state.todosPerPage;
+    const currentshowList = showList.slice(indexOfFirstTodo, indexOfLastTodo);
+
+    const itemsForPagination = Math.ceil(showList.length/10)
 
    
 let test = <div>{2+2}</div>
-  console.log (showList)
-  console.log (test)
+  // console.log (showList)
+  // console.log (test)
 
-  console.log (this.props)
+  // console.log (this.props)
 
     return (
        <div>
-    {showList}
+    {currentshowList}
+
+    <Pagination 
+    className='center' 
+    items={itemsForPagination} 
+    activePage={this.state.currentPage} 
+    maxButtons={8} 
+    onSelect={this.paginationSelect}
+    />
+    
       </div>
     )
   }

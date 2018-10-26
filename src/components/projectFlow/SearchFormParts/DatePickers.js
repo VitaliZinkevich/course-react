@@ -30,8 +30,8 @@ render (){
         showWeekdaysFull: true,
         format: 'dd.mm.yyyy',
         today: '',
-        clear: '',
-        close: '',
+        clear: 'Очистить',
+        close: 'Выбрать',
         closeOnSelect: true,
     }
 

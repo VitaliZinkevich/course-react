@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+// immutable proptypes
+import immutablePropTypes from 'react-immutable-proptypes'
+
+
 // redux
 import { connect } from 'react-redux'
 
