@@ -199,7 +199,10 @@ class Search extends Component{
                 </Col>
 
             </Row>
-
+            <button toast="here you go!"
+            onClick={()=>{window.Materialize.toast('I am a toast!', 1500)}}>
+                Toast
+            </button>
         </main> 
       
     );
