@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // immutable proptypes
-import immutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 
 
 // redux
@@ -42,16 +42,124 @@ import {mainFormFillEvents} from '../../events/events'
 
 
 class Search extends Component{
-           
     
+    static propTypes= {
+        hotels:PropTypes.oneOfType ([
+            ImmutablePropTypes.listOf(),
+            ImmutablePropTypes.listOf(
+                ImmutablePropTypes.contains({
+                    _id: PropTypes.string.isRequired,
+                    name: PropTypes.string.isRequired,
+                    type: PropTypes.string.isRequired,
+                    stars: PropTypes.number.isRequired,
+                    rooms: ImmutablePropTypes.listOf(
+                        ImmutablePropTypes.contains ({
+                            name:PropTypes.string.isRequired,
+                            accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
+                            price: ImmutablePropTypes.map(
+                                ImmutablePropTypes.contains({
+                                adult:PropTypes.number,
+                                children:PropTypes.number ,
+                            }))
+                        })
+    
+                    ),
+                })
+            ),
+        ]),
+        mainList:PropTypes.oneOfType([
+            ImmutablePropTypes.listOf(),
+            ImmutablePropTypes.listOf(
+                ImmutablePropTypes.contains({
+                    _id: PropTypes.string.isRequired,
+                    name: PropTypes.string.isRequired,
+                    type: PropTypes.string.isRequired,
+                    stars: PropTypes.number.isRequired,
+                    rooms: ImmutablePropTypes.listOf(
+                        ImmutablePropTypes.contains ({
+                            name:PropTypes.string.isRequired,
+                            accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
+                            price: ImmutablePropTypes.map(
+                                ImmutablePropTypes.contains({
+                                adult:PropTypes.number,
+                                children:PropTypes.number ,
+                            }))
+                        })
+    
+                    ),
+                })
+            )
+            
+          ]),
+        selectedHotels:PropTypes.oneOfType([
+            ImmutablePropTypes.listOf(),
+            ImmutablePropTypes.listOf(
+                ImmutablePropTypes.contains({
+                    _id: PropTypes.string.isRequired,
+                    name: PropTypes.string.isRequired,
+                    type: PropTypes.string.isRequired,
+                    stars: PropTypes.number.isRequired,
+                    rooms: ImmutablePropTypes.listOf(
+                        ImmutablePropTypes.contains ({
+                            name:PropTypes.string.isRequired,
+                            accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
+                            price: ImmutablePropTypes.map(
+                                ImmutablePropTypes.contains({
+                                adult:PropTypes.number,
+                                children:PropTypes.number ,
+                            }))
+                        })
+    
+                    ),
+                })
+            )
+            
+          ]),
+        hotelPending: PropTypes.bool.isRequired,
+        hotelPendingErrors: PropTypes.string,
+        datesError: ImmutablePropTypes.listOf (PropTypes.string),
+        formMessages:ImmutablePropTypes.listOf (PropTypes.string),
+        // for Price List Component
+        priceListStatus: PropTypes.bool,
+        dateFrom:PropTypes.string,
+        dateTo:PropTypes.string,
+        nights:ImmutablePropTypes.listOf(PropTypes.number),
+        adults:PropTypes.number,
+        children:PropTypes.number,
+
+    }
+
+
     componentDidMount(){
+      
     // если пропсы неизменного списка пусты просим список у сервера    
-        if (this.props.hotels.length === 0){
+        if (this.props.hotels.size === 0){
             this.props.dispatch (fetchHotels)
         }
 
     // events listners
         mainFormFillEvents.addListener('handleSearchForm', this.handleChange )
+    }
+
+    componentWillReceiveProps (newProps) {
+       
+        if (newProps.datesError.size != 0) {
+
+            for (let e of newProps.datesError) {
+                window.Materialize.toast(e, 3000)
+            }
+
+            
+        }
+
+        if (newProps.formMessages.size != 0) {
+
+            for (let e of newProps.formMessages) {
+                window.Materialize.toast(e, 3000)
+            }
+            
+        }
+
     }
 
     componentWillUnmount (){
@@ -85,7 +193,6 @@ class Search extends Component{
     render() {
 
        console.log ("RENDER SEARCH")
-       console.log (this.props)
        
     return (
 
@@ -97,7 +204,6 @@ class Search extends Component{
                     <DatePikers
                    />
 
-                   {this.props.datesError}   
                 </Col>        
             </Row>
 
@@ -152,10 +258,10 @@ class Search extends Component{
                 </Col>
                 </Row>) : (   
                            <Row >
-                           {(this.props.hotelPendingErrors === null) ? (
+                           {(this.props.hotelPendingErrors === '') ? (
                                 
                             <Col s={12}>
-                            <h6>Найдено отелей {this.props.mainList.length}</h6>
+                            <h6 className='green-text'>Найдено отелей {this.props.mainList.size}</h6>
                             <HotelsLists 
                            
                             hotels={this.props.mainList}
@@ -163,7 +269,7 @@ class Search extends Component{
                             />
                             </Col>
             ): (
-                <div>Ошибка сети. Проверьте соединение и перезагрузите страницу</div>
+                <div className='center red-text'>Ошибка сервера. Попробуйте позже </div>
                 
                  
             )}
@@ -174,7 +280,7 @@ class Search extends Component{
                 <Col s={12}>
                 <Button
                 id='searchButton'
-                disabled = {this.props.hotelPendingErrors != null || this.props.datesError.length != 0 ? true : false} 
+                disabled = {this.props.hotelPendingErrors != '' || this.props.datesError.size != 0 ||  this.props.formMessages.size != 0 ? true : false} 
                 large 
                 className='green right'
                 waves='light' 
@@ -187,22 +293,22 @@ class Search extends Component{
             
             <Row>
                 <Col s={12}>
-                    {this.props.priceListStatus=== true ? <PriceList
+                    {this.props.priceListStatus=== true ? 
+                    <PriceList
                     dateFrom={this.props.dateFrom}
                     dateTo={this.props.dateTo}
                     nights={this.props.nights}
                     adults={this.props.adults}
                     children={this.props.children}
-                    toShow={(this.props.selectedHotels.length == 0) ? this.props.hotels: this.props.selectedHotels}
+                    toShow={(this.props.selectedHotels.size == 0) ? this.props.hotels: this.props.selectedHotels}
+                    dispath={this.props.dispatch}
+                    currentPage={this.props.currentPage}
                     
                     />: null}
                 </Col>
 
             </Row>
-            <button toast="here you go!"
-            onClick={()=>{window.Materialize.toast('I am a toast!', 1500)}}>
-                Toast
-            </button>
+
         </main> 
       
     );
@@ -212,20 +318,22 @@ class Search extends Component{
 let mapStateToProps = (state) => {
     
     return {
-        hotels: state.hotelsData.hotels,
-        mainList: state.hotelsData.mainList,
-        selectedHotels:state.hotelsData.selectedHotels,
-        hotelPending: state.hotelsData.hotelPending,
-        hotelPendingErrors: state.hotelsData.hotelPendingErrors,
-        datesError: state.hotelsData.datesError,
+        hotels: state.hotelsData.get ('hotels'),
+        mainList: state.hotelsData.get ('mainList'),
+        selectedHotels:state.hotelsData.get ('selectedHotels'),
+        hotelPending: state.hotelsData.get ('hotelPending'),
+        hotelPendingErrors: state.hotelsData.get ('hotelPendingErrors'),
+        datesError: state.hotelsData.get ('datesError'),
+        formMessages: state.hotelsData.get ('formMessages'),
         
         // props for PriceList
-        priceListStatus: state.hotelsData.priceListStatus,
-        dateFrom:state.hotelsData.dateFrom,
-        dateTo:state.hotelsData.dateTo,
-        nights:state.hotelsData.nights,
-        adults:state.hotelsData.adults,
-        children:state.hotelsData.children,
+        priceListStatus: state.hotelsData.get ('priceListStatus'),
+        dateFrom:state.hotelsData.get ('dateFrom'),
+        dateTo:state.hotelsData.get ('dateTo'),
+        nights:state.hotelsData.get ('nights'),
+        adults:state.hotelsData.get ('adults'),
+        children:state.hotelsData.get ('children'),
+        currentPage:state.hotelsData.get ('currentPage')
  
         }
   }

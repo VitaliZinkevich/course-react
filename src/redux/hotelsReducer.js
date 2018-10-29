@@ -6,7 +6,7 @@ let initState = {
     
     // Search component connected state
     hotelPending: false,
-    hotelPendingErrors: null,
+    hotelPendingErrors: '',
     hotels:[],
     mainList:[],
     selectedHotels:[],
@@ -15,13 +15,14 @@ let initState = {
     starsType:'Любой',
     dateFrom:null,
     dateTo:null,
-    datesError:[],//[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
+    datesError:[''],//[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
     nights:[1],
     adults: 1,
     children: 0,
+    formMessages:[],
     // PriceList component connected state
-    priceListStatus: true, // false as default
-    
+    priceListStatus: false, // false as default
+    currentPage: 1,
 }
 
 
@@ -33,28 +34,29 @@ const hotelsReducer = (state = initState, action) => {
     switch (action.type) {
         
         case 'HOTELS_PENDING':{
-        newState = newState.setIn (['hotelPending'], true).toJS()
+        newState = newState.setIn (['hotelPending'], true)
         return newState
         }
 
         case 'HOTELS_FULFILLED':{
-        newState = newState.setIn (['hotelPending'], false).setIn(['hotels'] , action.payload.data).setIn(['mainList'] , action.payload.data).toJS()
+        newState = newState.setIn (['hotelPending'], false).setIn(['hotels'] , fromJS (action.payload.data)).setIn(['mainList'] , fromJS (action.payload.data))
         return newState}
 
         case 'HOTELS_REJECTED':{
-        newState = newState.setIn (['hotelPending'] ,false).setIn(['hotelPendingErrors'], action.payload).toJS()
+        newState = newState.setIn (['hotelPending'] ,false).setIn(['hotelPendingErrors'], action.payload)
         return newState}
 
         case 'SEARCH_FORM_CHANGE': {
-      
+            
+            newState= newState.set ('priceListStatus', false)
             
             if  (action.formName == 'mainList') {
                 //console.log ('mainList')
 
-                let addtoSelectedHotels = newState.get('mainList').find ((elem)=>{ return elem.get("_id") == action.fieldValue._id})
+                let addtoSelectedHotels = newState.get('mainList').find ((elem)=>{ return elem.get("_id") == action.fieldValue.get ('_id')})
                 //console.log (addtoSelectedHotels)
                 let newMainList = newState.get ('mainList').filter ((element)=>{
-                    if (element.get('_id')===action.fieldValue._id) {
+                    if (element.get('_id')===action.fieldValue.get ("_id")) {
                         return false
                     } else {
                         return true
@@ -65,16 +67,16 @@ const hotelsReducer = (state = initState, action) => {
                 //console.log ('RETURN')
                 
                 newState =newState.setIn(['mainList'],newMainList).setIn(['selectedHotels'],newSelectedHotels)
-                return newState.toJS()
+                return newState
             }
 
             if  (action.formName == 'selectedList') {
                
 
-                let addtoMainList = newState.get('selectedHotels').find ((elem)=>{ return elem.get("_id") == action.fieldValue._id})
-                console.log (addtoMainList)
+                let addtoMainList = newState.get('selectedHotels').find ((elem)=>{ return elem.get("_id") == action.fieldValue.get ('_id')})
+                //console.log (addtoMainList)
                 let newSelectedHotels = newState.get ('selectedHotels').filter ((element)=>{
-                    if (element.get('_id')===action.fieldValue._id) {
+                    if (element.get('_id')===action.fieldValue.get ('_id')) {
                         return false
                     } else {
                         return true
@@ -107,17 +109,19 @@ const hotelsReducer = (state = initState, action) => {
                     console.log('seacrh ++++ starsType ++++')
                     newMainList = newState.get ('mainList').push (addtoMainList)
                 } 
-                //console.log (newMainList)
+                
                 if (newMainList != null) {
                     newState = newState.setIn(['mainList'],newMainList)
                 }
                 
                 
-                return newState.toJS()
+                return newState
             }
 
             if (action.formName == 'search' || action.formName == 'starsType') {
-                
+               
+                let errors =fromJS ([])
+
                 if ( action.formName == 'starsType') {
                     newState = newState.setIn(['starsType'],action.fieldValue)
                 } else {
@@ -131,6 +135,7 @@ const hotelsReducer = (state = initState, action) => {
 
                 if (newState.get('search') === '') {
                     newMainList = newState.get ('hotels')
+                    
                 } else {
                     newMainList = newState.get ('hotels').filter((el)=>{
                         if (el.get('name').toLowerCase().indexOf(newState.get('search').toLowerCase()) === -1 ){
@@ -141,7 +146,14 @@ const hotelsReducer = (state = initState, action) => {
         
                     })
                 }
-             
+
+
+                if (newMainList.size === 0 ) {
+                    errors = errors.push('Фильтр по НАЗВАНИЮ удаляет все элементы')
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors)
+                    return newState   
+                } 
+
                 // проверяем уже выбранные объекты
 
                 if (newState.get('selectedHotels').isEmpty() == true) {
@@ -172,15 +184,25 @@ const hotelsReducer = (state = initState, action) => {
                     })
 
                 }
+
+
+                if (newMainList.size === 0 ) {
+                    errors = errors.push('Фильтр по ЗВЕЗДНОСТИ удаляет все элементы')   
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors)
+                    return newState
+                } 
                
-                    newState = newState.setIn(['mainList'], newMainList)
-                    return newState.toJS()
+               
+               
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors)
+                    
+                    return newState
                 }
 
             if (action.formName == 'foodType') {
                 newState = newState.setIn (['foodType'], action.fieldValue )
                 
-               return newState.toJS()
+               return newState
 
             }
             
@@ -192,7 +214,7 @@ const hotelsReducer = (state = initState, action) => {
                     newState = newState.setIn (['adults'], action.fieldValue )
                 }
  
-               return newState.toJS()
+               return newState
 
             }
 
@@ -202,9 +224,9 @@ const hotelsReducer = (state = initState, action) => {
 
                 if (newNightsList.indexOf (action.fieldValue) === -1 ) {
                     newNightsList = newNightsList.push(action.fieldValue)
-                    console.log('-1')
+                    
                 } else {
-                    console.log('DELETE N')
+                    
                     newNightsList = newNightsList.filter ((el)=>{
                         if (el === action.fieldValue) {
                                 return false
@@ -214,9 +236,16 @@ const hotelsReducer = (state = initState, action) => {
                         })
                 }
 
-                newState = newState.setIn (['nights'], newNightsList )
+                let errors = fromJS ([])
 
-                return newState.toJS()
+                if (newNightsList.size===0) {
+                    errors = errors.push('Количество НОЧЕЙ должно быть выбрано')
+                    newState= newState.setIn (['formMessages'], errors).setIn (['nights'], newNightsList )
+                }
+
+                newState = newState.setIn (['nights'], newNightsList ).setIn (['formMessages'], errors)
+
+                return newState
             }
 
             if (action.formName == 'dateFrom' || action.formName == 'dateTo') {
@@ -227,10 +256,10 @@ const hotelsReducer = (state = initState, action) => {
                     newState = newState.setIn (['dateTo'], action.fieldValue)
                 }
 
-                newState = newState.setIn (['datesError'], chekStartDates (newState.get('dateFrom'), newState.get('dateTo')))
+                newState = newState.setIn (['datesError'], checkErrors (newState.get('dateFrom'), newState.get('dateTo')))
                 
 
-                return newState.toJS()
+                return newState
             }
              
             
@@ -239,12 +268,17 @@ const hotelsReducer = (state = initState, action) => {
         case 'PRICE_LIST_ACTIVATE':{
             console.log ('PRICE_LIST_ACTIVATE CASE')
             newState = newState.setIn (['priceListStatus'], true)
-            return newState.toJS()
+            return newState
 
         }
 
+        case 'PAGINATION_ACTIVE_PAGE':{
+            newState = newState.setIn (['priceListStatus'], action.page)
+            return newState
+        }
+
         default:
-        return newState.toJS()
+        return newState
         }
    
   }
@@ -253,35 +287,54 @@ export default hotelsReducer
 
 // проверить даты и вернуть массив ошибок
 
-function chekStartDates (startFrom, startTo) {
+function checkErrors (startFrom, startTo) {
    
    let errors = []
 
    let start = moment(startFrom, "DD-MM-YYYY")
    let end = moment(startTo, "DD-MM-YYYY")
 
+   console.log (!(start.isValid()))
+
+   if (start.isValid()) {
+   } else {
+    errors.push('Выберете дату С')
+   }
+
+   if (end.isValid()) {
+   } else {
+        errors.push('Выберете дату ПО')
+    }
+   
+   
    if (start.isValid() && end.isValid()) {
        
-   // console.log (end.diff (start, 'days'))
+  
     if (end.diff (start, 'days') > 5 ){
-        errors.push(<div key={1} className ='red-text'>Заселение по не далее 5 дней от начала</div>)
-        errors.push(<br/>)
+        errors.push('От начала до конца не более 5 дней')
     }
 
     if (!moment(start).isSameOrBefore(end)) {
-        errors.push(<div key={2} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>)
-        errors.push(<br/>)
+        errors.push('Дата С такая же или раньше даты ПО')
     }
 
-   } else {
-    errors.push(<div key={1} className ='red-text'>Введите 2 даты</div>)
-    errors.push(<br key={4}/>)
-    errors.push(<div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>)
-    errors.push(<br key={5}/>)
-    errors.push(<div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>)
-   }
+   } 
    
-return errors
+return fromJS (errors)
 
+}
 
+function checkFilters (value, filter){
+
+let error =[]
+
+if (value.size === 0 && filter === 'search') {
+    error.push('Фильтр по НАЗВАНИЮ удаляет все элементы')   
+} 
+
+if  (value.size === 0 && filter === 'search'){
+    error.push('Фильтр по ЗВЕЗДАМ названию удаляет все элементы')
+}
+
+return error
 }

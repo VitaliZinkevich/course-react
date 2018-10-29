@@ -3,13 +3,14 @@ import {Input, Navbar, NavItem, Button, Row, Icon} from 'react-materialize'
 
 import {mainFormFillEvents} from '../../../events/events'
 
-class Persons extends React.Component{
+class Persons extends React.PureComponent{
 
 handlePersons=(e)=>{
-    mainFormFillEvents.emit ('handleSearchForm' , {name: e.target.name,value:e.target.value})
+    mainFormFillEvents.emit ('handleSearchForm' , {name: e.target.name,value:parseInt (e.target.value)})
 }
 
 render (){
+    console.log(this.props)
     return (
         <div>
             

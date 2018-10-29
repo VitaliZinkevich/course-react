@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {Input, Navbar, NavItem, Button, Row} from 'react-materialize'
 
 
@@ -7,7 +7,7 @@ import {mainFormFillEvents} from '../../../events/events'
 // + 1 ночь к расчетам
 
 
-class NightsForm extends Component {
+class NightsForm extends PureComponent {
   
   handleNights=(e, ind)=>{
     mainFormFillEvents.emit ('handleSearchForm' , {name: e.target.name, value: ind+1})

@@ -8,17 +8,7 @@ const About = ()=>{
 
     return (
     <main >
-        <Collapsible>
-                <CollapsibleItem header='First' icon='filter_drama'>
-                    Lorem ipsum dolor sit amet.
-                </CollapsibleItem>
-                <CollapsibleItem header='Second' icon='place'>
-                    Lorem ipsum dolor sit amet.
-                </CollapsibleItem>
-                <CollapsibleItem header='Third' icon='whatshot'>
-                    Lorem ipsum dolor sit amet.
-                </CollapsibleItem>
-        </Collapsible>
+  im contact
     </main>
     )
 

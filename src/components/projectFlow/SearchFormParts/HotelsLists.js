@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import {CollapsibleItem, Collapsible,Input, Navbar, NavItem, Button, Row, Col, Preloader, Icon} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
 import HotelListItem from './HotelListItem'
 
-export class HotelsLists extends Component {
+export class HotelsLists extends PureComponent {
 
 
   componentWillUnmount(){
@@ -27,13 +27,14 @@ export class HotelsLists extends Component {
 
   render() {
      console.log ('RENDER HOTEL LIST')
+     console.log (this.props)
 
      let collapsibleItemsMinsk = this.props.hotels.filter((el)=>{return(
-        el.region =='Минская область')}).map ((el)=>{
+        el.get ('region') =='Минская область')}).map ((el)=>{
             return (
                 
                 <HotelListItem
-                    key={el._id}
+                    key={el.get ('_id')}
                     hotel={el}
                     name='mainList'
                 
@@ -42,11 +43,11 @@ export class HotelsLists extends Component {
      } )
 
      let collapsibleItemsVitebsk = this.props.hotels.filter((el)=>{return(
-        el.region =='Витебская область')}).map ((el)=>{
+        el.get ('region') =='Витебская область')}).map ((el)=>{
             return (
                
                    <HotelListItem
-                       key={el._id}
+                       key={el.get ('_id')}
                        hotel={el}
                        name='mainList'
                     />
@@ -60,7 +61,7 @@ export class HotelsLists extends Component {
 
 
             <HotelListItem
-                key={element._id}
+                key={element.get ('_id')}
                 hotel={element}
                 name='selectedList'
                 
@@ -75,10 +76,11 @@ export class HotelsLists extends Component {
             <Row>
                 <Col s={8}>
 
-                <h5>Hotels List</h5>
+                <h5>Список отелей</h5>
                
                     <Collapsible 
-                    popout={false}
+                    defaultActiveKey={0}
+                    
                     >
                         <CollapsibleItem 
                         header='Минская область' 
@@ -87,7 +89,7 @@ export class HotelsLists extends Component {
                         </CollapsibleItem>
                     </Collapsible>
 
-                    <Collapsible
+                    <Collapsible defaultActiveKey={0}
                     >
                         <CollapsibleItem  
                             header='Витебская область' 
@@ -100,7 +102,7 @@ export class HotelsLists extends Component {
 
                 <Col s={4}>
                         <div className='left'>
-                        <h5>Selected Hotels</h5>
+                        <h5>Выбранные отели</h5>
                         {selectedHotels}
                         </div>
                 </Col>

@@ -26,4 +26,14 @@ const priceListActivate=function() {
   };
 }
 
-export {fetchHotels, seacrhFormHandleChangeRedux, priceListActivate}
+const PAGINATION_ACTIVE_PAGE = 'PAGINATION_ACTIVE_PAGE'
+
+const paginationActivePage=function(page) {
+  return {
+    type: PAGINATION_ACTIVE_PAGE,
+    page:page
+  };
+}
+
+
+export {fetchHotels, seacrhFormHandleChangeRedux, priceListActivate, paginationActivePage}

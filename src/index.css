@@ -44,8 +44,21 @@ main {
 }
 
 .collapsible {
-background-color: brown;
 
+/* background-color: brown; */
+
+}
+
+.priceListItem {
+  display: flex;
+  flex-wrap: nowrap; 
+   justify-content: space-around;  
+}
+
+.buyButtons {
+  display: flex;
+  flex-wrap: nowrap; 
+   justify-content: space-between;  
 }
 
 

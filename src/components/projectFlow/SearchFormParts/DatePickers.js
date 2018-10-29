@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {Input, Navbar, NavItem, Button, Row, Col, Preloader} from 'react-materialize'
 import moment from 'moment'
 
 //event flow
 import {mainFormFillEvents} from '../../../events/events'
 
-class DatePickers extends  Component{
+class DatePickers extends  PureComponent{
 
     handleChangeDates=(e, value)=>{
         mainFormFillEvents.emit('handleSearchForm', {name: e.target.name, value})
@@ -16,7 +16,7 @@ class DatePickers extends  Component{
 render (){
     // максимальная дата доступная в календаре
     let result = new Date()
-    result.setDate(185)
+    result.setDate(result.getDate()+183)
     
     let dateOptions = {
         min: new Date(),
@@ -35,7 +35,13 @@ render (){
         closeOnSelect: true,
     }
 
-   
+    // let result1 = new Date()
+    // result1.setDate(result.getDate()+4)
+
+    // let dateOptions2 = {...dateOptions, max: result1}
+
+
+
     return (
     <div>
         <Input 

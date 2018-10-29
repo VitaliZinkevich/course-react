@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import {Input, Icon} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
 
-export class FoodForm extends Component {
+export class FoodForm extends PureComponent {
 
    
   

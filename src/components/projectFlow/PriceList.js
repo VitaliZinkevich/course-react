@@ -1,26 +1,25 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PriceListItem from './PriceListParts/PriceListItem'
 import moment from 'moment'
 import {Pagination} from 'react-materialize'
+import {paginationActivePage} from '../../redux/hotelsActions'
 
+export default class PriceList extends PureComponent {
 
-export default class PriceList extends Component {
-
-
-  state = {
-    currentPage: 1,
-    todosPerPage: 10
-  };
+  todosPerPage = 10;
+ 
 
 
   buyButton = (date,night ,hotel, room, adults, children)=>{
 
     // начало процесса покупки с переходом на другой компонент и автотификации
     console.log (date, night ,hotel, room, adults, children)
+    
   }
 
   paginationSelect = (pageNum)=>{
-    this.setState ({currentPage:pageNum})
+    // диспатчнуть состояние активной кнопки
+    this.props.dispatch (paginationActivePage(pageNum))
   }
 
     
@@ -29,6 +28,7 @@ export default class PriceList extends Component {
 
 
     console.log ('PRICELIST RENDER')
+    
 
     // создаем массив дат который будет отображать список как параметр
     let dateList = []
@@ -51,27 +51,29 @@ export default class PriceList extends Component {
     // создаем размещение для проверки
 
     let personsAcc = `${this.props.adults}+${this.props.children}`
-    console.log (personsAcc)
+    //console.log (personsAcc)
 
     // оставляем только те номера только те номера которые подходят по размещению
     // МУТАБЕЛЬНО !!!!
     let hotelListwithSortedRooms = this.props.toShow.map ((hotel, index)=>{
       //console.log (hotel.rooms)
-          hotel.rooms = hotel.rooms.filter ((room) => {
-          if (room.accomodation.indexOf (personsAcc) != -1) {
+        let newRooms
+          newRooms = hotel.get('rooms').filter ((room) => {
+          if (room.get ('accomodation').indexOf (personsAcc) != -1) {
             return true
           } else {
             return false
           }
         })
-
+        
+        hotel.set('rooms', newRooms)
         
         //console.log (hotel.rooms.length)
         // усли нет номеров в объекте его нужно удалить потом  
         return hotel
       })
       
-      hotelListwithSortedRooms = hotelListwithSortedRooms.filter (hotel => hotel.rooms.length)
+      hotelListwithSortedRooms = hotelListwithSortedRooms.filter (hotel => hotel.get ('rooms').size)
       // console.log (hotelListwithSortedRooms)
       // console.log (this.props.toShow)
 
@@ -87,11 +89,12 @@ export default class PriceList extends Component {
             this.props.nights.forEach ((night, nightIndex)=>{
             
 
-               hotel.rooms.forEach((room, roomIndex)=>{
+               hotel.get ('rooms').forEach((room, roomIndex)=>{
     
                 showList.push (
                   // прилично придумать как сделать ключ для каждого элемента
-              <div key={dateIndex.toString()+hotelIndex.toString()+nightIndex.toString()+roomIndex.toString()}>
+              <div key={dateIndex.toString()+hotelIndex.toString()+nightIndex.toString()+roomIndex.toString()}
+              className='buyButtons'>
                   
                   <PriceListItem
                     date={date}
@@ -125,8 +128,8 @@ export default class PriceList extends Component {
     
 
       // Logic for displaying paginator
-    const indexOfLastTodo = this.state.currentPage * this.state.todosPerPage;
-    const indexOfFirstTodo = indexOfLastTodo - this.state.todosPerPage;
+    const indexOfLastTodo = this.props.currentPage * this.todosPerPage;
+    const indexOfFirstTodo = indexOfLastTodo - this.todosPerPage;
     const currentshowList = showList.slice(indexOfFirstTodo, indexOfLastTodo);
 
     const itemsForPagination = Math.ceil(showList.length/10)
@@ -141,14 +144,17 @@ let test = <div>{2+2}</div>
     return (
        <div>
     {currentshowList}
-
-    <Pagination 
-    className='center' 
-    items={itemsForPagination} 
-    activePage={this.state.currentPage} 
-    maxButtons={8} 
-    onSelect={this.paginationSelect}
-    />
+    {currentshowList.length !== 0 ? (
+      <Pagination 
+      className='center' 
+      items={itemsForPagination} 
+      activePage={this.props.currentPage} 
+      maxButtons={8} 
+      onSelect={this.paginationSelect}
+      />
+     
+    ): null}
+    
     
       </div>
     )
