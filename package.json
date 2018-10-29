@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "events": "^3.0.0",
     "immutable": "^3.8.2",
+    "js-base64": "^2.4.9",
     "materialize-css": "^0.100.2",
     "moment": "^2.22.2",
     "query-string": "^6.2.0",

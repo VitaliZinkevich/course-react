@@ -273,7 +273,8 @@ const hotelsReducer = (state = initState, action) => {
         }
 
         case 'PAGINATION_ACTIVE_PAGE':{
-            newState = newState.setIn (['priceListStatus'], action.page)
+            console.log (action.page)
+            newState = newState.setIn (['currentPage'], action.page)
             return newState
         }
 
@@ -324,17 +325,3 @@ return fromJS (errors)
 
 }
 
-function checkFilters (value, filter){
-
-let error =[]
-
-if (value.size === 0 && filter === 'search') {
-    error.push('Фильтр по НАЗВАНИЮ удаляет все элементы')   
-} 
-
-if  (value.size === 0 && filter === 'search'){
-    error.push('Фильтр по ЗВЕЗДАМ названию удаляет все элементы')
-}
-
-return error
-}

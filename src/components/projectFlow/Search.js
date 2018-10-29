@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// url crypting 
+import { Base64 } from 'js-base64';
+
 // immutable proptypes
 import ImmutablePropTypes from 'react-immutable-proptypes'
 
@@ -8,12 +11,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 // redux
 import { connect } from 'react-redux'
 
-//immutable 
-import { fromJS } from 'immutable';
-
 // to see Router and other
-import { withRouter } from "react-router-dom";
-import { Router} from 'react-router-dom'
+
 import queryString from 'query-string';
 
 
@@ -139,6 +138,25 @@ class Search extends Component{
 
     // events listners
         mainFormFillEvents.addListener('handleSearchForm', this.handleChange )
+
+    // проверяем строку урла на сформированный ключ бывшего поиска 
+    console.log (this.props.location.search)
+    
+    if (this.props.location.search) {
+
+            let query = Base64.decode (this.props.location.search)   
+            console.log(query)
+            const parsedHash = queryString.parse(query);
+            console.log(parsedHash);
+    }
+    
+           
+            
+            // console.log (parsedHash)
+            // console.log (parsedHash.dateTo)
+            // console.log (parsedHash.nights)
+
+
     }
 
     componentWillReceiveProps (newProps) {
@@ -160,6 +178,8 @@ class Search extends Component{
             
         }
 
+        
+
     }
 
     componentWillUnmount (){
@@ -172,15 +192,25 @@ class Search extends Component{
     }
 
     searchButtonClick= (e)=>{
-        //queryString.stringify({ b: 1, c: 2, a: 3}, {sort: false});
-        // let forURL = queryString.stringify ({color: 'red', size: 10, fine: 15} , {sort: false})
-        // console.log (forURL)
-        // вызывает PriceList к показу
-        //https://stackoverflow.com/questions/40161516/how-do-you-programmatically-update-query-params-in-react-router
-        // this.props.history.push({
-        //     pathname: '/',
-        //     search: forURL
-        //   })
+        // создаем ссылку из адресной строки по параметрам поиска и 
+     
+        //console.log (this.props.nights)
+
+        let forURL = queryString.stringify({ 
+            dateFrom: this.props.dateFrom, 
+            dateTo: this.props.dateTo, 
+            nights:this.props.nights,
+            
+        
+        })
+
+        forURL = Base64.encode(forURL)
+     
+        
+        this.props.history.push({
+            pathname: '/',
+            search: forURL
+          })
 
         // жесточайше проверять валидность строк перед их вставкай и сообщать юзеру если не проходят  
         
@@ -193,6 +223,10 @@ class Search extends Component{
     render() {
 
        console.log ("RENDER SEARCH")
+       
+
+       
+
        
     return (
 
@@ -263,7 +297,6 @@ class Search extends Component{
                             <Col s={12}>
                             <h6 className='green-text'>Найдено отелей {this.props.mainList.size}</h6>
                             <HotelsLists 
-                           
                             hotels={this.props.mainList}
                             selectedHotels={this.props.selectedHotels}
                             />
@@ -301,7 +334,7 @@ class Search extends Component{
                     adults={this.props.adults}
                     children={this.props.children}
                     toShow={(this.props.selectedHotels.size == 0) ? this.props.hotels: this.props.selectedHotels}
-                    dispath={this.props.dispatch}
+                    dispatch={this.props.dispatch}
                     currentPage={this.props.currentPage}
                     
                     />: null}

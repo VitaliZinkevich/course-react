@@ -3,17 +3,26 @@ import PriceListItem from './PriceListParts/PriceListItem'
 import moment from 'moment'
 import {Pagination} from 'react-materialize'
 import {paginationActivePage} from '../../redux/hotelsActions'
+import { withRouter } from "react-router";
+import {fromJS} from 'immutable'
 
-export default class PriceList extends PureComponent {
+class PriceList extends PureComponent {
 
   todosPerPage = 10;
  
+  buyButton = (buyOptions)=>{
+    // роутер тут
+    
+    // авторизация после этого клика
 
 
-  buyButton = (date,night ,hotel, room, adults, children)=>{
+    //объект настроек покупки для создания компонента бронирования
+    const BUY_OPTIONS = fromJS (buyOptions);
+    
 
-    // начало процесса покупки с переходом на другой компонент и автотификации
-    console.log (date, night ,hotel, room, adults, children)
+    // начало процесса покупки с переходом на другой компонент и auth
+    console.log (BUY_OPTIONS)
+    this.props.history.push('/booking')
     
   }
 
@@ -28,6 +37,9 @@ export default class PriceList extends PureComponent {
 
 
     console.log ('PRICELIST RENDER')
+    console.log (this.props)
+    
+
     
 
     // создаем массив дат который будет отображать список как параметр
@@ -54,7 +66,7 @@ export default class PriceList extends PureComponent {
     //console.log (personsAcc)
 
     // оставляем только те номера только те номера которые подходят по размещению
-    // МУТАБЕЛЬНО !!!!
+   
     let hotelListwithSortedRooms = this.props.toShow.map ((hotel, index)=>{
       //console.log (hotel.rooms)
         let newRooms
@@ -68,14 +80,13 @@ export default class PriceList extends PureComponent {
         
         hotel.set('rooms', newRooms)
         
-        //console.log (hotel.rooms.length)
+      
         // усли нет номеров в объекте его нужно удалить потом  
         return hotel
       })
       
       hotelListwithSortedRooms = hotelListwithSortedRooms.filter (hotel => hotel.get ('rooms').size)
-      // console.log (hotelListwithSortedRooms)
-      // console.log (this.props.toShow)
+  
 
     // далее готовим большой массив для показа
     let showList = []
@@ -86,13 +97,13 @@ export default class PriceList extends PureComponent {
 
            hotelListwithSortedRooms.forEach (( hotel, hotelIndex)=>{
            
-            this.props.nights.forEach ((night, nightIndex)=>{
+            this.props.nights.sort().forEach ((night, nightIndex)=>{
             
 
                hotel.get ('rooms').forEach((room, roomIndex)=>{
     
                 showList.push (
-                  // прилично придумать как сделать ключ для каждого элемента
+                  
               <div key={dateIndex.toString()+hotelIndex.toString()+nightIndex.toString()+roomIndex.toString()}
               className='buyButtons'>
                   
@@ -105,7 +116,14 @@ export default class PriceList extends PureComponent {
                     chield={this.props.children}
                   />
                   <button 
-                    onClick={()=>{this.buyButton (date,night ,hotel, room, this.props.adults, this.props.children)}}
+                    onClick={()=>{this.buyButton ({
+                      date:date,
+                      night:night ,
+                      hotel:hotel, 
+                      room:room, 
+                      adults:this.props.adults, 
+                      children:this.props.children, 
+                      currentPage:this.props.currentPage})}}
                     className='waves-effect waves-light btn blue'>Купить
                   </button>
 
@@ -120,9 +138,7 @@ export default class PriceList extends PureComponent {
           }) 
         
         })
-    
-        //showList = showList.map (el => (<div>{el}</div>))
-    
+  
       }
     
     
@@ -135,16 +151,10 @@ export default class PriceList extends PureComponent {
     const itemsForPagination = Math.ceil(showList.length/10)
 
    
-let test = <div>{2+2}</div>
-  // console.log (showList)
-  // console.log (test)
-
-  // console.log (this.props)
-
     return (
        <div>
     {currentshowList}
-    {currentshowList.length !== 0 ? (
+    {currentshowList.length !== 0 && showList.length>10 ? (
       <Pagination 
       className='center' 
       items={itemsForPagination} 
@@ -160,3 +170,4 @@ let test = <div>{2+2}</div>
     )
   }
 }
+export default  withRouter (PriceList)
