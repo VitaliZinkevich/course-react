@@ -17,10 +17,21 @@ handlePersons=(e)=>{
 
 render (){
     console.log('PERSONS RENDER')
-    console.log(typeof this.props.adultValue)
-    console.log(typeof this.props.childrenValue)
+    // console.log(typeof this.props.adultValue)
+    // console.log(typeof this.props.childrenValue)
+    let options = [1,2,3]
+    let optionsA =options.map((el, i)=>{
+        return(
+            <option key={i} selected={options[i] === this.props.adultValue} value={el}>{el} взрослый</option>
+        )
+    })
 
-
+    let options2 = [0,1,2,3]
+    let optionsС =options2.map((el, i)=>{
+        return(
+            <option key={i} selected={options2[i] ===  this.props.childrenValue} value={el}>{el} ребенок</option>
+        )
+    })
     //console.log(this.props)
     //this.props.adultValue.toString()+this.props.childrenValue.toString()
     // key={this.props.adultValue}
@@ -36,10 +47,7 @@ render (){
             labelClassName='black-text'
             onChange={this.handlePersons}
             >
-                        
-            <option value='1'>1 взрослый</option>
-            <option value='2'>2 взрослых</option>
-            <option value='3'>3 взрослых</option>
+                {optionsA}
             </Input>
             
             <Input 
@@ -51,12 +59,10 @@ render (){
             label="Детей" 
             labelClassName='black-text'
             onChange={this.handlePersons}
-            defaultValue={this.props.childrenValue}
+            
             >
-                <option value='0'> 0 </option>
-                <option value='1'> 1 ребенок</option>
-                <option value='2'> 2 ребенка</option>
-                <option value='3'> 3 ребенка</option>
+                {optionsС}
+    
                 
             </Input>
         </div>

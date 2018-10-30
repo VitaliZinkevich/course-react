@@ -61,4 +61,7 @@ main {
    justify-content: space-between;  
 }
 
+input::placeholder {
+  color: black;
+}
 

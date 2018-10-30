@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import moment from 'moment'
 import {Icon} from 'react-materialize' 
 
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import HotelDetailes from '../HotelDetailes'
 
-export default class PriceListItem extends PureComponent {
+export default class PriceListItem extends Component {
   
   
   

@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {Input, Navbar, NavItem, Button, Row, Col, Preloader} from 'react-materialize'
 import moment from 'moment'
 
 //event flow
 import {mainFormFillEvents} from '../../../events/events'
 
-class DatePickers extends  PureComponent{
-
+class DatePickers extends  Component{
+    
     handleChangeDates=(e, value)=>{
         mainFormFillEvents.emit('handleSearchForm', {name: e.target.name, value})
     }
@@ -31,34 +31,27 @@ render (){
         format: 'dd.mm.yyyy',
         today: '',
         clear: 'Очистить',
-        close: 'Выбрать',
+        close: '',
         closeOnSelect: true,
     }
 
-    // let result1 = new Date()
-    // result1.setDate(result.getDate()+4)
-
-    // let dateOptions2 = {...dateOptions, max: result1}
-
-
-
-    return (
+    console.log(this.props.valueFrom !== null ? this.props.valueFrom : '')
+   return (
     <div>
         <Input 
         s={6} 
-        label='Заселение с'
-        labelClassName='black-text' 
+        value={this.props.valueFrom !== null ? this.props.valueFrom : ''}
+        placeholder='Заселение с'
         name='dateFrom' 
         type='date' 
         onChange={(e, value)=>{this.handleChangeDates(e, value)}}
         options={dateOptions}
-        value={this.props.valueFrom || ''}
+        
         />
 
         <Input
         s={6} 
-        label='Заселение по'
-        labelClassName='black-text'  
+        placeholder='Заселение по'
         name='dateTo' 
         type='date' 
         onChange={(e, value)=>{this.handleChangeDates(e, value)}} 

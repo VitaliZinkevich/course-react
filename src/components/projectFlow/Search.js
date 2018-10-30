@@ -125,6 +125,7 @@ class Search extends Component{
         nights:ImmutablePropTypes.listOf(PropTypes.number),
         adults:PropTypes.number,
         children:PropTypes.number,
+        isGetQueryString: PropTypes.bool
 
     }
 
@@ -141,23 +142,22 @@ class Search extends Component{
         queryStringEvent.addListener('makeQueryString', this.createQueryLink )
 
 
-        if (this.props.location.search !== '') {
+        // if (this.props.location.search !== '') {
            
-            let query = this.props.location.search
-            // query = Base64.decode (this.props.location.search)
-            const parsedHash = queryString.parse(query);
-            //console.log(parsedHash)
-            this.props.dispatch (linkWithQuerToProps(parsedHash))
+        //     let query = this.props.location.search
+        //     // query = Base64.decode (this.props.location.search)
+        //     const parsedHash = queryString.parse(query);
+        //     //console.log(parsedHash)
+        //     this.props.dispatch (linkWithQuerToProps(parsedHash))
             
-            // if (valid === true) {
+        //     // if (valid === true) {
 
-            //     // диспатчнуть новые пропсы для формы и создать как уже после поиска
-            // } else {
-            //     window.Materialize.toast ('Передана неверная ссылка',2000)
-            //     //редирект на главну, смотря что откроет
-            // }
-            }
-
+        //     //     // диспатчнуть новые пропсы для формы и создать как уже после поиска
+        //     // } else {
+        //     //     window.Materialize.toast ('Передана неверная ссылка',2000)
+        //     //     //редирект на главну, смотря что откроет
+        //     // }
+        //     }
     }
 
     componentWillReceiveProps (newProps) {
@@ -178,8 +178,32 @@ class Search extends Component{
             }
             
         }
-
-
+       
+         //console.log((this.props.isGetQueryString !== true && newProps.hotels.size !== 0))
+        // console.log(this.props.isGetQueryString)
+        // console.log(newProps.hotels.size)
+        
+        
+        if ( newProps.hotels.size !== 0 && this.props.isGetQueryString !== true) {
+            
+            if (this.props.location.search !== '') {
+           
+                let query = this.props.location.search
+                // query = Base64.decode (this.props.location.search)
+                const parsedHash = queryString.parse(query);
+                //console.log(parsedHash)
+                this.props.dispatch (linkWithQuerToProps(parsedHash))
+                
+                // if (valid === true) {
+    
+                //     // диспатчнуть новые пропсы для формы и создать как уже после поиска
+                // } else {
+                //     window.Materialize.toast ('Передана неверная ссылка',2000)
+                //     //редирект на главну, смотря что откроет
+                // }
+                }
+           
+        }
     }
 
     componentWillUnmount (){
@@ -202,8 +226,12 @@ class Search extends Component{
         this.props.dispatch (priceListActivate())
        
     }
-
+    
     createQueryLink = ()=>{
+        let selectedHotelsValue = this.props.selectedHotels.toJS()
+        // console.log(selectedHotelsValue)
+        selectedHotelsValue = selectedHotelsValue.map (el=>el._id)
+        // console.log(selectedHotelsValue)
         let forURL = queryString.stringify({ 
             dateFrom: this.props.dateFrom, 
             dateTo: this.props.dateTo, 
@@ -212,15 +240,10 @@ class Search extends Component{
             children:this.props.children,
             foodType: this.props.foodType,
             currentPage:this.props.currentPage,
-            //selectedHotels:selectedHotelsValue.toString(),
-            //currentPage:this.props.currentPage, не формируется на ссылка новая на клик по пагинатору
-            // фомируется в момент клина на кнопку поиска
-            
+            selectedHotels:selectedHotelsValue.toString(),
             
         })
-               
-      
-             
+              
         this.props.history.push({
             pathname: '/',
             search: forURL
@@ -386,7 +409,10 @@ let mapStateToProps = (state) => {
         nights:state.hotelsData.get ('nights'),
         adults:state.hotelsData.get ('adults'),
         children:state.hotelsData.get ('children'),
-        currentPage:state.hotelsData.get ('currentPage')
+        currentPage:state.hotelsData.get ('currentPage'),
+        // queryString
+        isGetQueryString:state.hotelsData.get ('isGetQueryString'),
+
  
         }
   }

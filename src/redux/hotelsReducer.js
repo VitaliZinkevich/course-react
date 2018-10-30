@@ -1,4 +1,3 @@
-import React from 'react'
 import {fromJS} from 'immutable'
 import moment from 'moment'
 
@@ -23,6 +22,7 @@ let initState = {
     // PriceList component connected state
     priceListStatus: false, // false as default
     currentPage: 1,
+    isGetQueryString: false
 }
 
 
@@ -48,7 +48,7 @@ const hotelsReducer = (state = initState, action) => {
 
         case 'SEARCH_FORM_CHANGE': {
             
-            newState= newState.set ('priceListStatus', false)
+            newState= newState.set ('priceListStatus', false).set ('currentPage', 1)
             
             if  (action.formName == 'mainList') {
                 //console.log ('mainList')
@@ -267,7 +267,7 @@ const hotelsReducer = (state = initState, action) => {
         
         case 'PRICE_LIST_ACTIVATE':{
             console.log ('PRICE_LIST_ACTIVATE CASE')
-            newState = newState.setIn (['priceListStatus'], true)
+            newState = newState.setIn (['priceListStatus'], true).setIn (['isGetQueryString'], true)
             return newState
 
         }
@@ -284,6 +284,7 @@ const hotelsReducer = (state = initState, action) => {
 
 
             
+            newState = newState.setIn (['isGetQueryString'], true)
 
             if (dateFrom) {
                 newState = newState.setIn (['dateFrom'], dateFrom)
@@ -320,15 +321,16 @@ const hotelsReducer = (state = initState, action) => {
             // когда диспатчит это еще нет отелей с сервера и списко пуст
             if (selectedHotels) {
             let querySelectedHotels = selectedHotels.split(',')
-             //console.log(querySelectedHotels)
+            console.log(querySelectedHotels)
             
-             let newSelectedList = newState.get ('hotels')
-            // нет еще хотелов
            
-
+            let hotels = newState.get ('hotels')
+           
+           
+          
              console.log(newSelectedList)
 
-             newSelectedList = newSelectedList.filter ((el)=>{
+            let newSelectedList = hotels.filter ((el)=>{
                  console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
                 if (querySelectedHotels.indexOf(el.get('_id')) !== -1) {
                     return true
@@ -338,8 +340,21 @@ const hotelsReducer = (state = initState, action) => {
 
             })
 
-             console.log(newSelectedList)
+           let newMainList = hotels.filter ((el)=>{
+                console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
+               if (querySelectedHotels.indexOf(el.get('_id')) !== -1) {
+                   return false
+               } else {
+                   return true
+               }
+
+           })
+
+            console.log(newSelectedList)
+            newState = newState.setIn (['selectedHotels'], newSelectedList).setIn (['mainList'], newMainList)
+
             }
+
             newState=newState.setIn (['priceListStatus'], true)
             return newState
 

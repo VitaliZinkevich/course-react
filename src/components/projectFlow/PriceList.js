@@ -160,14 +160,13 @@ class PriceList extends PureComponent {
         })
   
       }
-    
+    console.log(showList)
     
 
       // Logic for displaying paginator
     const indexOfLastTodo = this.props.currentPage * this.todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - this.todosPerPage;
     const currentshowList = showList.slice(indexOfFirstTodo, indexOfLastTodo);
-
     const itemsForPagination = Math.ceil(showList.length/10)
 
     return (

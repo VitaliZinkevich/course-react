@@ -5,21 +5,7 @@ import {mainFormFillEvents} from '../../../events/events'
 
 export class FoodForm extends PureComponent {
 
-   state={
-       type: this.props.foodValue
-   }
-
-   componentWillReceiveProps (newProps){
-       console.log ((newProps.foodValue !== this.props.foodValue))
-       console.log(newProps.foodValue)
-
-    
-        this.setState ({type: newProps.foodValue})
-    
-
-   }
-  
-   render() {
+  render() {
 
     let foodTypes = ['Любое', 'Без питания','Завтраки','Завтрак и ужин','Завтрак, обед и ужин', 'Все включено']
     let foodTypesvalues = ['Any', 'AO','BB','HB','FB', 'ALL']
@@ -27,10 +13,10 @@ export class FoodForm extends PureComponent {
 
     let foodOptions = foodTypes.map ((el, index)=>{
         return (
-            <option key = {index} value={foodTypesvalues[index]}>{el}</option>
+            <option key = {index} selected={foodTypesvalues[index] === this.props.foodValue ? true: false} value={foodTypesvalues[index]}>{el}</option>
         )
     })
-    // key={this.props.foodValue.toString()}
+    
     return (
     <div > <Input 
         
@@ -42,7 +28,7 @@ export class FoodForm extends PureComponent {
         icon='free_breakfast'
         name='foodType'
         s={12} type='select' label="Питание"
-        defaultValue={this.state.type.toString()} >
+        >
             {foodOptions}
         </Input>
         
