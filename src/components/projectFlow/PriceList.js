@@ -5,11 +5,27 @@ import {Pagination} from 'react-materialize'
 import {paginationActivePage} from '../../redux/hotelsActions'
 import { withRouter } from "react-router";
 import {fromJS} from 'immutable'
+import {queryStringEvent} from '../../events/events'
+
+
 
 class PriceList extends PureComponent {
 
   todosPerPage = 10;
  
+
+  componentWillReceiveProps(newProps){
+    // console.log(typeof newProps.currentPage)
+    // console.log(typeof this.props.currentPage)
+
+    if (newProps.currentPage !== this.props.currentPage) {
+      queryStringEvent.emit ('makeQueryString')
+    }
+    
+  }
+
+
+
   buyButton = (buyOptions)=>{
     // роутер тут
     
@@ -28,7 +44,11 @@ class PriceList extends PureComponent {
 
   paginationSelect = (pageNum)=>{
     // диспатчнуть состояние активной кнопки
+    
     this.props.dispatch (paginationActivePage(pageNum))
+    
+    queryStringEvent.emit ('makeQueryString')
+
   }
 
     
@@ -37,7 +57,7 @@ class PriceList extends PureComponent {
 
 
     console.log ('PRICELIST RENDER')
-    console.log (this.props)
+    //console.log (this.props)
     
 
     
@@ -150,7 +170,6 @@ class PriceList extends PureComponent {
 
     const itemsForPagination = Math.ceil(showList.length/10)
 
-   
     return (
        <div>
     {currentshowList}
@@ -158,9 +177,9 @@ class PriceList extends PureComponent {
       <Pagination 
       className='center' 
       items={itemsForPagination} 
-      activePage={this.props.currentPage} 
+      activePage={parseInt (this.props.currentPage)} 
       maxButtons={8} 
-      onSelect={this.paginationSelect}
+      onSelect={(e)=>{this.paginationSelect(e)}}
       />
      
     ): null}

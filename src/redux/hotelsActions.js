@@ -35,5 +35,13 @@ const paginationActivePage=function(page) {
   };
 }
 
+const LINK_WITH_SEARCH_QUERY = 'LINK_WITH_SEARCH_QUERY'
+const linkWithQuerToProps=function(settings) {
+  return {
+    type: LINK_WITH_SEARCH_QUERY,
+    settings: settings
+  };
+}
 
-export {fetchHotels, seacrhFormHandleChangeRedux, priceListActivate, paginationActivePage}
+
+export {fetchHotels, seacrhFormHandleChangeRedux, priceListActivate, paginationActivePage, linkWithQuerToProps}

@@ -15,7 +15,7 @@ let initState = {
     starsType:'Любой',
     dateFrom:null,
     dateTo:null,
-    datesError:[''],//[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
+    datesError:[],//[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
     nights:[1],
     adults: 1,
     children: 0,
@@ -273,9 +273,76 @@ const hotelsReducer = (state = initState, action) => {
         }
 
         case 'PAGINATION_ACTIVE_PAGE':{
-            console.log (action.page)
+            //console.log (action.page)
             newState = newState.setIn (['currentPage'], action.page)
             return newState
+        }
+
+        case 'LINK_WITH_SEARCH_QUERY' : {
+            //console.log (action.settings)
+            let {dateFrom, dateTo, nights, adults ,children,foodType ,currentPage ,selectedHotels} = action.settings
+
+
+            
+
+            if (dateFrom) {
+                newState = newState.setIn (['dateFrom'], dateFrom)
+            }
+
+            if (dateTo) {
+                newState = newState.setIn (['dateTo'], dateTo)
+            }
+
+            if (nights) {
+                let newNights = fromJS(nights.split(','). map (el=>parseInt(el)))
+                //console.log (newNights)
+                newState = newState.setIn (['nights'], newNights)
+            }
+
+            if (adults) {
+                newState = newState.setIn (['adults'], parseInt (adults))
+            }
+
+            if (children) {
+                newState = newState.setIn (['children'], parseInt (children))
+
+            }
+
+            if (foodType) {
+                newState = newState.setIn (['foodType'], foodType)
+            }
+            // не вносит изменения в ссылку по клику на пагинатор
+            if (currentPage) {
+                console.log(currentPage)
+                newState = newState.setIn (['currentPage'], currentPage)
+
+            }
+            // когда диспатчит это еще нет отелей с сервера и списко пуст
+            if (selectedHotels) {
+            let querySelectedHotels = selectedHotels.split(',')
+             //console.log(querySelectedHotels)
+            
+             let newSelectedList = newState.get ('hotels')
+            // нет еще хотелов
+           
+
+             console.log(newSelectedList)
+
+             newSelectedList = newSelectedList.filter ((el)=>{
+                 console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
+                if (querySelectedHotels.indexOf(el.get('_id')) !== -1) {
+                    return true
+                } else {
+                    return false
+                }
+
+            })
+
+             console.log(newSelectedList)
+            }
+            newState=newState.setIn (['priceListStatus'], true)
+            return newState
+
         }
 
         default:
@@ -295,7 +362,7 @@ function checkErrors (startFrom, startTo) {
    let start = moment(startFrom, "DD-MM-YYYY")
    let end = moment(startTo, "DD-MM-YYYY")
 
-   console.log (!(start.isValid()))
+   //console.log (!(start.isValid()))
 
    if (start.isValid()) {
    } else {

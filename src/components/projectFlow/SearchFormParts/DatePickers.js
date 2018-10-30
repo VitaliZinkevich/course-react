@@ -52,6 +52,7 @@ render (){
         type='date' 
         onChange={(e, value)=>{this.handleChangeDates(e, value)}}
         options={dateOptions}
+        value={this.props.valueFrom || ''}
         />
 
         <Input
@@ -62,6 +63,7 @@ render (){
         type='date' 
         onChange={(e, value)=>{this.handleChangeDates(e, value)}} 
         options={dateOptions}
+        value={this.props.valueTo || ''}
         />
     </div>
     )

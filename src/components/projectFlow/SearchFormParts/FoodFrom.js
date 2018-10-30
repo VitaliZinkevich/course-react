@@ -5,7 +5,19 @@ import {mainFormFillEvents} from '../../../events/events'
 
 export class FoodForm extends PureComponent {
 
-   
+   state={
+       type: this.props.foodValue
+   }
+
+   componentWillReceiveProps (newProps){
+       console.log ((newProps.foodValue !== this.props.foodValue))
+       console.log(newProps.foodValue)
+
+    
+        this.setState ({type: newProps.foodValue})
+    
+
+   }
   
    render() {
 
@@ -18,9 +30,10 @@ export class FoodForm extends PureComponent {
             <option key = {index} value={foodTypesvalues[index]}>{el}</option>
         )
     })
-
+    // key={this.props.foodValue.toString()}
     return (
-        <Input 
+    <div > <Input 
+        
         onChange={(e)=>{
             mainFormFillEvents.emit ('handleSearchForm', {
                 name: e.target.name,
@@ -28,9 +41,14 @@ export class FoodForm extends PureComponent {
         }}
         icon='free_breakfast'
         name='foodType'
-        s={12} type='select' label="Питание" >
+        s={12} type='select' label="Питание"
+        defaultValue={this.state.type.toString()} >
             {foodOptions}
         </Input>
+        
+    </div>
+       
+
     )
   }
 }

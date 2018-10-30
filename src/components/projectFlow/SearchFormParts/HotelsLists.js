@@ -27,7 +27,7 @@ export class HotelsLists extends PureComponent {
 
   render() {
      console.log ('RENDER HOTEL LIST')
-     console.log (this.props)
+     //console.log (this.props)
 
      let collapsibleItemsMinsk = this.props.hotels.filter((el)=>{return(
         el.get ('region') =='Минская область')}).map ((el)=>{

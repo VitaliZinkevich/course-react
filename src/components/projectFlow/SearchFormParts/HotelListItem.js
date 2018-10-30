@@ -5,7 +5,7 @@ import {mainFormFillEvents} from '../../../events/events'
 export default class HotelListItem extends PureComponent {
   render() {
     //this.props= this.props.toJS()
-    console.log (this.props)
+    //console.log (this.props)
     console.log (`RENDER HOTEL LIST ${this.props.hotel.get ('_id')}`)
     return (
          <div  className='hotelList'>

@@ -21,19 +21,46 @@ class NightsForm extends PureComponent {
     }
 
     let formView = startArray.map ((el, ind)=>{
-      return (
+      
+      let isChecked = (this.props.valueNights.indexOf (ind+1) !== -1) ? true : false;
+      // console.log("RENDER NIGHTS")
+      // console.log((isChecked))
+      
+      if (isChecked) {
+
+        return (
+          
+          <div key={ind.toString()+this.props.valueNights.toString()}>
+          <Input
+          
+          checked
+          name='nights' 
+          type='checkbox' 
+          labelClassName='black-text' 
+          label={el} 
+          onChange={(e)=>{this.handleNights(e,ind)}}/>
+          </div>
+          
+        )
+
+      } else {
+
+        return (
         
-        <div key={ind}>
-        <Input
-        checked={ind == 0} 
-        name='nights' 
-        type='checkbox' 
-        labelClassName='black-text' 
-        label={el} 
-        onChange={(e)=>{this.handleNights(e,ind)}}/>
-        </div>
-        
-      )
+          <div key={ind.toString()+this.props.valueNights.toString()}>
+          <Input
+          
+          
+          name='nights' 
+          type='checkbox' 
+          labelClassName='black-text' 
+          label={el} 
+          onChange={(e)=>{this.handleNights(e,ind)}}/>
+          </div>
+          
+        )
+      }
+     
       
 
     })

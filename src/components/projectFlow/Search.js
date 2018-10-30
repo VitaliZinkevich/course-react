@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // url crypting 
 import { Base64 } from 'js-base64';
-
+import {isBase64} from 'is-base64'
 // immutable proptypes
 import ImmutablePropTypes from 'react-immutable-proptypes'
 
@@ -18,7 +18,7 @@ import queryString from 'query-string';
 
 // action
 import {fetchHotels} from '../../redux/hotelsActions'
-import {seacrhFormHandleChangeRedux, priceListActivate} from '../../redux/hotelsActions'
+import {seacrhFormHandleChangeRedux, priceListActivate, linkWithQuerToProps} from '../../redux/hotelsActions'
 
 
 // form parts 
@@ -36,7 +36,7 @@ import PriceList from './PriceList'
 import {Input, Button, Row, Col, Preloader} from 'react-materialize'
 
 // events flow
-import {mainFormFillEvents} from '../../events/events'
+import {mainFormFillEvents, queryStringEvent} from '../../events/events'
 
 
 
@@ -128,34 +128,35 @@ class Search extends Component{
 
     }
 
-
-    componentDidMount(){
+   componentDidMount(){
       
     // если пропсы неизменного списка пусты просим список у сервера    
         if (this.props.hotels.size === 0){
             this.props.dispatch (fetchHotels)
+
         }
 
     // events listners
         mainFormFillEvents.addListener('handleSearchForm', this.handleChange )
+        queryStringEvent.addListener('makeQueryString', this.createQueryLink )
 
-    // проверяем строку урла на сформированный ключ бывшего поиска 
-    console.log (this.props.location.search)
-    
-    if (this.props.location.search) {
 
-            let query = Base64.decode (this.props.location.search)   
-            console.log(query)
-            const parsedHash = queryString.parse(query);
-            console.log(parsedHash);
-    }
-    
+        if (this.props.location.search !== '') {
            
+            let query = this.props.location.search
+            // query = Base64.decode (this.props.location.search)
+            const parsedHash = queryString.parse(query);
+            //console.log(parsedHash)
+            this.props.dispatch (linkWithQuerToProps(parsedHash))
             
-            // console.log (parsedHash)
-            // console.log (parsedHash.dateTo)
-            // console.log (parsedHash.nights)
+            // if (valid === true) {
 
+            //     // диспатчнуть новые пропсы для формы и создать как уже после поиска
+            // } else {
+            //     window.Materialize.toast ('Передана неверная ссылка',2000)
+            //     //редирект на главну, смотря что откроет
+            // }
+            }
 
     }
 
@@ -178,12 +179,12 @@ class Search extends Component{
             
         }
 
-        
 
     }
 
     componentWillUnmount (){
         mainFormFillEvents.removeListener('handleSearchForm', this.handleChange)
+        queryStringEvent.removeListener('makeQueryString', this.createQueryLink )
     }
 
     handleChange=(data)=>{
@@ -191,33 +192,40 @@ class Search extends Component{
         this.props.dispatch (seacrhFormHandleChangeRedux (name, value ))   
     }
 
-    searchButtonClick= (e)=>{
+    searchButtonClick= ()=>{
         // создаем ссылку из адресной строки по параметрам поиска и 
-     
-        //console.log (this.props.nights)
+        // let selectedHotelsValue = this.props.selectedHotels.toJS().map (el=>el._id)
 
+       
+        this.createQueryLink()
+
+        this.props.dispatch (priceListActivate())
+       
+    }
+
+    createQueryLink = ()=>{
         let forURL = queryString.stringify({ 
             dateFrom: this.props.dateFrom, 
             dateTo: this.props.dateTo, 
-            nights:this.props.nights,
+            nights:this.props.nights.toJS().toString(),
+            adults:this.props.adults,
+            children:this.props.children,
+            foodType: this.props.foodType,
+            currentPage:this.props.currentPage,
+            //selectedHotels:selectedHotelsValue.toString(),
+            //currentPage:this.props.currentPage, не формируется на ссылка новая на клик по пагинатору
+            // фомируется в момент клина на кнопку поиска
             
-        
+            
         })
-
-        forURL = Base64.encode(forURL)
-     
-        
+               
+      
+             
         this.props.history.push({
             pathname: '/',
             search: forURL
           })
-
-        // жесточайше проверять валидность строк перед их вставкай и сообщать юзеру если не проходят  
-        
-        this.props.dispatch (priceListActivate())
-        //console.log (this.props)
     }
-
 
   
     render() {
@@ -236,6 +244,8 @@ class Search extends Component{
                 <Col s={12}>
                     <h5>Даты начала тура</h5>
                     <DatePikers
+                    valueFrom={this.props.dateFrom}
+                    valueTo={this.props.dateTo}
                    />
 
                 </Col>        
@@ -244,14 +254,18 @@ class Search extends Component{
             <Row>
                 <Col s={12}>
                     <h5>Количество ночей </h5>
-                    <NightsForm/>
+                    <NightsForm
+                    valueNights = {this.props.nights}
+                    />
                 </Col>
             </Row>
 
             <Row>
                 <Col s={12}>
                 <Persons
-                children={this.props.children}
+                childrenValue={this.props.children}
+                adultValue={this.props.adults}
+
                 />
                 </Col>
                 
@@ -263,7 +277,9 @@ class Search extends Component{
                 </Col>
 
                 <Col s={6}>
-                    <FoodForm/>
+                    <FoodForm
+                    foodValue={this.props.foodType}
+                    />
                 </Col>
             </Row>
             
@@ -310,10 +326,14 @@ class Search extends Component{
             
             
             <Row>
+                
                 <Col s={12}>
                 <Button
                 id='searchButton'
-                disabled = {this.props.hotelPendingErrors != '' || this.props.datesError.size != 0 ||  this.props.formMessages.size != 0 ? true : false} 
+                disabled = {this.props.hotelPendingErrors != '' 
+                || this.props.datesError.size != 0 ||  this.props.formMessages.size != 0 
+                || this.props.dateFrom === null 
+                || this.props.dateTo === null ? true : false} 
                 large 
                 className='green right'
                 waves='light' 
@@ -358,7 +378,7 @@ let mapStateToProps = (state) => {
         hotelPendingErrors: state.hotelsData.get ('hotelPendingErrors'),
         datesError: state.hotelsData.get ('datesError'),
         formMessages: state.hotelsData.get ('formMessages'),
-        
+        foodType:state.hotelsData.get ('foodType'),
         // props for PriceList
         priceListStatus: state.hotelsData.get ('priceListStatus'),
         dateFrom:state.hotelsData.get ('dateFrom'),
