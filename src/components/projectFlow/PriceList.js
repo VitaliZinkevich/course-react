@@ -4,9 +4,8 @@ import moment from 'moment'
 import {Pagination} from 'react-materialize'
 import {paginationActivePage} from '../../redux/hotelsActions'
 import { withRouter } from "react-router";
-import {fromJS} from 'immutable'
 import {queryStringEvent} from '../../events/events'
-
+import { Route, BrowserRouter, Switch} from 'react-router-dom'
 
 
 class PriceList extends PureComponent {
@@ -27,19 +26,18 @@ class PriceList extends PureComponent {
 
 
   buyButton = (buyOptions)=>{
-    // роутер тут
-    
-    // авторизация после этого клика
-
 
     //объект настроек покупки для создания компонента бронирования
-    const BUY_OPTIONS = fromJS (buyOptions);
+     // начало процесса покупки с переходом на другой компонент и auth
     
+    this.props.history.push({
+      pathname: '/booking',
+      state: buyOptions})
 
-    // начало процесса покупки с переходом на другой компонент и auth
-    console.log (BUY_OPTIONS)
-    this.props.history.push('/booking')
+   
     
+   
+      
   }
 
   paginationSelect = (pageNum)=>{
@@ -138,12 +136,12 @@ class PriceList extends PureComponent {
                   <button 
                     onClick={()=>{this.buyButton ({
                       date:date,
-                      night:night ,
-                      hotel:hotel, 
-                      room:room, 
+                      night:night,
+                      hotel:hotel.toJS(), 
+                      room:room.toJS(), 
                       adults:this.props.adults, 
                       children:this.props.children, 
-                      currentPage:this.props.currentPage})}}
+                      })}}
                     className='waves-effect waves-light btn blue'>Купить
                   </button>
 
@@ -160,7 +158,7 @@ class PriceList extends PureComponent {
         })
   
       }
-    console.log(showList)
+    
     
 
       // Logic for displaying paginator

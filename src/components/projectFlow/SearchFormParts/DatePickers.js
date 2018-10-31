@@ -14,6 +14,11 @@ class DatePickers extends  Component{
     
 
 render (){
+
+    console.log('RENDER DATEPICKERS')
+    console.log(this.props)
+
+
     // максимальная дата доступная в календаре
     let result = new Date()
     result.setDate(result.getDate()+183)
@@ -35,12 +40,12 @@ render (){
         closeOnSelect: true,
     }
 
-    console.log(this.props.valueFrom !== null ? this.props.valueFrom : '')
+    
    return (
     <div>
         <Input 
         s={6} 
-        value={this.props.valueFrom !== null ? this.props.valueFrom : ''}
+        value={this.props.valueFrom || ''}
         placeholder='Заселение с'
         name='dateFrom' 
         type='date' 

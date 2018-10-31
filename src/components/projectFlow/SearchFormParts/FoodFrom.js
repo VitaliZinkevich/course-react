@@ -27,7 +27,9 @@ export class FoodForm extends PureComponent {
         }}
         icon='free_breakfast'
         name='foodType'
-        s={12} type='select' label="Питание"
+        s={12} 
+        type='select' 
+        label="Питание"
         >
             {foodOptions}
         </Input>

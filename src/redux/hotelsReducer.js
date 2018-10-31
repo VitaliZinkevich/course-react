@@ -314,24 +314,24 @@ const hotelsReducer = (state = initState, action) => {
             }
             // не вносит изменения в ссылку по клику на пагинатор
             if (currentPage) {
-                console.log(currentPage)
+                //console.log(currentPage)
                 newState = newState.setIn (['currentPage'], currentPage)
 
             }
             // когда диспатчит это еще нет отелей с сервера и списко пуст
             if (selectedHotels) {
             let querySelectedHotels = selectedHotels.split(',')
-            console.log(querySelectedHotels)
+            //console.log(querySelectedHotels)
             
            
             let hotels = newState.get ('hotels')
            
            
           
-             console.log(newSelectedList)
+            // console.log(newSelectedList)
 
             let newSelectedList = hotels.filter ((el)=>{
-                 console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
+               //  console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
                 if (querySelectedHotels.indexOf(el.get('_id')) !== -1) {
                     return true
                 } else {
@@ -341,7 +341,7 @@ const hotelsReducer = (state = initState, action) => {
             })
 
            let newMainList = hotels.filter ((el)=>{
-                console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
+               // console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
                if (querySelectedHotels.indexOf(el.get('_id')) !== -1) {
                    return false
                } else {
@@ -350,7 +350,7 @@ const hotelsReducer = (state = initState, action) => {
 
            })
 
-            console.log(newSelectedList)
+            //console.log(newSelectedList)
             newState = newState.setIn (['selectedHotels'], newSelectedList).setIn (['mainList'], newMainList)
 
             }
