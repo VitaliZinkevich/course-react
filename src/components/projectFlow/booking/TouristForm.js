@@ -5,22 +5,6 @@ import {Input, Button, Row, Col,Icon } from 'react-materialize'
 export default class TouristhtmlForm extends PureComponent {
 
 
-  state = {
-    firstName: '',
-    lastName:'',
-    passSeries:'',
-    passNumber:'',
-    passValidTill:'',
-    contactTel:'',
-    contactEmail:'',
-  }
-
-  handleChange=(e)=>{
-    console.log (e.target.value)
-    this.setState ({[e.target.name]: e.target.value})
-
-}
-
   render() {
    
     //console.log (this.state)
@@ -29,20 +13,20 @@ export default class TouristhtmlForm extends PureComponent {
     <div className='touristForm'>
      
       <Row>
-      <p className='col s12 black-text flow-text'>Турист номер {this.props.index}</p>
+      <p className='col s12 black-text flow-text'>Турист номер {this.props.index+1}</p>
         <Input s={6} 
         label="Имя"
         name='firstName'
         labelClassName='black-text'
         icon='account_circle'
-        onChange={this.handleChange}></Input>
+        onChange={(e)=>{this.props.handleChange(e, this.props.index)}}></Input>
         <Input 
         s={6} 
         name='lastName'
         label="Фамилия"
         labelClassName='black-text'
         icon='account_circle'
-        onChange={this.handleChange}
+        onChange={(e)=>{this.props.handleChange(e, this.props.index)}}
         ></Input>
       </Row>
 
@@ -54,7 +38,7 @@ export default class TouristhtmlForm extends PureComponent {
         labelClassName='black-text'
         icon='perm_identity'
         labelClassName='black-text'
-        onChange={this.handleChange}>
+        onChange={(e)=>{this.props.handleChange(e, this.props.index)}}>
         
         </Input>
 
@@ -62,7 +46,7 @@ export default class TouristhtmlForm extends PureComponent {
         name='passNumber'
         label="Номер"
         labelClassName='black-text'
-        onChange={this.handleChange}/>
+        onChange={(e)=>{this.props.handleChange(e, this.props.index)}}/>
 
         <Input
         s={4} 
@@ -72,19 +56,17 @@ export default class TouristhtmlForm extends PureComponent {
         type='date' 
         labelClassName='black-text'
         readOnly
-        onChange={this.handleChange}
+        onChange={(e)=>{this.props.handleChange(e, this.props.index)}}
         ></Input>
    
       </Row>
 
-
-
-
-        
-       
-        
     </div>
       
     )
   }
+
+
 }
+
+ 

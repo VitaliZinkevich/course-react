@@ -3,16 +3,9 @@ import {Row, Input} from 'react-materialize'
 import { relativeTimeThreshold } from 'moment';
 export default class MainContacts extends PureComponent {
 
-    state = {
-        contactTel:'' ,
-        contactEmail:'',
-    }
+ 
 
-    handleChange=(e)=>{
-        
-        this.setState ({[e.target.name]: e.target.value})
-
-    }
+   
 
   render() {
       console.log (this.state)
@@ -26,16 +19,16 @@ export default class MainContacts extends PureComponent {
         label="Телефон" 
         labelClassName='black-text'
         icon='contact_phone'
-        onChange={this.handleChange}
-        value={this.state.contactTel} ></Input>
+        onChange={(e)=>{this.props.handleChange(e, null)}}
+         ></Input>
         <Input 
         s={6} 
         name='contactEmail'
         label="Электронная почта" 
         labelClassName='black-text'
         icon='contact_mail'
-        onChange={this.handleChange}
-        value={this.state.contactEmail}></Input>
+        onChange={(e)=>{this.props.handleChange(e, null)}}
+        ></Input>
       </Row>
       </div>
     )

@@ -77,6 +77,7 @@ input::placeholder {
 
 .saveButton {
   margin: 10px 0px 20px 0px;
+  color: black;
 }
 
 .touristForm {

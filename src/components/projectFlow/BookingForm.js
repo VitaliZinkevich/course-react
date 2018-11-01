@@ -10,29 +10,85 @@ export default class BookingForm extends PureComponent {
   
   constructor(props) {
     super(props);
- 
-    this.state = { ... this.props.location.state, touristsData: []};
+  
+    let number = parseInt (this.props.location.state.adults)+ parseInt (this.props.location.state.children)
+   
+    let touristDataforState = []
+    for (let i = 0; i < number; i++) {
+      touristDataforState.push({
+        firstName: '',
+        lastName:'',
+        passSeries:'',
+        passNumber:'',
+        passValidTill:'',
+        
+
+      })
+    }
+
+
+    this.state = { ... this.props.location.state,
+       touristsData: touristDataforState, 
+       contactTel:'', 
+       contactEmail:'',
+       validationErrors: ['Заполните все данные туристов']};
   }
+
 
 
   saveOrder=()=>{
-    console.log ('SAVE BUTTON')
-
+    
+    this.validate (this.state)
   }
+
+  handleChange=(e, index=null)=>{
+    // console.log (e.target.name)  
+    // console.log (e.target.value)   
+    // console.log(index)
+
+    if (index !== null ) {
+
+      let newTouristData = [...this.state.touristsData]
+      newTouristData[index][e.target.name] = e.target.value
+
+      this.setState ({touristsData: newTouristData})
+    } else {
+      this.setState ({[e.target.name]: e.target.value})
+    }
+
+   
+}
+
+validate=(state)=>{
+
+  
+  
+  if (this.state.validationErrors.length !== 0) {
+
+    for (let e of this.state.validationErrors) {
+        window.Materialize.toast(e, 3000)
+    }
+    
+}
+
+
+}
 
   
   render() {
   // console.log(this.props)
   //console.log(  this.props.location.state)
-
-  let formForEachTourists = []
+  
+  let formForEachTouristData = [];
   let number = parseInt (this.state.adults)+ parseInt (this.state.children)
 
   //console.log(number)
-  for (let i = 1; i<=number; i++) {
-     formForEachTourists.push(<TouristForm key={i} index={i}/>)
+  for (let i = 0; i<number; i++) {
+    formForEachTouristData.push(<TouristForm handleChange={this.handleChange} key={i} index={i}/>)
+    
   }
- //console.log(formForEachTourists)
+
+
 
     return (
 
@@ -78,15 +134,19 @@ export default class BookingForm extends PureComponent {
                 ch={this.state.children}/>
 
               </div>
-                  <MainContacts/>
-            {formForEachTourists}
+                  <MainContacts
+                  handleChange={this.handleChange}
+                  />
+            
+            {formForEachTouristData}
               
               
               <Button
-              className="saveButton"
+              
+              className="saveButton right green"
               waves='green'
               onClick={this.saveOrder}
-              >Сохранить</Button>
+              >Забронировать</Button>
 
          
 
