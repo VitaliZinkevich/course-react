@@ -4,6 +4,13 @@ const express = require('express')
 const app = express()
 const port = 8080
 
+let bodyParser = require('body-parser')
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Credentials", "true");
@@ -11,6 +18,8 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next();
 });
+
+
 
 app.listen(port, () => console.log(`app listening on port ${port}!`))
 
@@ -64,4 +73,10 @@ app.get('/', (req, res) => {
     }
 
 )
+
+
+app.post('/neworder', function (req, res) {
+    console.log (req.body)
+    res.send('Спасибо, завка получена')
+  })
 

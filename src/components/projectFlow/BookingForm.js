@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-
+import axios from 'axios'
 import TouristForm from './booking/TouristForm'
 import OrderDetailes from './booking/OrderDetailes'
 import MainContacts from './booking/MainContacts'
@@ -28,23 +28,42 @@ export default class BookingForm extends PureComponent {
 
 
     this.state = { ... this.props.location.state,
-       touristsData: touristDataforState, 
-       contactTel:'', 
-       contactEmail:'',
-       validationErrors: ['Заполните все данные туристов']};
+      touristsData: touristDataforState, 
+      contactTel:'', 
+      contactEmail:'',
+      validationErrors: ['Заполните все данные туристов'],
+      message: ''}
   }
 
 
 
   saveOrder=()=>{
     
-    this.validate (this.state)
+   let canSendToServer= true
+   this.validate (this.state)
+
+    if (canSendToServer )
+
+   axios.post('http://localhost:8080/neworder', {
+    hotel: this.state.hotel.name,
+    room: this.state.room,
+    date: this.state.date,
+    night: this.state.night,
+    adults:this.state.adults,
+    children:this.state.children,
+    contactEmail:this.state.contactEmail,
+    contactTel:this.state.contactTel,
+    touristsData:this.state.touristsData
+
+  }).then ((res)=>{
+    this.setState({message :res.data})
+  })
+
+
   }
 
   handleChange=(e, index=null)=>{
-    // console.log (e.target.name)  
-    // console.log (e.target.value)   
-    // console.log(index)
+  
 
     if (index !== null ) {
 
@@ -60,10 +79,7 @@ export default class BookingForm extends PureComponent {
 }
 
 validate=(state)=>{
-
-  
-  
-  if (this.state.validationErrors.length !== 0) {
+    if (this.state.validationErrors.length !== 0) {
 
     for (let e of this.state.validationErrors) {
         window.Materialize.toast(e, 3000)
@@ -140,6 +156,11 @@ validate=(state)=>{
             
             {formForEachTouristData}
               
+              {this.state.message === ''? null: (<div className= 'center green-text'>
+
+              {this.state.message}
+
+              </div>)}
               
               <Button
               
