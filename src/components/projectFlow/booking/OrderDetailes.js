@@ -31,7 +31,7 @@ export default class OrderDetailes extends PureComponent {
            <p>{this.props.night+1}</p>
           </div>
           <div>
-          Выселение   <p>{`${(start.date().length == 1 ? '0'+start.date():start.date() )}.${start.month()+1}.${start.year()}`}</p>
+          Выселение   <p>{`${(start.date().length === 1 ? '0'+start.date():start.date() )}.${start.month()+1}.${start.year()}`}</p>
           </div>
           <div>
           Размещение   <p>{this.props.ad.toString()+'+'+this.props.ch.toString()}</p>

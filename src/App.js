@@ -11,9 +11,6 @@ import HotelDetailes from './components/projectFlow/HotelDetailes'
 import BookingForm from './components/projectFlow/BookingForm'
 //import './App.css';
 
-// react materialize 
-import {Input, Navbar, NavItem, Button, Row} from 'react-materialize'
-import $ from 'jquery'
 
 
 class App extends Component{

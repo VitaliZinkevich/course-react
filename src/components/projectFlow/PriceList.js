@@ -5,7 +5,7 @@ import {Pagination} from 'react-materialize'
 import {paginationActivePage} from '../../redux/hotelsActions'
 import { withRouter } from "react-router";
 import {queryStringEvent} from '../../events/events'
-import { Route, BrowserRouter, Switch} from 'react-router-dom'
+
 
 
 class PriceList extends PureComponent {
@@ -89,7 +89,7 @@ class PriceList extends PureComponent {
       //console.log (hotel.rooms)
         let newRooms
           newRooms = hotel.get('rooms').filter ((room) => {
-          if (room.get ('accomodation').indexOf (personsAcc) != -1) {
+          if (room.get ('accomodation').indexOf (personsAcc) !== -1) {
             return true
           } else {
             return false

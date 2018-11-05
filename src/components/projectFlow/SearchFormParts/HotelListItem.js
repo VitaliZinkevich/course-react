@@ -1,11 +1,9 @@
-import React, { Component, PureComponent } from 'react'
-import {Input, Icon, Row} from 'react-materialize'
+import React, { PureComponent } from 'react'
+import {Input, Icon} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
 
 export default class HotelListItem extends PureComponent {
   render() {
-    //this.props= this.props.toJS()
-    //console.log (this.props)
     console.log (`RENDER HOTEL LIST ${this.props.hotel.get ('_id')}`)
     return (
          <div  className='hotelList'>

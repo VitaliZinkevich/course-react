@@ -1,5 +1,5 @@
 import React from 'react'
-import {Input, Navbar, NavItem, Button, Row, Icon} from 'react-materialize'
+import {Input} from 'react-materialize'
 
 import {mainFormFillEvents} from '../../../events/events'
 
@@ -9,16 +9,9 @@ handlePersons=(e)=>{
     mainFormFillEvents.emit ('handleSearchForm' , {name: e.target.name,value:parseInt (e.target.value)})
 }
 
-// componentWillReceiveProps (newProps){
-//     if (newProps.adultValue!=this.props.adultValue && newProps.childrenValue!=this.props.childrenValue) {
-//         this.render()
-//     }
-// }
-
 render (){
     console.log('PERSONS RENDER')
-    // console.log(typeof this.props.adultValue)
-    // console.log(typeof this.props.childrenValue)
+
     let options = [1,2,3]
     let optionsA =options.map((el, i)=>{
         return(
@@ -32,9 +25,7 @@ render (){
             <option key={i} selected={options2[i] ===  this.props.childrenValue} value={el}>{el} ребенок</option>
         )
     })
-    //console.log(this.props)
-    //this.props.adultValue.toString()+this.props.childrenValue.toString()
-    // key={this.props.adultValue}
+
     return (
         <div>
             

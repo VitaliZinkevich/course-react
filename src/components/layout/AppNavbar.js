@@ -1,10 +1,7 @@
 import React from 'react'
 import { Link, NavLink, withRouter } from 'react-router-dom'
 
-// import 'materialize-css/dist/css/materialize.min.css'
-// import M from 'materialize-css'
-
-import {Navbar,NavItem, Icon} from 'react-materialize'
+import {Navbar,NavItem} from 'react-materialize'
 
 
 import SingIn from '../auth/SingIn'
@@ -17,9 +14,9 @@ render (){
         
     <Navbar brand={<Link to ='/'>welcomebelarus.ru</Link>} right>
         
-        <NavItem onClick={console.log ()}><NavLink className='black-text' to='/'>Home</NavLink></NavItem>
-        <NavItem><NavLink className='black-text' to='/about'> About</NavLink></NavItem>
-        <NavItem><NavLink className='black-text' to='/contacts'>Contacts </NavLink></NavItem>
+        <NavItem onClick={console.log ()}><NavLink className='black-text' to='/'>Поиск</NavLink></NavItem>
+        <NavItem><NavLink className='black-text' to='/about'> О компании</NavLink></NavItem>
+        <NavItem><NavLink className='black-text' to='/contacts'>Контакты </NavLink></NavItem>
         
     </Navbar>
         

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import {Input, Icon} from 'react-materialize'
+
+import {Input} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
 
 export class StarsForm extends PureComponent {

@@ -11,23 +11,13 @@ import { Provider } from 'react-redux'
 // import async staff for redux
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
-import axios from 'axios'
 import promise from 'redux-promise-middleware'
 
-
 // import reducers 
-
 import combinedReducer from './redux/reducer'
-// import Redux actions 
-import {fetchHotels} from './redux/hotelsActions'
+
 
 const store = createStore(combinedReducer, applyMiddleware(promise(),thunk, logger));
-
-// store.dispatch((dispatch)=>{
-//     dispatch (fetchHotels)
-// })
-// вызывается на каждый компонент при его создании
-//store.dispatch(fetchHotels) 
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

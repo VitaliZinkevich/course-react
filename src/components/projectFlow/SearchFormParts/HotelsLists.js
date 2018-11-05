@@ -1,36 +1,16 @@
-import React, { Component, PureComponent } from 'react'
-import {CollapsibleItem, Collapsible,Input, Navbar, NavItem, Button, Row, Col, Preloader, Icon} from 'react-materialize'
-import {mainFormFillEvents} from '../../../events/events'
+import React, {PureComponent} from 'react'
+import {CollapsibleItem, Collapsible,Row, Col} from 'react-materialize'
+
 import HotelListItem from './HotelListItem'
 
 export class HotelsLists extends PureComponent {
-
-
-  componentWillUnmount(){
-      //console.log ("componentWillUnmount")
-  }
-
-  componentWillReceiveProps (newprops){
-    //console.log ("componentWillReceiveProps")
-    //this.setState({selectedHotels:newprops.selectedHotels})
-    //console.log (newprops)
-   
-  }
-
-  handleChange=(e)=>{
-    //console.log (this.state.hotels)
-    // вот тут перерендарить Hotel List что бы снять выделение с инпута в основном списке если клик по выбранным 
-    //let element = this.props.hotels.find ((element)=>{ return element.get('_id')==e.target.value})
-    //console.log (element)
-    //mainFormFillEvents.emit ('handleSearchFormChange' ,{name:e.target.name, value: element})
-  }
 
   render() {
      console.log ('RENDER HOTEL LIST')
      //console.log (this.props)
 
      let collapsibleItemsMinsk = this.props.hotels.filter((el)=>{return(
-        el.get ('region') =='Минская область')}).map ((el)=>{
+        el.get ('region') ==='Минская область')}).map ((el)=>{
             return (
                 
                 <HotelListItem
@@ -43,7 +23,7 @@ export class HotelsLists extends PureComponent {
      } )
 
      let collapsibleItemsVitebsk = this.props.hotels.filter((el)=>{return(
-        el.get ('region') =='Витебская область')}).map ((el)=>{
+        el.get ('region') ==='Витебская область')}).map ((el)=>{
             return (
                
                    <HotelListItem

@@ -27,11 +27,11 @@ export default class BookingForm extends PureComponent {
     }
 
 
-    this.state = { ... this.props.location.state,
+    this.state = { ...this.props.location.state,
       touristsData: touristDataforState, 
       contactTel:'', 
       contactEmail:'',
-      validationErrors: ['Заполните все данные туристов'],
+      validationErrors: [],
       message: ''}
   }
 
@@ -39,12 +39,13 @@ export default class BookingForm extends PureComponent {
 
   saveOrder=()=>{
     
-   let canSendToServer= true
-   this.validate (this.state)
+   
 
-    if (canSendToServer )
+  let canSendToServer = this.validate (this.state)
 
-   axios.post('http://localhost:8080/neworder', {
+  if (canSendToServer)
+
+    axios.post('http://localhost:8080/neworder', {
     hotel: this.state.hotel.name,
     room: this.state.room,
     date: this.state.date,
@@ -79,16 +80,51 @@ export default class BookingForm extends PureComponent {
 }
 
 validate=(state)=>{
-    if (this.state.validationErrors.length !== 0) {
 
-    for (let e of this.state.validationErrors) {
-        window.Materialize.toast(e, 3000)
-    }
-    
-}
+  let errors = [];
+
+  if (this.state.contactTel === '' || this.state.contactEmail === '') {
+    errors.push ('Заполните все контактные данные')
+  } 
 
 
-}
+  this.state.touristsData.forEach((el,index)=>{
+
+      if ( el.firstName=== '' ||
+        el.lastName===''||
+        el.passSeries===''||
+        el.passNumber ===''||
+        el.passValidTill ===''
+      )  {
+        errors.push(`Заполните все данные на туриста ${index+1}`)
+      }
+
+
+
+  })
+
+
+
+  if (errors.length !== 0 ) {
+        
+        this.setState ({validationErrors: errors}, ()=>{
+
+          if (this.state.validationErrors.length !== 0) {
+
+            for (let e of this.state.validationErrors) {
+                window.Materialize.toast(e, 3000)
+            }
+
+        }
+        return false
+        
+      })
+      } else {
+        this.setState ({validationErrors: errors})
+        return true
+      }
+
+  }
 
   
   render() {
@@ -159,7 +195,8 @@ validate=(state)=>{
               {this.state.message === ''? null: (<div className= 'center green-text'>
 
               {this.state.message}
-
+              
+              
               </div>)}
               
               <Button

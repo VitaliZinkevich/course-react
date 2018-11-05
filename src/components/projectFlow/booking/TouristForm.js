@@ -1,12 +1,26 @@
 import React, { PureComponent } from 'react'
-import {Input, Button, Row, Col,Icon } from 'react-materialize'
+import {Input, Row} from 'react-materialize'
 
 
 export default class TouristhtmlForm extends PureComponent {
 
 
   render() {
-   
+    let dateOptions = {
+      min: new Date(),
+      monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+      weekdaysShort: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+      monthsShort: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октября', 'Ноября', 'Декабря'],
+      weekdaysFull: ['Воск', 'Пон', 'Вт', 'Ср', 'Чтв', 'Птн', 'Суб'],
+      firstDay: 1,
+      showMonthsShort: true,
+      showWeekdaysFull: true,
+      format: 'dd.mm.yyyy',
+      today: '',
+      clear: 'Очистить',
+      close: '',
+      closeOnSelect: true,
+  }
     //console.log (this.state)
     return (
   
@@ -37,7 +51,7 @@ export default class TouristhtmlForm extends PureComponent {
         label="Серия" 
         labelClassName='black-text'
         icon='perm_identity'
-        labelClassName='black-text'
+        
         onChange={(e)=>{this.props.handleChange(e, this.props.index)}}>
         
         </Input>
@@ -50,12 +64,13 @@ export default class TouristhtmlForm extends PureComponent {
 
         <Input
         s={4} 
-        name=''
+        
         label="Действителен до"
         name='passValidTill' 
         type='date' 
         labelClassName='black-text'
         readOnly
+        options={dateOptions}
         onChange={(e)=>{this.props.handleChange(e, this.props.index)}}
         ></Input>
    

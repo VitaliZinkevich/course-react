@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// url crypting 
-import { Base64 } from 'js-base64';
-import {isBase64} from 'is-base64'
+
 // immutable proptypes
 import ImmutablePropTypes from 'react-immutable-proptypes'
 
@@ -162,7 +160,7 @@ class Search extends Component{
 
     componentWillReceiveProps (newProps) {
        
-        if (newProps.datesError.size != 0) {
+        if (newProps.datesError.size !== 0) {
 
             for (let e of newProps.datesError) {
                 window.Materialize.toast(e, 3000)
@@ -171,7 +169,7 @@ class Search extends Component{
             
         }
 
-        if (newProps.formMessages.size != 0) {
+        if (newProps.formMessages.size !== 0) {
 
             for (let e of newProps.formMessages) {
                 window.Materialize.toast(e, 3000)
@@ -334,7 +332,7 @@ class Search extends Component{
                            {(this.props.hotelPendingErrors === '') ? (
                                 
                             <Col s={12}>
-                            <h6 className='green-text'>Найдено отелей {this.props.mainList.size}</h6>
+                            <h6 className='green-text'>Отелей в списке {this.props.mainList.size}</h6>
                             <HotelsLists 
                             hotels={this.props.mainList}
                             selectedHotels={this.props.selectedHotels}
@@ -353,8 +351,8 @@ class Search extends Component{
                 <Col s={12}>
                 <Button
                 id='searchButton'
-                disabled = {this.props.hotelPendingErrors != '' 
-                || this.props.datesError.size != 0 ||  this.props.formMessages.size != 0 
+                disabled = {this.props.hotelPendingErrors !== '' 
+                || this.props.datesError.size !== 0 ||  this.props.formMessages.size !== 0 
                 || this.props.dateFrom === null 
                 || this.props.dateTo === null ? true : false} 
                 large 
@@ -376,7 +374,7 @@ class Search extends Component{
                     nights={this.props.nights}
                     adults={this.props.adults}
                     children={this.props.children}
-                    toShow={(this.props.selectedHotels.size == 0) ? this.props.hotels: this.props.selectedHotels}
+                    toShow={(this.props.selectedHotels.size === 0) ? this.props.hotels: this.props.selectedHotels}
                     dispatch={this.props.dispatch}
                     currentPage={this.props.currentPage}
                     

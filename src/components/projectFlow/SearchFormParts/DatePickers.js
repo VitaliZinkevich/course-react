@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Input, Navbar, NavItem, Button, Row, Col, Preloader} from 'react-materialize'
-import moment from 'moment'
+import {Input} from 'react-materialize'
+
 
 //event flow
 import {mainFormFillEvents} from '../../../events/events'
@@ -16,8 +16,7 @@ class DatePickers extends  Component{
 render (){
 
     console.log('RENDER DATEPICKERS')
-    console.log(this.props)
-
+ 
 
     // максимальная дата доступная в календаре
     let result = new Date()

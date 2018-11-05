@@ -4,7 +4,7 @@ import {Icon} from 'react-materialize'
 
 import { Link } from "react-router-dom";
 
-import HotelDetailes from '../HotelDetailes'
+
 
 export default class PriceListItem extends Component {
   
@@ -12,7 +12,7 @@ export default class PriceListItem extends Component {
   
   render() {
     let endDate = moment(this.props.date, "DD-MM-YYYY").add(this.props.night+1, 'd')
-    let ckeckOutDate = `${(endDate.date().toString().length == 1) ? '0'+endDate.date() : endDate.date()}.${endDate.month()+1}.${endDate.year()}`
+    let ckeckOutDate = `${(endDate.date().toString().length === 1) ? '0'+endDate.date() : endDate.date()}.${endDate.month()+1}.${endDate.year()}`
     console.log ('PRICE LIST ITEM RENDER')
  
     

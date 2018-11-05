@@ -50,10 +50,10 @@ const hotelsReducer = (state = initState, action) => {
             
             newState= newState.set ('priceListStatus', false).set ('currentPage', 1)
             
-            if  (action.formName == 'mainList') {
+            if  (action.formName === 'mainList') {
                 //console.log ('mainList')
 
-                let addtoSelectedHotels = newState.get('mainList').find ((elem)=>{ return elem.get("_id") == action.fieldValue.get ('_id')})
+                let addtoSelectedHotels = newState.get('mainList').find ((elem)=>{ return elem.get("_id") === action.fieldValue.get ('_id')})
                 //console.log (addtoSelectedHotels)
                 let newMainList = newState.get ('mainList').filter ((element)=>{
                     if (element.get('_id')===action.fieldValue.get ("_id")) {
@@ -70,10 +70,10 @@ const hotelsReducer = (state = initState, action) => {
                 return newState
             }
 
-            if  (action.formName == 'selectedList') {
+            if  (action.formName === 'selectedList') {
                
 
-                let addtoMainList = newState.get('selectedHotels').find ((elem)=>{ return elem.get("_id") == action.fieldValue.get ('_id')})
+                let addtoMainList = newState.get('selectedHotels').find ((elem)=>{ return elem.get("_id") === action.fieldValue.get ('_id')})
                 //console.log (addtoMainList)
                 let newSelectedHotels = newState.get ('selectedHotels').filter ((element)=>{
                     if (element.get('_id')===action.fieldValue.get ('_id')) {
@@ -90,7 +90,7 @@ const hotelsReducer = (state = initState, action) => {
                 
                 if (newState.get ('search') === '' && (newState.get ('starsType')) === 'Любой'){
                     console.log('ALL CLEAR')
-                    newMainList = newState.get ('mainList'). push (addtoMainList)
+                    newMainList = newState.get ('mainList').push (addtoMainList)
                 }
 
                 //console.log (addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase()))
@@ -118,11 +118,11 @@ const hotelsReducer = (state = initState, action) => {
                 return newState
             }
 
-            if (action.formName == 'search' || action.formName == 'starsType') {
+            if (action.formName === 'search' || action.formName === 'starsType') {
                
                 let errors =fromJS ([])
 
-                if ( action.formName == 'starsType') {
+                if ( action.formName === 'starsType') {
                     newState = newState.setIn(['starsType'],action.fieldValue)
                 } else {
                     newState = newState.setIn(['search'],action.fieldValue)
@@ -156,7 +156,7 @@ const hotelsReducer = (state = initState, action) => {
 
                 // проверяем уже выбранные объекты
 
-                if (newState.get('selectedHotels').isEmpty() == true) {
+                if (newState.get('selectedHotels').isEmpty() === true) {
                     
                     // пусто ничего не меняем
                 } else {
@@ -199,16 +199,16 @@ const hotelsReducer = (state = initState, action) => {
                     return newState
                 }
 
-            if (action.formName == 'foodType') {
+            if (action.formName === 'foodType') {
                 newState = newState.setIn (['foodType'], action.fieldValue )
                 
                return newState
 
             }
             
-            if (action.formName == 'children' || action.formName == 'adults') {
+            if (action.formName === 'children' || action.formName === 'adults') {
 
-                if (action.formName == 'children') {
+                if (action.formName === 'children') {
                     newState = newState.setIn (['children'], action.fieldValue )
                 } else  {
                     newState = newState.setIn (['adults'], action.fieldValue )
@@ -218,7 +218,7 @@ const hotelsReducer = (state = initState, action) => {
 
             }
 
-            if (action.formName == 'nights'){
+            if (action.formName === 'nights'){
 
                 let newNightsList =  newState.get ('nights')
 
@@ -248,9 +248,9 @@ const hotelsReducer = (state = initState, action) => {
                 return newState
             }
 
-            if (action.formName == 'dateFrom' || action.formName == 'dateTo') {
+            if (action.formName === 'dateFrom' || action.formName === 'dateTo') {
                
-                if (action.formName == 'dateFrom') {
+                if (action.formName === 'dateFrom') {
                     newState = newState.setIn (['dateFrom'], action.fieldValue)
                 } else {
                     newState = newState.setIn (['dateTo'], action.fieldValue)
@@ -262,14 +262,14 @@ const hotelsReducer = (state = initState, action) => {
                 return newState
             }
              
-            
+            break;
         }
         
         case 'PRICE_LIST_ACTIVATE':{
-            console.log ('PRICE_LIST_ACTIVATE CASE')
+            //console.log ('PRICE_LIST_ACTIVATE CASE')
             newState = newState.setIn (['priceListStatus'], true).setIn (['isGetQueryString'], true)
             return newState
-
+            
         }
 
         case 'PAGINATION_ACTIVE_PAGE':{
@@ -295,7 +295,7 @@ const hotelsReducer = (state = initState, action) => {
             }
 
             if (nights) {
-                let newNights = fromJS(nights.split(','). map (el=>parseInt(el)))
+                let newNights = fromJS(nights.split(',').map (el=>parseInt(el)))
                 //console.log (newNights)
                 newState = newState.setIn (['nights'], newNights)
             }

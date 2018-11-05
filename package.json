@@ -6,8 +6,6 @@
     "axios": "^0.18.0",
     "events": "^3.0.0",
     "immutable": "^3.8.2",
-    "is-base64": "^0.1.0",
-    "js-base64": "^2.4.9",
     "materialize-css": "^0.100.2",
     "moment": "^2.22.2",
     "query-string": "^6.2.0",
@@ -26,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "browse": "lite-server"
   },
   "eslintConfig": {
     "extends": "react-app"

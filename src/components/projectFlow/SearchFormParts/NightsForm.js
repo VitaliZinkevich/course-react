@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import {Input, Navbar, NavItem, Button, Row} from 'react-materialize'
+import {Input} from 'react-materialize'
 
 
 import {mainFormFillEvents} from '../../../events/events'
@@ -14,7 +14,7 @@ class NightsForm extends PureComponent {
   }
 
   render() {
-
+    console.log("RENDER NIGHTS")
     let startArray = []
     for (let i = 1; i!==22;  i++) {
       startArray.push(i)
@@ -23,9 +23,7 @@ class NightsForm extends PureComponent {
     let formView = startArray.map ((el, ind)=>{
       
       let isChecked = (this.props.valueNights.indexOf (ind+1) !== -1) ? true : false;
-      // console.log("RENDER NIGHTS")
-      // console.log((isChecked))
-      
+    
       if (isChecked) {
 
         return (
