@@ -1,13 +1,11 @@
 import React, { PureComponent } from 'react'
 import {Row, Input} from 'react-materialize'
+
+
 export default class MainContacts extends PureComponent {
 
- 
-
-   
-
   render() {
-      console.log (this.state)
+    
     return (
       <div>
        <Row>

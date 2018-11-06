@@ -23,7 +23,7 @@ export default class PriceListItem extends Component {
         <div>По {ckeckOutDate}</div>
         <div>
         <Link 
-        to={`/${this.props.hotel.get('_id')}`}
+        to={`/detailes/${this.props.hotel.get('_id')}`}
           >
         {this.props.hotel.get('name')}</Link></div>
         <div>{this.props.hotel.get ('type')}</div>

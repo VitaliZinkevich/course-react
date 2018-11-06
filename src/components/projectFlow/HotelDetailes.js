@@ -3,8 +3,12 @@ import { connect } from 'react-redux'
 import {Carousel} from 'react-materialize'
 import {fetchHotels} from '../../redux/hotelsActions'
 
+
  class HotelDetailes extends PureComponent {
 
+  state={
+    modalMessage: false
+  }
 
   componentDidMount (){
         if (this.props.hotels.size === 0){
@@ -19,8 +23,9 @@ import {fetchHotels} from '../../redux/hotelsActions'
     let fotos = null
 
   if (this.props.hotels.size !== 0) {
-     hotel = this.props.hotels.find (el=>el.get ('_id') === this.props.match.params.id)
-     fotos = hotel.getIn (['description', 'fotos'])
+     hotel = this.props.hotels.find (el=>el.get ('_id') === this.props.match.params.id) || undefined
+     fotos = hotel.getIn (['description', 'fotos']) || undefined
+
   }
    
     

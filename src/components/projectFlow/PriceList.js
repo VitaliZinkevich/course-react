@@ -33,10 +33,6 @@ class PriceList extends PureComponent {
     this.props.history.push({
       pathname: '/booking',
       state: buyOptions})
-
-   
-    
-   
       
   }
 

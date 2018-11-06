@@ -83,3 +83,10 @@ input::placeholder {
 .touristForm {
   border: 1px solid black;
 }
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+
+}
+  

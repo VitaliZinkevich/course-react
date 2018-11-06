@@ -9,6 +9,8 @@ import About from './components/dummyComponents/About'
 import Contacts from './components/dummyComponents/Contacts'
 import HotelDetailes from './components/projectFlow/HotelDetailes'
 import BookingForm from './components/projectFlow/BookingForm'
+import NoPage from './components/dummyComponents/NoPage'
+
 //import './App.css';
 
 
@@ -34,8 +36,8 @@ class App extends Component{
         <Route path='/about' component={About}/>
         <Route path='/contacts' component={Contacts}/>
         <Route path='/booking' component={BookingForm}/>
-        <Route path='/:id' component={HotelDetailes}/>
-        
+        <Route path='/detailes/:id' component={HotelDetailes}/>
+        <Route component={NoPage}/>
       </Switch>
       
       
