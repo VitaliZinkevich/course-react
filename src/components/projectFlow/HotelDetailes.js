@@ -33,7 +33,7 @@ import {fetchHotels} from '../../redux/hotelsActions'
       <div>
         <div className='center'><p><strong>{(hotel !== null) ? hotel.getIn (['name']) : 'Загрузка'}</strong></p></div>
         {(hotel !== null) ? hotel.getIn (['description', 'text']) : 'Загрузка'}
-        {(fotos !== null) ? <Carousel options={{fullWidth: true, numVisible: 2,}} images={fotos} /> : 'Загрузка'}
+        {(fotos !== null) ? <Carousel options={{fullWidth: false, indicators: true,noWrap:true}} images={fotos} /> : 'Загрузка'}
       </div>
     )
   }

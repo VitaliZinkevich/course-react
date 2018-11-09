@@ -3,7 +3,7 @@ import axios from 'axios'
 import TouristForm from './booking/TouristForm'
 import OrderDetailes from './booking/OrderDetailes'
 import MainContacts from './booking/MainContacts'
-import {Input, Button} from 'react-materialize'
+import {Input, Button, Modal} from 'react-materialize'
 
 
 export default class BookingForm extends PureComponent {
@@ -32,7 +32,7 @@ export default class BookingForm extends PureComponent {
       contactTel:'', 
       contactEmail:'',
       validationErrors: [],
-      message: ''}
+      openModal: false}
   }
 
 
@@ -44,6 +44,8 @@ export default class BookingForm extends PureComponent {
   let canSendToServer = this.validate (this.state)
 
   if (canSendToServer)
+
+    this.setState({openModal: true})
 
     axios.post('http://localhost:8080/neworder', {
     hotel: this.state.hotel.name,
@@ -57,7 +59,7 @@ export default class BookingForm extends PureComponent {
     touristsData:this.state.touristsData
 
   }).then ((res)=>{
-    this.setState({message :res.data})
+    
   })
 
 
@@ -192,12 +194,7 @@ validate=(state)=>{
             
             {formForEachTouristData}
               
-              {this.state.message === ''? null: (<div className= 'center green-text'>
-
-              {this.state.message}
-              
-              
-              </div>)}
+             
               
               <Button
               
@@ -205,7 +202,12 @@ validate=(state)=>{
               waves='green'
               onClick={this.saveOrder}
               >Забронировать</Button>
-
+              <Modal
+                open={this.state.openModal}
+                header='Спасибо'
+                actions={null}>
+                Ваша заявка получена
+              </Modal>
          
 
       </main>

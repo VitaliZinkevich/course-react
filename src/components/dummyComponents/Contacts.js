@@ -8,7 +8,8 @@ export default class Contacts extends PureComponent {
 state={
   email:'',
   message:'',
-  openModal:false
+  openModal:false,
+  send:false
 }
 
 handleChange=(e)=>{
@@ -23,8 +24,9 @@ doneMessage=()=>{
     window.Materialize.toast ('Заполните все поля', 2000)
   } else {
     axios.post ('http://localhost:8080/contactmessage', {email: this.state.email, message: this.state.message}).then(
-      (res)=>{ this.setState ({openModal: true})
-        setTimeout(()=>{ this.setState({openModal: false})}, 2000)
+      (res)=>{ 
+        this.setState ({openModal: true, send: true})
+        
       }
     )
   }
@@ -45,9 +47,10 @@ doneMessage=()=>{
 
             <div className='col s6 contactForm'>
 
+            
+            {this.state.send == false ? (<div className='contactForm'>
             <p className="flow-text">Спросить</p>
-
-              <Input
+            <Input
               name='email'
               icon='email'
               label='Почта'
@@ -62,14 +65,16 @@ doneMessage=()=>{
               
               <Button
               onClick={this.doneMessage}>Отправить
-              </Button>
+              </Button></div>): null}
+              
 
             </div>
         </div>
         <Modal
           open={this.state.openModal}
           header='Спасибо'
-          actions={null}>
+          actions={null}
+          optons={{inDuration:100}}>
           Ваше сообщение получено
         </Modal>
     </main>
