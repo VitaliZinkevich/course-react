@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test search dorm parts 1`] = `
+exports[`Snapshot test for search form parts 1`] = `
 <div
   className="nights"
 >
@@ -427,7 +427,7 @@ exports[`Snapshot test search dorm parts 1`] = `
 </div>
 `;
 
-exports[`Snapshot test search dorm parts 2`] = `
+exports[`Snapshot test for search form parts 2`] = `
 <div>
   <div
     className="col input-field s6"
@@ -523,6 +523,303 @@ exports[`Snapshot test search dorm parts 2`] = `
       >
         3
          ребенок
+      </option>
+    </select>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test for search form parts 3`] = `
+<div>
+  <div
+    className="col input-field s6"
+  >
+    <input
+      checked={false}
+      className=""
+      id="input_23"
+      name="dateFrom"
+      onChange={[Function]}
+      placeholder="Заселение с"
+      type="date"
+      value=""
+    />
+  </div>
+  <div
+    className="col input-field s6"
+  >
+    <input
+      checked={false}
+      className=""
+      id="input_24"
+      name="dateTo"
+      onChange={[Function]}
+      placeholder="Заселение по"
+      type="date"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test for search form parts 4`] = `
+<div>
+  <div
+    className="row"
+  >
+    <div
+      className="col s8"
+    >
+      <h5>
+        Список отелей
+      </h5>
+      <ul
+        className="collapsible"
+        data-collapsible="expandable"
+      >
+        <li
+          className="active"
+        >
+          <div
+            className="collapsible-header active"
+            onClick={[Function]}
+          >
+            <i
+              className="material-icons"
+            >
+              location_on
+            </i>
+            Минская область
+          </div>
+          <div
+            className="collapsible-body"
+          >
+            <div
+              className="hotelList"
+            >
+              <div
+                className="col"
+              >
+                <input
+                  checked={false}
+                  className=""
+                  id="input_25"
+                  name="mainList"
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="5b06859e5089ec123b9e668c"
+                />
+                <label
+                  className="active black-text"
+                  htmlFor="input_25"
+                >
+                  Берестье
+                </label>
+              </div>
+              <p>
+                санаторий
+              </p>
+              <p>
+                 
+                <i
+                  className="material-icons"
+                >
+                  star
+                </i>
+                 
+                2
+              </p>
+            </div>
+            <div
+              className="hotelList"
+            >
+              <div
+                className="col"
+              >
+                <input
+                  checked={false}
+                  className=""
+                  id="input_26"
+                  name="mainList"
+                  onChange={[Function]}
+                  type="checkbox"
+                  value="5b06859e5089ec123b9e668f"
+                />
+                <label
+                  className="active black-text"
+                  htmlFor="input_26"
+                >
+                  Белая вежа
+                </label>
+              </div>
+              <p>
+                санаторий
+              </p>
+              <p>
+                 
+                <i
+                  className="material-icons"
+                >
+                  star
+                </i>
+                 
+                3
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul
+        className="collapsible"
+        data-collapsible="expandable"
+      >
+        <li
+          className="active"
+        >
+          <div
+            className="collapsible-header active"
+            onClick={[Function]}
+          >
+            <i
+              className="material-icons"
+            >
+              location_on
+            </i>
+            Витебская область
+          </div>
+          <div
+            className="collapsible-body"
+          />
+        </li>
+      </ul>
+    </div>
+    <div
+      className="col s4"
+    >
+      <div
+        className="left"
+      >
+        <h5>
+          Выбранные отели
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test for search form parts 5`] = `
+<div
+  className="col input-field s12"
+>
+  <i
+    className="material-icons prefix"
+  >
+    star
+  </i>
+  <label
+    className="active"
+    htmlFor="input_27"
+  >
+    Категория отеля
+  </label>
+  <select
+    checked={false}
+    className=""
+    icon="star"
+    id="input_27"
+    name="starsType"
+    onChange={[Function]}
+  >
+    <option
+      value="Любой"
+    >
+      Любой
+    </option>
+    <option
+      value="2"
+    >
+      2
+    </option>
+    <option
+      value="3"
+    >
+      3
+    </option>
+    <option
+      value="4"
+    >
+      4
+    </option>
+    <option
+      value="5"
+    >
+      5
+    </option>
+  </select>
+</div>
+`;
+
+exports[`Snapshot test for search form parts 6`] = `
+<div>
+   
+  <div
+    className="col input-field s12"
+  >
+    <i
+      className="material-icons prefix"
+    >
+      free_breakfast
+    </i>
+    <label
+      className="active"
+      htmlFor="input_28"
+    >
+      Питание
+    </label>
+    <select
+      checked={false}
+      className=""
+      icon="free_breakfast"
+      id="input_28"
+      name="foodType"
+      onChange={[Function]}
+    >
+      <option
+        selected={true}
+        value="Any"
+      >
+        Любое
+      </option>
+      <option
+        selected={false}
+        value="AO"
+      >
+        Без питания
+      </option>
+      <option
+        selected={false}
+        value="BB"
+      >
+        Завтраки
+      </option>
+      <option
+        selected={false}
+        value="HB"
+      >
+        Завтрак и ужин
+      </option>
+      <option
+        selected={false}
+        value="FB"
+      >
+        Завтрак, обед и ужин
+      </option>
+      <option
+        selected={false}
+        value="ALL"
+      >
+        Все включено
       </option>
     </select>
   </div>

@@ -259,7 +259,7 @@ class Search extends Component{
        
     return (
 
-        <main>
+        <main className='searchFormClass'>
            
             <Row>
                 <Col s={12}>
