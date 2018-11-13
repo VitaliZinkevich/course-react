@@ -23,18 +23,18 @@ doneMessage=()=>{
   if (this.state.email === '' || this.state.message === '') {
     window.Materialize.toast ('Заполните все поля', 2000)
   } else {
+    this.setState ({send: true})
     axios.post ('http://localhost:8080/contactmessage', {email: this.state.email, message: this.state.message}).then(
       (res)=>{ 
-        this.setState ({openModal: true, send: true})
-        
+        this.setState ({openModal: true})
       }
     )
   }
-
 }
 
 
   render() {
+    
     return (
 
       <main >
@@ -64,6 +64,7 @@ doneMessage=()=>{
               onChange={this.handleChange}/>
               
               <Button
+              id='sendMsg'
               onClick={this.doneMessage}>Отправить
               </Button></div>): null}
               

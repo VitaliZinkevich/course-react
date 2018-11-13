@@ -164,7 +164,7 @@ class PriceList extends PureComponent {
     const itemsForPagination = Math.ceil(showList.length/10)
 
     return (
-       <div>
+       <div className='priceList'>
     {currentshowList}
     {currentshowList.length !== 0 && showList.length>10 ? (
       <Pagination 

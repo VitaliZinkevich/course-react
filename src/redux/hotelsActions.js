@@ -15,7 +15,7 @@ const fetchHotels = (dispatch)=>{
 
 const SEARCH_FORM_CHANGE='SEARCH_FORM_CHANGE';
 
-const seacrhFormHandleChangeRedux=function(formName, fieldValue, hotelsList) {
+const seacrhFormHandleChangeRedux=function(formName, fieldValue) {
   return {
     type: SEARCH_FORM_CHANGE,
     formName,
