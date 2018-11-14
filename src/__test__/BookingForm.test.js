@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import BookingForm from '../components/projectFlow/BookingForm'
 
@@ -40,10 +40,9 @@ describe('Booking Form', function() {
                         children:0 }}
 
 
-        let instance = mount(<BookingForm location={location} history={[]}/>)
-        console.log (instance.debug())
-
-        // expect(instance).toMatchSnapshot()
+        let instance = shallow(<BookingForm location={location} history={[]}/>)
+        
+        expect(instance).toMatchSnapshot();
     })
 
   });

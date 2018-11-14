@@ -33,7 +33,6 @@ describe('Search form all render', function() {
     it ( 'send contact msg', ()=>{
     let instance = shallow(<Contacts/>)
 
-
     instance.find ("Input[name='email']").simulate ("change", {target: {name: 'email', value:  'email@email.com'}})
     instance.find ("Input[name='message']").simulate ("change", {target: {name: 'message', value:  'Тестовое сообщения'}})
   
