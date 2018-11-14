@@ -4,28 +4,38 @@ import TouristForm from './booking/TouristForm'
 import OrderDetailes from './booking/OrderDetailes'
 import MainContacts from './booking/MainContacts'
 import {Input, Button, Modal} from 'react-materialize'
-
+//import { Route, Redirect } from 'react-router'
 
 export default class BookingForm extends PureComponent {
   
   constructor(props) {
     super(props);
-  
-    let number = parseInt (this.props.location.state.adults)+ parseInt (this.props.location.state.children)
+    
+    let number;
+    let touristDataforState
    
-    let touristDataforState = []
-    for (let i = 0; i < number; i++) {
-      touristDataforState.push({
-        firstName: '',
-        lastName:'',
-        passSeries:'',
-        passNumber:'',
-        passValidTill:'',
-        
+    if (this.props.location.state === undefined) {
+      
+      this.props.history.push ('/')
+           
+    } else {
 
-      })
+      number = parseInt (this.props.location.state.adults)+ parseInt (this.props.location.state.children)
+   
+      touristDataforState = []
+      for (let i = 0; i < number; i++) {
+        touristDataforState.push({
+          firstName: '',
+          lastName:'',
+          passSeries:'',
+          passNumber:'',
+          passValidTill:'',
+          
+  
+        })
+      }
+
     }
-
 
     this.state = { ...this.props.location.state,
       touristsData: touristDataforState, 
@@ -37,13 +47,13 @@ export default class BookingForm extends PureComponent {
 
 
 
+
   saveOrder=()=>{
     
-   
 
   let canSendToServer = this.validate (this.state)
 
-  if (canSendToServer)
+  if (canSendToServer) {
 
     this.setState({openModal: true})
 
@@ -60,7 +70,7 @@ export default class BookingForm extends PureComponent {
 
   }).then ((res)=>{
     
-  })
+  })}
 
 
   }
@@ -84,9 +94,11 @@ export default class BookingForm extends PureComponent {
 validate=(state)=>{
 
   let errors = [];
+  
 
   if (this.state.contactTel === '' || this.state.contactEmail === '') {
     errors.push ('Заполните все контактные данные')
+    
   } 
 
 
@@ -100,9 +112,7 @@ validate=(state)=>{
       )  {
         errors.push(`Заполните все данные на туриста ${index+1}`)
       }
-
-
-
+   
   })
 
 
@@ -118,9 +128,11 @@ validate=(state)=>{
             }
 
         }
-        return false
+        
+        
         
       })
+      return false
       } else {
         this.setState ({validationErrors: errors})
         return true
@@ -148,7 +160,7 @@ validate=(state)=>{
 
       <main>
           
-
+        {this.props.location.state === undefined ? <div>Wrong enter</div> : (<div>
               <div className='row'>
                 <div className='col s5'>
                 <p className='black-text'>Статус заявки</p>
@@ -208,7 +220,8 @@ validate=(state)=>{
                 actions={null}>
                 Ваша заявка получена
               </Modal>
-         
+         </div>)}
+        
 
       </main>
       
