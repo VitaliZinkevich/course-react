@@ -40,7 +40,7 @@ describe('Search form all render', function() {
 
       store = createStore(combinedReducer, applyMiddleware(promise(),thunk));
       instance = mount(<BrowserRouter><Provider store={store}><Search/></Provider></BrowserRouter>)
-      store.dispatch (fetchHotels)
+     // store.dispatch (fetchHotels)
       instance.update()
     });
 
@@ -48,7 +48,7 @@ describe('Search form all render', function() {
 
     it ('dispath form actions and appears pricelist',()=>{
 
-    console.log(store.getState())
+    //console.log(store.getState())
 
     store.dispatch (seacrhFormHandleChangeRedux ('dateFrom', '11.12.2018' ))
     store.dispatch (seacrhFormHandleChangeRedux ('dateTo', '15.12.2018' ))

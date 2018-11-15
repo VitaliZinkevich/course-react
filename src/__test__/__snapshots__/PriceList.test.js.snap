@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PriceList  render PriceList render with no errors 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <withRouter(PriceList)
+    adults={1}
+    currentPage={1}
+    dateFrom="12.12.2018"
+    dateTo="15.12.2018"
+    nights={10}
+    toShow={
+      Object {
+        "_id": "5b06859e5089ec123b9e668c",
+        "description": Object {
+          "fotos": Array [
+            "https://sanatorii.by/images/obj/89/c2598he5_433_true.jpg",
+            "http://belarus.svobodno.su/images/recovery/sanatoriy-bereste-0.jpg",
+            "https://i.ytimg.com/vi/h1TaZmN2waY/maxresdefault.jpg",
+          ],
+          "text": "санаторий Берестье (КУП «Брестагроздравница») расположен на территории курорта Белое озеро в Брестском районе. Санаторий находится в окружении массива сосново-лиственного леса уникального биосферного резервата и ландшафтного заказника «Прибужское Полесье». Территория санатория примыкает к озеру Рогознянское, которое соединяется каналом с озером Белое, Черное и далее Тайное. На территории санатория произрастают сосна, ель, береза, плодово-садовые деревья.",
+        },
+        "name": "Берестье",
+        "region": "Минская область",
+        "rooms": Array [
+          Object {
+            "accomodation": Array [
+              "1+0",
+              "1+1",
+            ],
+            "name": "Одноместный номер",
+            "price": Object {
+              "adult": 1000,
+              "children": 300,
+            },
+          },
+          Object {
+            "accomodation": Array [
+              "2+0",
+              "2+1",
+              "2+2",
+            ],
+            "name": "Двухместный номер",
+            "price": Object {
+              "adult": 1500,
+              "children": 400,
+            },
+          },
+          Object {
+            "accomodation": Array [
+              "2+0",
+              "2+1",
+              "2+2",
+              "3+0",
+            ],
+            "name": "Двухместный номер люкс",
+            "price": Object {
+              "adult": 1600,
+              "children": 500,
+            },
+          },
+        ],
+        "stars": 2,
+        "type": "санаторий",
+      }
+    }
+  >
+    2
+  </withRouter(PriceList)>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": [Function],
+    },
+    "ref": null,
+    "rendered": [Function],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": [Function],
+      },
+      "ref": null,
+      "rendered": [Function],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
