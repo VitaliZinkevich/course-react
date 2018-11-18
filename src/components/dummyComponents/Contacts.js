@@ -48,7 +48,7 @@ doneMessage=()=>{
             <div className='col s6 contactForm'>
 
             
-            {this.state.send == false ? (<div className='contactForm'>
+            {this.state.send === false ? (<div className='contactForm'>
             <p className="flow-text">Спросить</p>
             <Input
               name='email'

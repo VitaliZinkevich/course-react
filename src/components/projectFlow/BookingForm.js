@@ -15,7 +15,7 @@ export default class BookingForm extends PureComponent {
     let touristDataforState
    
     if (this.props.location.state === undefined) {
-      
+      console.error("REDIRECT FROM BOOKING")
       this.props.history.push ('/')
            
     } else {

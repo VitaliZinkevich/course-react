@@ -11,6 +11,10 @@ import HotelDetailes from './components/projectFlow/HotelDetailes'
 import BookingForm from './components/projectFlow/BookingForm'
 import NoPage from './components/dummyComponents/NoPage'
 
+
+// auth 
+import ProtectedRoute from './components/auth/ProtectedRoute'
+import SingIn from './components/auth/SingIn'
 //import './App.css';
 
 
@@ -28,20 +32,18 @@ class App extends Component{
       <header>
         <AppNavbar/>
       </header>
-
-    
-      
+ 
       <Switch>
         <Route exact path='/' component={Search}/>
+        <Route path='/login' component={SingIn}/>
         <Route path='/about' component={About}/>
         <Route path='/contacts' component={Contacts}/>
-        <Route path='/booking' component={BookingForm}/>
+        {/* <PrivateRoute path="/protected" component={Protected} /> */}
+        <ProtectedRoute path='/booking' component={BookingForm}/>
         <Route path='/detailes/:id' component={HotelDetailes}/>
         <Route component={NoPage}/>
       </Switch>
-      
-      
-      <AppFooter/>
+        <AppFooter/>
       
     </div>
   </BrowserRouter>
