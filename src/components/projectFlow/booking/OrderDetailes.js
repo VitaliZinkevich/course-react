@@ -12,11 +12,11 @@ export default class OrderDetailes extends PureComponent {
       <div className='bookingsStatus'>
           <div>
           Отель
-           <p>{this.props.hotel.name}</p>
+           <p>{this.props.hotel}</p>
           </div>
           <div>
           Номер
-          <p>{this.props.room.name}</p> 
+          <p>{this.props.room}</p> 
           </div>
           <div>
           Заселение  

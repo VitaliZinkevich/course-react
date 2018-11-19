@@ -10,7 +10,8 @@ import Contacts from './components/dummyComponents/Contacts'
 import HotelDetailes from './components/projectFlow/HotelDetailes'
 import BookingForm from './components/projectFlow/BookingForm'
 import NoPage from './components/dummyComponents/NoPage'
-
+import SingUp from './components/auth/SingUp'
+import MyOrders from './components/projectFlow/MyOrders'
 
 // auth 
 import ProtectedRoute from './components/auth/ProtectedRoute'
@@ -38,8 +39,11 @@ class App extends Component{
         <Route path='/login' component={SingIn}/>
         <Route path='/about' component={About}/>
         <Route path='/contacts' component={Contacts}/>
-        {/* <PrivateRoute path="/protected" component={Protected} /> */}
+        <Route path='/singup' component={SingUp}/>
+
+        <ProtectedRoute path='/myorders' component={MyOrders}/>
         <ProtectedRoute path='/booking' component={BookingForm}/>
+        
         <Route path='/detailes/:id' component={HotelDetailes}/>
         <Route component={NoPage}/>
       </Switch>

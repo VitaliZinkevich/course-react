@@ -6,21 +6,28 @@ import MainContacts from './booking/MainContacts'
 import {Input, Button, Modal} from 'react-materialize'
 //import { Route, Redirect } from 'react-router'
 
-export default class BookingForm extends PureComponent {
+import {Link} from "react-router-dom"
+
+import { connect } from 'react-redux'
+
+
+ class BookingForm extends PureComponent {
   
   constructor(props) {
     super(props);
     
     let number;
     let touristDataforState
-   
-    if (this.props.location.state === undefined) {
-      console.error("REDIRECT FROM BOOKING")
-      this.props.history.push ('/')
+    
+
+    if (this.props.buyOptions === null) {
+      
+      // нет этих пропсов с опциями. вход не из прайс листа
+      // this.props.history.push ('/')
            
     } else {
-
-      number = parseInt (this.props.location.state.adults)+ parseInt (this.props.location.state.children)
+      // console.log(this.props.buyOptions.get ('adults'))
+      number = parseInt (this.props.buyOptions.get ('adults'))+ parseInt (this.props.buyOptions.get ('children'))
    
       touristDataforState = []
       for (let i = 0; i < number; i++) {
@@ -37,10 +44,10 @@ export default class BookingForm extends PureComponent {
 
     }
 
-    this.state = { ...this.props.location.state,
+    this.state = {
       touristsData: touristDataforState, 
       contactTel:'', 
-      contactEmail:'',
+      contactAdress:'',
       validationErrors: [],
       openModal: false}
   }
@@ -48,47 +55,47 @@ export default class BookingForm extends PureComponent {
 
 
 
-  saveOrder=()=>{
-    
+saveOrder=()=>{
 
-  let canSendToServer = this.validate (this.state)
+let canSendToServer = this.validate (this.state)
 
-  if (canSendToServer) {
+if (canSendToServer) {
 
-    this.setState({openModal: true})
+  this.setState({openModal: true})
 
-    axios.post('http://localhost:8080/neworder', {
-    hotel: this.state.hotel.name,
-    room: this.state.room,
-    date: this.state.date,
-    night: this.state.night,
-    adults:this.state.adults,
-    children:this.state.children,
-    contactEmail:this.state.contactEmail,
-    contactTel:this.state.contactTel,
-    touristsData:this.state.touristsData
+  axios.post('http://localhost:8080/neworder', {
+  hotel: this.props.buyOptions.getIn(['hotel', 'name']),
+  room: this.props.buyOptions.getIn(['room', 'name']),
+  date: this.props.buyOptions.getIn(['date']),
+  night: this.props.buyOptions.getIn(['night']),
+  adults:this.props.buyOptions.getIn(['adults']),
+  children:this.props.buyOptions.getIn(['children']),
+  contactAdress:this.state.contactAdress,
+  contactTel:this.state.contactTel,
+  touristsData:this.state.touristsData,
+  statusConfirmed: 1,
+  statusPayment: 1,
 
-  }).then ((res)=>{
-    
-  })}
+}).then ((res)=>{
+  
+})}
+
+}
+
+handleChange=(e, index=null)=>{
 
 
+  if (index !== null ) {
+
+    let newTouristData = [...this.state.touristsData]
+    newTouristData[index][e.target.name] = e.target.value
+
+    this.setState ({touristsData: newTouristData})
+  } else {
+    this.setState ({[e.target.name]: e.target.value})
   }
 
-  handleChange=(e, index=null)=>{
   
-
-    if (index !== null ) {
-
-      let newTouristData = [...this.state.touristsData]
-      newTouristData[index][e.target.name] = e.target.value
-
-      this.setState ({touristsData: newTouristData})
-    } else {
-      this.setState ({[e.target.name]: e.target.value})
-    }
-
-   
 }
 
 validate=(state)=>{
@@ -96,7 +103,7 @@ validate=(state)=>{
   let errors = [];
   
 
-  if (this.state.contactTel === '' || this.state.contactEmail === '') {
+  if (this.state.contactTel === '' || this.state.contactAdress === '') {
     errors.push ('Заполните все контактные данные')
     
   } 
@@ -138,21 +145,27 @@ validate=(state)=>{
         return true
       }
 
-  }
+}
 
   
-  render() {
-  // console.log(this.props)
-  //console.log(  this.props.location.state)
+render() {
+
   
   let formForEachTouristData = [];
-  let number = parseInt (this.state.adults)+ parseInt (this.state.children)
 
-  //console.log(number)
-  for (let i = 0; i<number; i++) {
-    formForEachTouristData.push(<TouristForm handleChange={this.handleChange} key={i} index={i}/>)
-    
+  if (this.props.buyOptions !== null)  {
+
+    let number = parseInt (this.props.buyOptions.getIn(['adults']))+ parseInt (this.props.buyOptions.getIn(['children']))
+
+    //console.log(number)
+    for (let i = 0; i<number; i++) {
+      formForEachTouristData.push(<TouristForm handleChange={this.handleChange} key={i} index={i}/>)
+      
+    }
   }
+    
+  
+  
 
 
 
@@ -160,14 +173,14 @@ validate=(state)=>{
 
       <main>
           
-        {this.props.location.state === undefined ? <div>Wrong enter</div> : (<div>
+        {this.props.buyOptions === null ? (<div className='center'>Оформление заявок только через прайс лист со страницы поиска<br/>  <Link to={`/`}>На страницу поиска </Link></div>) : (<div>
               <div className='row'>
                 <div className='col s5'>
                 <p className='black-text'>Статус заявки</p>
                 <Input s={12} type='select' disabled>
-                  <option  value='1'>Бронирование</option>
-                  <option value='2'>Option 2</option>
-                  <option value='3'>Option 3</option>
+                  <option value='1'>Бронирование</option>
+                  <option value='2'>Подтверждено</option>
+                  <option value='3'>Аннулировано</option>
                 </Input>
                 </div>
 
@@ -175,15 +188,18 @@ validate=(state)=>{
                 <p className='black-text'>Статус оплаты</p>
                 <Input s={12} type='select' disabled>
                   <option  value='1'>Неоплачено</option>
-                  <option value='2'>Option 2</option>
-                  <option value='3'>Option 3</option>
+                  <option value='2'>Оплачено</option>
+                  <option value='3'>Частично оплачено</option>
                 </Input>
               </div>
 
               <div className='col s2'>
                 <p className='black-text'>Стоимость тура</p>
-                <div>{(parseInt (this.state.room.price.adult) * parseInt (this.state.adults) + 
-                parseInt (this.state.room.price.children)* parseInt (this.state.children))*parseInt (this.state.night) }</div>
+                <div>{parseInt (this.props.buyOptions.getIn(['room', 'price', 'adult'])) * 
+                parseInt (this.props.buyOptions.getIn(['adults'])) + 
+                parseInt (this.props.buyOptions.getIn(['room', 'price', 'children']))* 
+                parseInt (this.props.buyOptions.getIn(['children']))
+                *parseInt (this.props.buyOptions.getIn(['night'])) }</div>
               </div>
               </div>
 
@@ -192,12 +208,12 @@ validate=(state)=>{
               <div>
                 <p className="black-text flow-text">Проживание</p>
                 <OrderDetailes
-                hotel={this.state.hotel}
-                room={this.state.room}
-                night={this.state.night}
-                date={this.state.date}
-                ad={this.state.adults}
-                ch={this.state.children}/>
+                hotel={this.props.buyOptions.getIn(['hotel', 'name'])}
+                room={this.props.buyOptions.getIn(['room', 'name'])}
+                night={this.props.buyOptions.getIn(['night'])}
+                date={this.props.buyOptions.getIn(['date'])}
+                ad={this.props.buyOptions.getIn(['adults'])}
+                ch={this.props.buyOptions.getIn(['children'])}/>
 
               </div>
                   <MainContacts
@@ -218,7 +234,7 @@ validate=(state)=>{
                 open={this.state.openModal}
                 header='Спасибо'
                 actions={null}>
-                Ваша заявка получена
+                Спасибо. Заявка получена.
               </Modal>
          </div>)}
         
@@ -231,3 +247,15 @@ validate=(state)=>{
     )
   }
 }
+
+
+let mapStateToProps = (state) => {
+    
+  return {
+    buyOptions: state.bookingReducer.get ('buyOptions'),
+    
+      }
+}
+
+
+export default connect(mapStateToProps)(BookingForm)

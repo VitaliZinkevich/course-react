@@ -2,7 +2,10 @@ import React, { PureComponent } from 'react'
 import PriceListItem from './PriceListParts/PriceListItem'
 import moment from 'moment'
 import {Pagination} from 'react-materialize'
+
 import {paginationActivePage} from '../../redux/hotelsActions'
+import {saveBookingOpt} from '../../redux/bookingAction'
+
 import { withRouter } from "react-router";
 import {queryStringEvent} from '../../events/events'
 
@@ -28,11 +31,15 @@ class PriceList extends PureComponent {
   buyButton = (buyOptions)=>{
 
     //объект настроек покупки для создания компонента бронирования
-     // начало процесса покупки с переходом на другой компонент и auth
-    
-    this.props.history.push({
-      pathname: '/booking',
-      state: buyOptions})
+    // начало процесса покупки с переходом на другой компонент и auth
+
+    // задиспатчить состояние перед покупкой
+    this.props.dispatch (saveBookingOpt (buyOptions))
+
+    // старая передача данных
+      this.props.history.push({
+        pathname: '/booking',})
+    //     state: buyOptions})
       
   }
 
@@ -47,16 +54,10 @@ class PriceList extends PureComponent {
 
     
   render() {
-    
-
-
-    console.log ('PRICELIST RENDER')
+  console.log ('PRICELIST RENDER')
     //console.log (this.props)
     
-
-    
-
-    // создаем массив дат который будет отображать список как параметр
+   // создаем массив дат который будет отображать список как параметр
     let dateList = []
     let start = moment(this.props.dateFrom, "DD-MM-YYYY")
     let end = moment(this.props.dateTo, "DD-MM-YYYY")

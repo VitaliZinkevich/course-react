@@ -20,10 +20,10 @@ export default class MainContacts extends PureComponent {
          ></Input>
         <Input 
         s={6} 
-        name='contactEmail'
-        label="Электронная почта" 
+        name='contactAdress'
+        label="Адрес" 
         labelClassName='black-text'
-        icon='contact_mail'
+        icon='home'
         onChange={(e)=>{this.props.handleChange(e, null)}}
         ></Input>
       </Row>

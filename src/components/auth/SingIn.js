@@ -6,100 +6,97 @@ import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 import BookingForm from '../projectFlow/BookingForm'
 
-
-export default class SingIn extends PureComponent {
-
-
-    // class Login extends React.Component {
-    //     state = { redirectToReferrer: false };
-      
-    //     login = () => {
-    //       fakeAuth.authenticate(() => {
-    //         this.setState({ redirectToReferrer: true });
-    //       });
-    //     };
-      
-    //     render() {
-    //       let { from } = this.props.location.state || { from: { pathname: "/" } };
-    //       let { redirectToReferrer } = this.state;
-      
-    //       if (redirectToReferrer) return <Redirect to={from} />;
-      
-    //       return (
-    //         <div>
-    //           <p>You must log in to view the page at {from.pathname}</p>
-    //           <button onClick={this.login}>Log in</button>
-    //         </div>
-    //       );
-    //     }
-    //   }
+import { connect } from 'react-redux'
+import {getAuth} from '../../redux/authAction'
+import {Link} from "react-router-dom"
 
 
+class SingIn extends PureComponent {
 
-
+    
     state = {
         email: null,
         password: null,
-        errors: [],
-        auth: false,
+        errors: ['Введите почту', 'Введите пароль'],
+        
     }
 
-      handleChange=(e, index=null)=>{
-  
-        this.setState ({[e.target.name]: e.target.value})
-      
+    componentWillReceiveProps(newProps){
+        // console.log('new props')
+        if (newProps.isAuth === true) {
+            // console.log(this.props.location)
+            if (this.props.location.state !== undefined) {
+                this.props.history.push (this.props.location.state.from)
+            } else {
+
+                this.props.history.push ('/')
+            }
+
+            
+        }
     }
+
+    handleChange=(e, index=null)=>{
+        
+        this.setState ({[e.target.name]: e.target.value}, ()=>{this.validate (this.state)})
+        
+    }
+    
+    validate (state) {
+        let newErrors = []
+        if (state.email === null || state.email === '') {
+            newErrors.push ('Введите почту')
+        }
+
+        if (state.password === null ||state.password === '' ) {
+            newErrors.push ('Введите пароль')
+        }
+        this.setState({errors:newErrors})
+    }
+
+
 
     submit= async()=>{
-        console.log('submit form')
         
-        this.auth = await axios.get('http://localhost:8080/auth').then ((res)=>{
-            this.setState ({auth: true})
-            if (this.state.auth){
-                this.props.history.push ('/booking')
-            } else {
-                alert ('NO AUTH')
-            }
-        })
-       
+        this.props.dispatch (getAuth(this.state.email, this.state.password))
+        
+        
+        //console.log(this.props)
+
+        
       
-
-
-
-        // login = () => {
-        //     fakeAuth.authenticate(() => {
-        //       this.setState({ redirectToReferrer: true });
-        //     });
-        //   };
-
-
-    // console.log(this.props) есть модем
-    // axios.get('http://localhost:8080/auth')
-    
-    // if (this.state.auth == true) {
-    //     console.log('rendr booking form')
-    //     return <Redirect to={BookingForm} />;
-    //  }   
-
-
     }
 
-
-    // let { from } = this.props.location.state || { from: { pathname: "/" } };
-    // let { redirectToReferrer } = this.state;
-
-   
-
   render() {
+  //console.log(this.props)
+  // добавить лодер
     return (
-        <div>
-        <input placeholder='email' type='email' name='email' onChange={(e)=>{this.handleChange(e)}}/>
-        <input placeholder='password' type='password' name ='password'  onChange={(e)=>{this.handleChange(e)}}/>
-        <button onClick={this.submit}>
-            LogIn        </button>
+        <main className='row'>
+        <div className='offset-s3 col s6 center' > 
+            <input placeholder='email' type='email' name='email' onChange={(e)=>{this.handleChange(e)}}/>
+            <input placeholder='password' type='password' name ='password'  onChange={(e)=>{this.handleChange(e)}}/>
+            <button  onClick={this.submit} disabled={this.state.errors.length !== 0}>
+                LogIn        </button>
+            
+            <div>
+                {this.props.message === 'nouser' ? (<div className='center'>Нет такого пользователя <br/><Link to={`/singup`}> Зарегистрироваться</Link></div> ) : 
+                null }
+                {/* <div className='center'>{this.props.message }</div> */}
 
-    </div>
+            </div>
+        </div>  
+        </main>
     )
   }
 }
 
+let mapStateToProps = (state) => {
+        return {
+            authPending: state.auth.get('authPending'),
+            isAuth: state.auth.get('isAuth'),
+            rejectedError: state.auth.get('rejectedError'),
+            message: state.auth.get('message'),
+        }
+  }
+
+export default  connect (mapStateToProps)(SingIn)

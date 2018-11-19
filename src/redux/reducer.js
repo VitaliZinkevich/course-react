@@ -1,5 +1,7 @@
 // редюсеры
 import hotelsReducer from './hotelsReducer'
+import authReducer from './authReducer'
+import bookingReducer from './bookingReducer'
 
 
 import { combineReducers } from 'redux';
@@ -7,7 +9,8 @@ import { combineReducers } from 'redux';
 let combinedReducer=combineReducers({
 
     hotelsData: hotelsReducer,
-    //searchForm:  searchFormReducer,
+    auth:  authReducer,
+    bookingReducer: bookingReducer,
     
 });
 

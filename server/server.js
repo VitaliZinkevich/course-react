@@ -5,9 +5,7 @@ const app = express()
 const port = 8080
 
 let bodyParser = require('body-parser')
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
 app.use(bodyParser.json())
 
 
@@ -19,10 +17,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-
-
-
-app.listen(port, () => console.log(`app listening on port ${port}!`))
+app.listen(port, () => console.log(`server listening on port ${port}!`))
 
 app.get('/', (req, res) => {
     
@@ -81,33 +76,150 @@ app.get('/', (req, res) => {
 
 
 app.post('/neworder', function (req, res) {
+    console.log('SERVER RECIVED NEW ORDER')
     console.log (req.body)
     res.send('Спасибо, завка получена')
   })
 
 
   app.post ('/contactmessage', (req,res)=>{
+    console.log('SERVER RECIVED CONTACT PAGE MSG')
     console.log (req.body)
     res.send('Сообщение получено')
   })
 
+  const orders2 = [{ hotel: 'Белая вежа',
+  room: 'Двухместный номер двухкомнаный номер люкс',
+  date: '22.11.2018',
+  night: 17,
+  adults: 1,
+  children: 0,
+  contactAdress: 'asd',
+  contactTel: 'asd',
+  touristsData: 
+   [ { firstName: 'asd',
+       lastName: 'asd',
+       passSeries: 'asd',
+       passNumber: 'asd',
+       passValidTill: '25.11.2018' } ] },
+       { hotel: 'Белая вежа',
+       room: 'Двухместный номер двухкомнаный номер люкс',
+       date: '22.11.2018',
+       night: 17,
+       adults: 1,
+       children: 0,
+       contactAdress: 'asd',
+       contactTel: 'asd',
+       touristsData: 
+        [ { firstName: 'asd',
+            lastName: 'asd',
+            passSeries: 'asd',
+            passNumber: 'asd',
+            passValidTill: '25.11.2018' } ] }   
+    
+    ]
+
+  const orders3 = [
+    { hotel: 'Белая вежа',
+    room: 'Двухместный номер двухкомнаный номер люкс',
+    date: '22.11.2018',
+    night: 17,
+    adults: 1,
+    children: 0,
+    contactAdress: 'asd',
+    contactTel: 'asd',
+    touristsData: 
+     [ { firstName: 'asd',
+         lastName: 'asd',
+         passSeries: 'asd',
+         passNumber: 'asd',
+         passValidTill: '25.11.2018' } ] },
+         { hotel: 'Белая вежа',
+  room: 'Двухместный номер двухкомнаный номер люкс',
+  date: '22.11.2018',
+  night: 17,
+  adults: 1,
+  children: 0,
+  contactAdress: 'asd',
+  contactTel: 'asd',
+  touristsData: 
+   [ { firstName: 'asd',
+       lastName: 'asd',
+       passSeries: 'asd',
+       passNumber: 'asd',
+       passValidTill: '25.11.2018' } ] },
+       { hotel: 'Белая вежа',
+  room: 'Двухместный номер двухкомнаный номер люкс',
+  date: '22.11.2018',
+  night: 17,
+  adults: 1,
+  children: 0,
+  contactAdress: 'asd',
+  contactTel: 'asd',
+  touristsData: 
+   [ { firstName: 'asd',
+       lastName: 'asd',
+       passSeries: 'asd',
+       passNumber: 'asd',
+       passValidTill: '25.11.2018' } ] }
+
+]
+
+  const users =[
+    {email: '1' ,role: 'admin', pass: '1', orders: []},
+    {email: '2' ,role: 'user', pass: '2', orders: orders2},
+    {email: '3' ,role: 'user', pass: '3', orders : orders3},
+    {email: '4' ,role: 'user', pass: '4', orders : []},
 
 
-  app.get ('/auth', (req,res)=>{
+  ] 
 
-    // const fakeAuth = {
-    //     isAuthenticated: false,
-    //     authenticate(cb) {
-    //       this.isAuthenticated = true;
-    //       setTimeout(cb, 100); // fake async
-    //     },
-    //     signout(cb) {
-    //       this.isAuthenticated = false;
-    //       setTimeout(cb, 100);
-    //     }
-    //   };
+  app.post ('/auth', (req,res)=>{
 
-    console.log('SERVER send FALSE')
-      res.json ( false )
+  console.log('SERVER SEND AUTH STATUS')
+    
+  let user = users.find(el=>el.email === req.body.email)
+  let orders=[]
+    if (user) {
+       
+        if (user.role === 'user') {
+            console.log('USER ORDERS')
+            orders = [...user.orders]
+        } else {
+            console.log("ADMIN ORDERS")
+            users.forEach ((el)=>{
+                 orders.push(el)
+            })
+            console.log(orders)
+        }
+        
+        
+        if (user.email ===req.body.email  && user.pass === req.body.pass){
+            setTimeout (()=>{
+                res.json ( {userName: user.email, authStatus: true, role: user.role, message: 'Есть пользователь', orders: orders})
+            }, 1500)
+    
+        } else {
+    
+            setTimeout (()=>{
+                res.json ( {authStatus: false, role: null, message: 'Проверьте имя пользователя и пароль'} )
+            }, 700)
+    
+        }
+
+
+    } else {
+        setTimeout (()=>{
+            res.json ( {authStatus: false, role: null, message: 'nouser'} )
+        }, 700)
+    }
 
   })
+
+  app.post ('/signup', (req,res)=>{
+   
+    users.push ({email: req.body.email ,role: 'user', pass: req.body.password},)
+    res.json ('Пользователь добавлен')
+
+  })
+

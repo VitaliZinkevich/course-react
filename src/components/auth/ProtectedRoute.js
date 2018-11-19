@@ -1,57 +1,56 @@
-import React, { PureComponent } from 'react'
-import BookingFrom from '../projectFlow/BookingForm'
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 
 import axios from 'axios'
+import { connect } from 'react-redux'
 
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Redirect,
-    withRouter
-  } from "react-router-dom";
 
-export default class ProtectedRoute extends PureComponent {
-  
-  check = async ()=>{
-
-    let result =   await axios.get('http://localhost:8080/auth').then ((res)=>{
-      console.log('res')
-      console.log(res)
-      if (res){
-        console.log(this.props)
-          //this.props.history.push ('/booking')
-          console.log('RES TRUE')
-          return res
-      } else {
-        
-        console.log ('NO AUTH')
-        console.log(res)
-        return res
+ function ProtectedRoute({ component: Component, ...rest }) {
+   console.log(rest)
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        rest.authStatus ? ( // результ запроса залогинен юзер или нет
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: rest.location.pathname }
+            }}
+          />
+        )
       }
-  }) 
-    
-  }
-
-  render() {
-
-    return (
-        <Route
-          // {...rest}
-          render={props =>
-           (this.check()) ? (
-              <BookingFrom {...props} />
-            ) : (
-              <Redirect
-                to={{
-                  pathname: "/login",
-                  state: { from: props.location }
-                }}
-              />
-            )
-          }
-        />
-      );
-  }
-
+    />
+  );
 }
+
+
+// const fakeAuth = {
+//   isAuthenticated: false,
+//   authenticate(cb) {
+//     this.isAuthenticated = true;
+//     setTimeout(cb, 100); // fake async
+//   },
+//   signout(cb) {
+//     this.isAuthenticated = false;
+//     setTimeout(cb, 100);
+//   }
+// };
+
+
+let mapStateToProps = (state) => {
+    
+  return {
+      authStatus: state.auth.get ('isAuth'),
+      }
+}
+
+export default connect (mapStateToProps)(ProtectedRoute)
