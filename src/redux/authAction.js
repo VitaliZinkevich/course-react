@@ -34,4 +34,15 @@ const signOutAuth=function() {
 }
 
 
-export {getAuth, setAuth,signOutAuth}
+const RE_NEW_ORDERS='RE_NEW_ORDERS';
+
+const reNewOrders=function(userName) {
+  return {
+    type: RE_NEW_ORDERS,
+    payload: axios.get('http://localhost:8080/reneworders'),
+    userName
+  }
+    
+}
+
+export {getAuth, setAuth,signOutAuth, reNewOrders}

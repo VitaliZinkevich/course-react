@@ -8,7 +8,10 @@ import {Input, Button, Modal} from 'react-materialize'
 
 import {Link} from "react-router-dom"
 
+import {reNewOrders} from '../../redux/authAction'
+
 import { connect } from 'react-redux'
+
 
 
  class BookingForm extends PureComponent {
@@ -64,6 +67,7 @@ if (canSendToServer) {
   this.setState({openModal: true})
 
   axios.post('http://localhost:8080/neworder', {
+  number:Math.floor(Math.random()*10000),
   hotel: this.props.buyOptions.getIn(['hotel', 'name']),
   room: this.props.buyOptions.getIn(['room', 'name']),
   date: this.props.buyOptions.getIn(['date']),
@@ -77,7 +81,13 @@ if (canSendToServer) {
   statusPayment: 1,
 
 }).then ((res)=>{
+  // redirect after done w order to main?
+  setTimeout(()=>{
+    this.setState({openModal: false}, ()=>{this.props.history.push('/myorders')})},3000)
+    
   
+  // re new orders dispath
+  //this.props.dispath (reNewOrders(userName))
 })}
 
 }
@@ -187,7 +197,7 @@ render() {
                 <div className='col s5'>
                 <p className='black-text'>Статус оплаты</p>
                 <Input s={12} type='select' disabled>
-                  <option  value='1'>Неоплачено</option>
+                  <option value='1'>Неоплачено</option>
                   <option value='2'>Оплачено</option>
                   <option value='3'>Частично оплачено</option>
                 </Input>
@@ -253,8 +263,9 @@ let mapStateToProps = (state) => {
     
   return {
     buyOptions: state.bookingReducer.get ('buyOptions'),
+    userName: state.auth.get ('userName')
     
-      }
+    }
 }
 
 

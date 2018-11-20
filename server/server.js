@@ -88,80 +88,160 @@ app.post('/neworder', function (req, res) {
     res.send('Сообщение получено')
   })
 
-  const orders2 = [{ hotel: 'Белая вежа',
-  room: 'Двухместный номер двухкомнаный номер люкс',
-  date: '22.11.2018',
-  night: 17,
-  adults: 1,
-  children: 0,
-  contactAdress: 'asd',
-  contactTel: 'asd',
-  touristsData: 
-   [ { firstName: 'asd',
-       lastName: 'asd',
-       passSeries: 'asd',
-       passNumber: 'asd',
-       passValidTill: '25.11.2018' } ] },
-       { hotel: 'Белая вежа',
-       room: 'Двухместный номер двухкомнаный номер люкс',
-       date: '22.11.2018',
-       night: 17,
-       adults: 1,
-       children: 0,
-       contactAdress: 'asd',
-       contactTel: 'asd',
-       touristsData: 
-        [ { firstName: 'asd',
-            lastName: 'asd',
-            passSeries: 'asd',
-            passNumber: 'asd',
-            passValidTill: '25.11.2018' } ] }   
-    
+  const orders2 = [
+    { number: 6370,
+        hotel: 'Буг',
+        room: 'Одноместный номер',
+        date: '22.11.2018',
+        night: 20,
+        adults: 1,
+        children: 0,
+        contactAdress: '1111111111111',
+        contactTel: '1111111111',
+        touristsData: 
+         [ { firstName: 'asdasd',
+             lastName: 'adadasd',
+             passSeries: 'asdasda',
+             passNumber: 'sdasdasd',
+             passValidTill: '23.11.2018' } ],
+        statusConfirmed: 1,
+        statusPayment: 1 },
+        { number: 8518,
+            hotel: 'Буг',
+            room: 'Двухместный номер двухкомнатный люкс',
+            date: '23.11.2018',
+            night: 20,
+            adults: 1,
+            children: 0,
+            contactAdress: 'asd',
+            contactTel: 'asd',
+            touristsData: 
+             [ { firstName: 'asd',
+                 lastName: 'asd',
+                 passSeries: 'asd',
+                 passNumber: 'asd',
+                 passValidTill: '30.11.2018' } ],
+            statusConfirmed: 1,
+            statusPayment: 1 },
+            { number: 5252,
+                hotel: 'Белая вежа',
+                room: 'Двухместный двухкомнаный номер',
+                date: '21.11.2018',
+                night: 20,
+                adults: 2,
+                children: 2,
+                contactAdress: 'dadddd',
+                contactTel: 'asdas',
+                touristsData: 
+                 [ { firstName: 'asd',
+                     lastName: 'asd',
+                     passSeries: 'asd',
+                     passNumber: 'asd',
+                     passValidTill: '24.11.2018' },
+                   { firstName: 'asd',
+                     lastName: 'asd',
+                     passSeries: 'asd',
+                     passNumber: 'asd',
+                     passValidTill: '24.11.2018' },
+                   { firstName: 'asd',
+                     lastName: 'adada',
+                     passSeries: 'dadasd',
+                     passNumber: 'asdasd',
+                     passValidTill: '30.11.2018' },
+                   { firstName: 'asdasd',
+                     lastName: 'asdasd',
+                     passSeries: 'asda',
+                     passNumber: 'sdasd',
+                     passValidTill: '24.11.2018' } ],
+                statusConfirmed: 1,
+                statusPayment: 1 }
+                      
+          
+      
     ]
 
   const orders3 = [
-    { hotel: 'Белая вежа',
-    room: 'Двухместный номер двухкомнаный номер люкс',
-    date: '22.11.2018',
-    night: 17,
-    adults: 1,
-    children: 0,
-    contactAdress: 'asd',
-    contactTel: 'asd',
-    touristsData: 
-     [ { firstName: 'asd',
-         lastName: 'asd',
-         passSeries: 'asd',
-         passNumber: 'asd',
-         passValidTill: '25.11.2018' } ] },
-         { hotel: 'Белая вежа',
-  room: 'Двухместный номер двухкомнаный номер люкс',
-  date: '22.11.2018',
-  night: 17,
-  adults: 1,
-  children: 0,
-  contactAdress: 'asd',
-  contactTel: 'asd',
-  touristsData: 
-   [ { firstName: 'asd',
-       lastName: 'asd',
-       passSeries: 'asd',
-       passNumber: 'asd',
-       passValidTill: '25.11.2018' } ] },
-       { hotel: 'Белая вежа',
-  room: 'Двухместный номер двухкомнаный номер люкс',
-  date: '22.11.2018',
-  night: 17,
-  adults: 1,
-  children: 0,
-  contactAdress: 'asd',
-  contactTel: 'asd',
-  touristsData: 
-   [ { firstName: 'asd',
-       lastName: 'asd',
-       passSeries: 'asd',
-       passNumber: 'asd',
-       passValidTill: '25.11.2018' } ] }
+    { number: 6491,
+        hotel: 'Свитанак',
+        room: 'Двухместный номер 2 корпус',
+        date: '30.11.2018',
+        night: 1,
+        adults: 2,
+        children: 1,
+        contactAdress: 'asdasd',
+        contactTel: 'asdasd',
+        touristsData: 
+         [ { firstName: 'asdasd',
+             lastName: 'asdaasd',
+             passSeries: 'asd',
+             passNumber: 'asd',
+             passValidTill: '23.11.2018' },
+           { firstName: 'asdddd',
+             lastName: 'dddd',
+             passSeries: '12312312',
+             passNumber: '3123123213',
+             passValidTill: '24.11.2018' },
+           { firstName: 'asdasdasccvcb',
+             lastName: 'chfghfgh',
+             passSeries: 'fghfg',
+             passNumber: 'hfghfg',
+             passValidTill: '24.11.2018' } ],
+        statusConfirmed: 1,
+        statusPayment: 1 },
+        { number: 6007,
+            hotel: 'Свитанак',
+            room: 'Двухместный номер 2 корпус',
+            date: '30.11.2018',
+            night: 1,
+            adults: 2,
+            children: 1,
+            contactAdress: 'asdasd',
+            contactTel: 'asdasd',
+            touristsData: 
+             [ { firstName: 'asdasd',
+                 lastName: 'asdaasd',
+                 passSeries: 'asd',
+                 passNumber: 'asd',
+                 passValidTill: '23.11.2018' },
+               { firstName: 'asdddd',
+                 lastName: 'dddd',
+                 passSeries: '12312312',
+                 passNumber: '3123123213',
+                 passValidTill: '24.11.2018' },
+               { firstName: 'asdasdasccvcb',
+                 lastName: 'chfghfgh',
+                 passSeries: 'fghfg',
+                 passNumber: 'hfghfg',
+                 passValidTill: '24.11.2018' } ],
+            statusConfirmed: 1,
+            statusPayment: 1 },
+            { number: 6333,
+                hotel: 'Свитанак',
+                room: 'Двухместный номер 2 корпус',
+                date: '30.11.2018',
+                night: 1,
+                adults: 2,
+                children: 1,
+                contactAdress: 'asdasd',
+                contactTel: 'asdasd',
+                touristsData: 
+                 [ { firstName: 'asdasd',
+                     lastName: 'asdaasd',
+                     passSeries: 'asd',
+                     passNumber: 'asd',
+                     passValidTill: '23.11.2018' },
+                   { firstName: 'asdddd',
+                     lastName: 'dddd',
+                     passSeries: '12312312',
+                     passNumber: '3123123213',
+                     passValidTill: '24.11.2018' },
+                   { firstName: 'asdasdasccvcb',
+                     lastName: 'chfghfgh',
+                     passSeries: 'fghfg',
+                     passNumber: 'hfghfg',
+                     passValidTill: '24.11.2018' } ],
+                statusConfirmed: 1,
+                statusPayment: 1 }
 
 ]
 
@@ -188,7 +268,7 @@ app.post('/neworder', function (req, res) {
         } else {
             console.log("ADMIN ORDERS")
             users.forEach ((el)=>{
-                 orders.push(el)
+                orders=orders.concat(el.orders)
             })
             console.log(orders)
         }
@@ -223,3 +303,24 @@ app.post('/neworder', function (req, res) {
 
   })
 
+  app.post ('/ordersChange', (req, res)=>{
+      
+        let changeArray = req.body.changes
+        changeArray.forEach ((el)=>{
+            users.forEach ((elemU)=>{
+                elemU.orders.forEach((elemUO)=>{
+                    if (el.orderNumber === elemUO.number) {
+                        console.log('===')
+                        console.log(elemUO[el.orderStatus])
+                        elemUO[el.orderStatus]=el.statusValue
+                        console.log(elemUO[el.orderStatus])
+                    }
+                })
+            })
+        })
+  })
+
+
+  app.get ('/reneworders', (req,res)=>{
+    console.log(req.body)
+  })
