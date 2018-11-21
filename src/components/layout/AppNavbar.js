@@ -17,11 +17,12 @@ render (){
         <NavItem><NavLink className='black-text' to='/'>Поиск</NavLink></NavItem>
         <NavItem><NavLink className='black-text' to='/about'> О компании</NavLink></NavItem>
         <NavItem><NavLink className='black-text' to='/contacts'>Контакты </NavLink></NavItem>
-        
-        
-        {this.props.isAuth === false ? (<NavItem><NavLink className='black-text' to='/login'><Icon>fingerprint</Icon></NavLink></NavItem>): null}
-        {this.props.isAuth === false ? (<NavItem><NavLink className='black-text' to='/singup'><Icon>face</Icon></NavLink></NavItem>): null}
-        {this.props.isAuth === true ? (<NavItem><NavLink className='black-text' to='/myorders'><Icon>shopping_cart</Icon></NavLink></NavItem>): null}
+        {/* <Icon>fingerprint</Icon>
+        <Icon>face</Icon>
+        <Icon>shopping_cart</Icon> */}
+        {this.props.isAuth === false ? (<NavItem><NavLink className='black-text' to='/login'>Войти</NavLink></NavItem>): null}
+        {this.props.isAuth === false ? (<NavItem><NavLink className='black-text' to='/singup'>Зарегистрироваться</NavLink></NavItem>): null}
+        {this.props.isAuth === true ? (<NavItem><NavLink className='black-text' to='/myorders'>Мои заказы</NavLink></NavItem>): null}
         {this.props.isAuth === true ? (<NavItem onClick={()=>{this.props.dispatch(signOutAuth())}} ><NavLink className='black-text' to='' ><Icon>lock_open</Icon></NavLink></NavItem>): null}
     </Navbar>
         
