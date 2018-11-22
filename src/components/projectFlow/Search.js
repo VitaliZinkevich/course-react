@@ -205,6 +205,7 @@ class Search extends Component{
     }
 
     componentWillUnmount (){
+        console.log('SEARCH UNMOUNT')
         mainFormFillEvents.removeListener('handleSearchForm', this.handleChange)
         queryStringEvent.removeListener('makeQueryString', this.createQueryLink )
     }

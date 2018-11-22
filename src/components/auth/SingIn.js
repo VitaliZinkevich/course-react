@@ -1,40 +1,37 @@
-
 import React, { PureComponent } from 'react'
-import axios from 'axios'
-
-
-import {Redirect} from 'react-router-dom'
-import BookingForm from '../projectFlow/BookingForm'
-
 import { connect } from 'react-redux'
 import {getAuth} from '../../redux/authAction'
 import {Link} from "react-router-dom"
-
+import {Preloader} from 'react-materialize'
 
 class SingIn extends PureComponent {
 
     
     state = {
-        email: null,
-        password: null,
+        email: '',
+        password: '',
         errors: ['Введите почту', 'Введите пароль'],
-        
+        message:''
     }
 
     componentWillReceiveProps(newProps){
-        // console.log('new props')
+        
         if (newProps.isAuth === true) {
-            // console.log(this.props.location)
+            
             if (this.props.location.state !== undefined) {
                 this.props.history.push (this.props.location.state.from)
             } else {
-
                 this.props.history.push ('/')
             }
-
-            
+           
         }
     }
+    
+    componentWillUnmount(){
+        console.log('unmount')
+    }
+
+
 
     handleChange=(e, index=null)=>{
         
@@ -45,11 +42,11 @@ class SingIn extends PureComponent {
     validate (state) {
         let newErrors = []
         if (state.email === null || state.email === '') {
-            newErrors.push ('Введите почту')
+            newErrors[0]= 'Введите почту'
         }
 
         if (state.password === null ||state.password === '' ) {
-            newErrors.push ('Введите пароль')
+            newErrors[1]= 'Введите пароль'
         }
         this.setState({errors:newErrors})
     }
@@ -58,32 +55,62 @@ class SingIn extends PureComponent {
 
     submit= async()=>{
         
-        this.props.dispatch (getAuth(this.state.email, this.state.password))
-        
-        
-        //console.log(this.props)
-
-        
-      
+        this.props.dispatch (getAuth(this.state.email, this.state.password)).then ((res)=>{
+            if (res.value.data.message !=='Есть пользователь') {
+                this.setState({message: res.value.data.message})
+            }
+            
+       
+        })
+           
     }
 
   render() {
-  //console.log(this.props)
-  // добавить лодер
+
+   let  fromVar = null
+   if (this.props.location.state === undefined) {
+    fromVar = '/'
+   } else {
+    fromVar = this.props.location.state.from
+   }
+
     return (
         <main className='row'>
-        <div className='offset-s3 col s6 center' > 
-            <input placeholder='email' type='email' name='email' onChange={(e)=>{this.handleChange(e)}}/>
-            <input placeholder='password' type='password' name ='password'  onChange={(e)=>{this.handleChange(e)}}/>
-            <button  onClick={this.submit} disabled={this.state.errors.length !== 0}>
-                LogIn        </button>
-            
-            <div>
-                {this.props.message === 'nouser' ? (<div className='center'>Нет такого пользователя <br/><Link to={`/singup`}> Зарегистрироваться</Link></div> ) : 
-                null }
-                {/* <div className='center'>{this.props.message }</div> */}
+        <div className='offset-s3 col s6 center margin-top-50' > 
+            {this.props.authPending === true ? (<Preloader size='big'/>) : (<>
+                
+                <input 
+                placeholder='Электронная почта' 
+                type='email' 
+                name='email' 
+                value={this.state.email} 
+                onChange={(e)=>{this.handleChange(e)}}/>
 
-            </div>
+                <span className='red-text'>{this.state.errors[0]}</span>
+                <input 
+                placeholder='Пароль' 
+                type='password' 
+                name ='password'
+                value={this.state.password}  
+                onChange={(e)=>{this.handleChange(e)}}/>
+                <span className='red-text'>{this.state.errors[1]}</span><br/>
+                
+                <button  
+                onClick={this.submit} 
+                disabled={this.state.errors.length !== 0}
+                className='waves-effect waves-light btn blue margin-top-25'  >
+                Войти
+                </button>
+                {this.state.message === '' ? 
+                (<p className='margin-top-25'><strong>Или <Link to={{pathname:"/singup" , state: {from: fromVar }}}>зарегистрируйтесь</Link></strong> </p>) : 
+                (null)}
+                <div>
+                {this.state.message !== '' ? (<div className='center margin-top-25'>{this.state.message} <br/><Link to={`/singup`}> <strong>Зарегистрироваться</strong></Link></div> ) : 
+                null }
+                </div>
+                </>
+            )}
+
         </div>  
         </main>
     )
@@ -95,7 +122,7 @@ let mapStateToProps = (state) => {
             authPending: state.auth.get('authPending'),
             isAuth: state.auth.get('isAuth'),
             rejectedError: state.auth.get('rejectedError'),
-            message: state.auth.get('message'),
+            
         }
   }
 

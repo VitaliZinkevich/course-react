@@ -13,7 +13,6 @@ import {fetchHotels} from '../../redux/hotelsActions'
   componentDidMount (){
         if (this.props.hotels.size === 0){
           this.props.dispatch (fetchHotels)
-
       }
   }
 
@@ -33,7 +32,10 @@ import {fetchHotels} from '../../redux/hotelsActions'
       <main>
         <div className='center'><p><strong>{(hotel !== null) ? hotel.getIn (['name']) : 'Загрузка'}</strong></p></div>
         {(hotel !== null) ? hotel.getIn (['description', 'text']) : 'Загрузка'}
-        {(fotos !== null) ? <Carousel options={{fullWidth: true, indicators: true,noWrap:true}} images={fotos} /> : 'Загрузка'}
+        {(fotos !== null) ? <Carousel 
+        options={{fullWidth: true, indicators: true,noWrap:true}} 
+        images={fotos} 
+        className='margin-arround'/> : 'Загрузка'}
       </main>
     )
   }

@@ -43,12 +43,6 @@ main {
   display: none;
 }
 
-.collapsible {
-
-/* background-color: brown; */
-
-}
-
 .priceListItem {
   display: flex;
   flex-wrap: nowrap; 
@@ -89,4 +83,17 @@ input::placeholder {
   flex-direction: column;
 
 }
-  
+
+.margin-top-50{
+ margin-top: 50px;
+}
+
+.margin-top-25{
+  margin-top: 25px;
+ }
+
+ .margin-arround{
+  margin: 10px 10px 10px 10px;
+ }
+
+ 

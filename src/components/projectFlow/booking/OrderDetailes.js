@@ -10,31 +10,31 @@ export default class OrderDetailes extends PureComponent {
 
     return (
       <div className='bookingsStatus'>
-          <div>
+          <div className='center'>
           Отель
-           <p>{this.props.hotel}</p>
+           <p className='center'>{this.props.hotel}</p>
           </div>
-          <div>
+          <div className='center'>
           Номер
-          <p>{this.props.room}</p> 
+          <p className='center'>{this.props.room}</p> 
           </div>
-          <div>
+          <div className='center'>
           Заселение  
-           <p>{this.props.date}</p>
+           <p className='center'>{this.props.date}</p>
           </div>
-          <div>
+          <div className='center'>
           Ночей  
-           <p>{this.props.night}</p>
+           <p className='center'>{this.props.night}</p>
           </div>
-          <div>
+          <div className='center'>
           Дней  
-           <p>{this.props.night+1}</p>
+           <p className='center'>{this.props.night+1}</p>
           </div>
-          <div>
-          Выселение   <p>{`${(start.date().length === 1 ? '0'+start.date():start.date() )}.${start.month()+1}.${start.year()}`}</p>
+          <div className='center'>
+          Выселение   <p className='center'>{`${(start.date().length === 1 ? '0'+start.date():start.date() )}.${start.month()+1}.${start.year()}`}</p>
           </div>
-          <div>
-          Размещение   <p>{this.props.ad.toString()+'+'+this.props.ch.toString()}</p>
+          <div className='center'>
+          Размещение   <p className='center'>{this.props.ad.toString()+'+'+this.props.ch.toString()}</p>
           </div>
           
         

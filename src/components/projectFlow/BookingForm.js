@@ -9,6 +9,7 @@ import {Input, Button, Modal} from 'react-materialize'
 import {Link} from "react-router-dom"
 
 import {reNewOrders} from '../../redux/authAction'
+import {delBookingOpt} from '../../redux/bookingAction'
 
 import { connect } from 'react-redux'
 
@@ -80,10 +81,15 @@ if (canSendToServer) {
   statusConfirmed: 1,
   statusPayment: 1,
 
-}).then ((res)=>{
-  // redirect after done w order to main?
+},{withCredentials: true}).then ((res)=>{
+  // redirect after done w order to orders
+
+  this.props.dispatch (reNewOrders())
+  
   setTimeout(()=>{
-    this.setState({openModal: false}, ()=>{this.props.history.push('/myorders')})},3000)
+    this.setState({openModal: false}, ()=>{
+      this.props.history.push('/myorders')
+      this.props.dispatch (delBookingOpt())})},3000)
     
   
   // re new orders dispath
@@ -174,18 +180,19 @@ render() {
     }
   }
     
-  
-  
-
-
-
     return (
 
       <main>
           
-        {this.props.buyOptions === null ? (<div className='center'>Оформление заявок только через прайс лист со страницы поиска<br/>  <Link to={`/`}>На страницу поиска </Link></div>) : (<div>
+        {this.props.buyOptions === null ? (<div className='center'><h2>
+          Оформление заявок только через прайс лист со страницы поиска</h2><br/>  
+        <Link to={`/`}><h3>На страницу поиска</h3></Link></div>) : (<div>
               <div className='row'>
+              <div className='col s12'>
+              <p className="black-text flow-text">Статусы заявки</p></div>
+             
                 <div className='col s5'>
+                       
                 <p className='black-text'>Статус заявки</p>
                 <Input s={12} type='select' disabled>
                   <option value='1'>Бронирование</option>
@@ -203,7 +210,7 @@ render() {
                 </Input>
               </div>
 
-              <div className='col s2'>
+              <div className='col s2 center'>
                 <p className='black-text'>Стоимость тура</p>
                 <div>{parseInt (this.props.buyOptions.getIn(['room', 'price', 'adult'])) * 
                 parseInt (this.props.buyOptions.getIn(['adults'])) + 
@@ -233,18 +240,25 @@ render() {
             {formForEachTouristData}
               
              
-              
-              <Button
-              
-              className="saveButton right green"
+            <div className='center'>
+            <Button
+              className="saveButton green btn-large"
               waves='green'
               onClick={this.saveOrder}
-              >Забронировать</Button>
+              >Забронировать
+              </Button>
+            </div>
+              
+              
               <Modal
                 open={this.state.openModal}
                 header='Спасибо'
                 actions={null}>
-                Спасибо. Заявка получена.
+                <div className='center'>
+                <p>Заявка получена.</p>
+                <p>Вы будете переадресованы в раздел <strong>Мои заказы</strong> </p>
+                </div>
+               
               </Modal>
          </div>)}
         

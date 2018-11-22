@@ -1,22 +1,28 @@
 import React, { PureComponent } from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {Input} from 'react-materialize'
+import {Input, Modal} from 'react-materialize'
 
 
  class MyOrders extends PureComponent {
 
   
-    orderChanges=[]
+  orderChanges=[]
   
-  
+  state= {
+    openModal: false
+  }
   
 
   saveOrder = ()=>{
   
     
   let toServer = this.orderChanges
-  axios.post('http://localhost:8080/ordersChange', {changes: toServer})
+  axios.post('http://localhost:8080/ordersChange', {changes: toServer},{withCredentials: true})
+  .then ((res)=>{
+    this.setState({openModal:true})
+    setTimeout(()=>{this.setState({openModal:false})}, 2000)
+  })
   // на сервер отправить все изменения
   }
 
@@ -62,17 +68,29 @@ import {Input} from 'react-materialize'
                <tr key={el.number}>
                    <td>{el.number}</td>
                    <td>
-                   <Input name='statusConfirmed' onChange={(e)=>{this.handleInputs(el.number, e)}} type='select' defaultValue={el.statusConfirmed} disabled={this.props.role === 'user'}>
+                   <Input 
+                   name='statusConfirmed' 
+                   onChange={(e)=>{this.handleInputs(el.number, e)}} 
+                   type='select' 
+                   defaultValue={el.statusConfirmed} 
+                   disabled={this.props.role === 'user'}
+                   >
                      <option  value='1'>Бронирование</option>
                      <option  value='2'>Подтверждено</option>
                      <option  value='3'>Аннулировано</option>
                    </Input>
                    </td> 
                    <td stule={{width:'300px'}}>
-                   <Input name='statusPayment' onChange={(e)=>{this.handleInputs(el.number, e)}} type='select' defaultValue={el.statusPayment} disabled={this.props.role === 'user'}>
+                   <Input 
+                   name='statusPayment' 
+                   onChange={(e)=>{this.handleInputs(el.number, e)}} 
+                   type='select' defaultValue={el.statusPayment} 
+                   disabled={this.props.role === 'user'}
+                   className='black-text'>
+                   
                      <option  value='1'>Неоплачено</option>
-                     <option value='2'>Оплачено</option>
-                     <option value='3'>Частично оплачено</option>
+                     <option  value='2'>Оплачено</option>
+                     <option  value='3'>Частично оплачено</option>
                    </Input>
                    </td>
                    <td>{el.hotel}</td>
@@ -98,11 +116,11 @@ import {Input} from 'react-materialize'
     return (
       <main>
           
-        {(jsOrders.length == 0) ? <div className='center'>Дорогой {this.props.userName}. У вас нет заказов</div>: (
-          <>
-          <div>Заказы пользователя {this.props.userName}</div>
+        {(jsOrders.length === 0) ? <div className='center margin-top-25'>Дорогой {this.props.userName}. У вас нет заказов</div>: (
+          <div>
+          <h5 className='center'>Заказы пользователя {this.props.userName}</h5>
 
-          <table>
+          <table className='centered responsive-table'>
             <thead>
               <tr>
                   
@@ -124,10 +142,27 @@ import {Input} from 'react-materialize'
             </tbody>
 
           </table>
-          {this.props.role === 'admin'? <button onClick={this.saveOrder}>Сохранить</button>: null}
-          </>
+          {this.props.role === 'admin'? (<div className='center'>
+          <button 
+          className='waves-effect waves-light btn blue margin-arround btn-large' 
+          onClick={this.saveOrder}
+          
+          >Сохранить</button>
+          </div>
+         ):
+           null}
+          </div>
         )}
-
+            <Modal
+                open={this.state.openModal}
+                bottomSheet
+                actions={null}
+                >
+                <div className='center'>
+                <h2>Все заявки изменены</h2>
+                </div>
+               
+            </Modal>
       </main>
     )
   }

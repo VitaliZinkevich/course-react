@@ -18,7 +18,12 @@ const bookingReducer = (state = initState, action) => {
             newState = newState.setIn (['buyOptions'], fromJS (action.bookingOpions))
             return newState
         }
-      
+        
+        case 'DEL_BOOKING_OPTIONS':{
+            newState = newState.setIn (['buyOptions'], null)
+            return newState
+        }
+
     default:
     return newState
     }

@@ -8,20 +8,20 @@ const getAuth=function(email, pass) {
     payload: axios.post('http://localhost:8080/auth', {
       email: email,
       pass: pass
-    }),
+    },{withCredentials: true}),
   }
     
 }
 
-const SET_AUTH='SET_AUTH';
+// const SET_AUTH='SET_AUTH';
 
-const setAuth=function(userName) {
-  return {
-    type: SET_AUTH,
-    userName
-  }
+// const setAuth=function(userName) {
+//   return {
+//     type: SET_AUTH,
+//     userName
+//   }
     
-}
+// }
 
 const SING_OUT='SING_OUT';
 
@@ -36,13 +36,13 @@ const signOutAuth=function() {
 
 const RE_NEW_ORDERS='RE_NEW_ORDERS';
 
-const reNewOrders=function(userName) {
+const reNewOrders=function() {
   return {
     type: RE_NEW_ORDERS,
-    payload: axios.get('http://localhost:8080/reneworders'),
-    userName
+    payload: axios.get('http://localhost:8080/reneworders',{withCredentials: true}),
+    
   }
     
 }
 
-export {getAuth, setAuth,signOutAuth, reNewOrders}
+export {getAuth, signOutAuth, reNewOrders}

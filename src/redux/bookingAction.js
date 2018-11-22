@@ -7,5 +7,13 @@ const saveBookingOpt=function(options) {
    
 }
 
+const DEL_BOOKING_OPTIONS='DEL_BOOKING_OPTIONS';
+const delBookingOpt=function(options) {
+  return {
+    type: DEL_BOOKING_OPTIONS,
+    }
+   
+}
 
-export {saveBookingOpt}
+
+export {saveBookingOpt, delBookingOpt}
