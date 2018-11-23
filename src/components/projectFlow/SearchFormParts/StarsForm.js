@@ -12,7 +12,7 @@ export class StarsForm extends PureComponent {
     let starsTypes = [ 'Любой','2','3','4','5']
     let startsOptions = starsTypes.map ((el,index)=>{
         return (
-            <option key = {index} value={el}>{el}</option>
+            <option key = {index} selected={starsTypes[index] === this.props.stars ? true: false} value={el}>{el}</option>
         )
     })
 

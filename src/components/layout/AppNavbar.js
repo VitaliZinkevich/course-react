@@ -28,10 +28,8 @@ render (){
         {this.props.isAuth === true ? (<NavItem onClick={()=>{this.props.dispatch(signOutAuth())}} ><NavLink className='black-text' to='' >Выйти</NavLink></NavItem>): null}
 
     </Navbar>
-        
-                    
+                  
     )
-
 }
 
 }

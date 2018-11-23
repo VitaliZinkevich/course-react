@@ -155,7 +155,6 @@ import {Input, Modal} from 'react-materialize'
         )}
             <Modal
                 open={this.state.openModal}
-                bottomSheet
                 actions={null}
                 >
                 <div className='center'>

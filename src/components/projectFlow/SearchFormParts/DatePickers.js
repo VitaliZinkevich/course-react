@@ -14,17 +14,21 @@ class DatePickers extends  Component{
         mainFormFillEvents.emit('handleSearchForm', {name: e.target.name, value})
     }
 
-    
+    componentDidMount(){
+        
+        if (this.props.valueFrom !== null) {
+            this.setState({})
+            
+        }
+    }
 
 render (){
 
     console.log('RENDER DATEPICKERS')
  
-
     // максимальная дата доступная в календаре
     let result = new Date()
     result.setDate(result.getDate()+183)
-    
     let dateOptions = {
         min: new Date(),
         max: result,
@@ -42,9 +46,8 @@ render (){
         closeOnSelect: true,
     }
 
-    
    return (
-    <div>
+    <div >
         <Input 
         s={6} 
         value={this.props.valueFrom || ''}

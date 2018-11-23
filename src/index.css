@@ -39,6 +39,10 @@ main {
   color: black;
 }
 
+#clearButton {
+  margin: 0 10px 0 10px
+}
+
 .picker__date-display{
   display: none;
 }

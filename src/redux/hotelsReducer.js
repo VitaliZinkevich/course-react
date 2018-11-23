@@ -14,7 +14,6 @@ let initState = {
     starsType:'Любой',
     dateFrom:null,
     dateTo:null,
-    datesError:[],//[<div key={1} className ='red-text'>Введите 2 даты</div>, <div key={2} className ='red-text'>Заселение ПО не далее 5 дней от начала</div>, <div  key={3} className ='red-text'>Заселение С должно быть раньше Заселение ПО</div>],
     nights:[1],
     adults: 1,
     children: 0,
@@ -66,7 +65,7 @@ const hotelsReducer = (state = initState, action) => {
                 let newSelectedHotels = newState.get ('selectedHotels').push(addtoSelectedHotels)
                 //console.log ('RETURN')
                 
-                newState =newState.setIn(['mainList'],newMainList).setIn(['selectedHotels'],newSelectedHotels)
+                newState =newState.setIn(['mainList'],newMainList).setIn(['selectedHotels'],newSelectedHotels).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
                 return newState
             }
 
@@ -83,7 +82,7 @@ const hotelsReducer = (state = initState, action) => {
                     }
                 })
                
-                newState = newState.setIn(['selectedHotels'],newSelectedHotels)
+                newState = newState.setIn(['selectedHotels'],newSelectedHotels).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
                 //console.log (newState.get ('search').indexOf (addtoMainList.get('name')))
                 
                 let newMainList = null
@@ -120,7 +119,7 @@ const hotelsReducer = (state = initState, action) => {
 
             if (action.formName === 'search' || action.formName === 'starsType') {
                
-                let errors =fromJS ([])
+                let errors = fromJS ([])
 
                 if ( action.formName === 'starsType') {
                     newState = newState.setIn(['starsType'],action.fieldValue)
@@ -150,7 +149,7 @@ const hotelsReducer = (state = initState, action) => {
 
                 if (newMainList.size === 0 ) {
                     errors = errors.push('Фильтр по НАЗВАНИЮ удаляет все элементы')
-                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors)
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
                     return newState   
                 } 
 
@@ -188,19 +187,16 @@ const hotelsReducer = (state = initState, action) => {
 
                 if (newMainList.size === 0 ) {
                     errors = errors.push('Фильтр по ЗВЕЗДНОСТИ удаляет все элементы')   
-                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors)
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
                     return newState
-                } 
-               
-               
-               
-                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors)
-                    
+                    } 
+                              
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
                     return newState
                 }
 
             if (action.formName === 'foodType') {
-                newState = newState.setIn (['foodType'], action.fieldValue )
+                newState = newState.setIn (['foodType'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
                 
                return newState
 
@@ -209,9 +205,9 @@ const hotelsReducer = (state = initState, action) => {
             if (action.formName === 'children' || action.formName === 'adults') {
 
                 if (action.formName === 'children') {
-                    newState = newState.setIn (['children'], action.fieldValue )
+                    newState = newState.setIn (['children'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
                 } else  {
-                    newState = newState.setIn (['adults'], action.fieldValue )
+                    newState = newState.setIn (['adults'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
                 }
  
                return newState
@@ -240,10 +236,10 @@ const hotelsReducer = (state = initState, action) => {
 
                 if (newNightsList.size===0) {
                     errors = errors.push('Количество НОЧЕЙ должно быть выбрано')
-                    newState= newState.setIn (['formMessages'], errors).setIn (['nights'], newNightsList )
+                    newState= newState.setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo')))).setIn (['nights'], newNightsList )
                 }
 
-                newState = newState.setIn (['nights'], newNightsList ).setIn (['formMessages'], errors)
+                newState = newState.setIn (['nights'], newNightsList ).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
 
                 return newState
             }
@@ -256,7 +252,7 @@ const hotelsReducer = (state = initState, action) => {
                     newState = newState.setIn (['dateTo'], action.fieldValue)
                 }
 
-                newState = newState.setIn (['datesError'], checkErrors (newState.get('dateFrom'), newState.get('dateTo')))
+                newState = newState.setIn (['formMessages'], checkErrors (newState.get('dateFrom'), newState.get('dateTo')))
                 
 
                 return newState
@@ -280,8 +276,8 @@ const hotelsReducer = (state = initState, action) => {
 
         case 'LINK_WITH_SEARCH_QUERY' : {
             //console.log (action.settings)
-            let {dateFrom, dateTo, nights, adults ,children,foodType ,currentPage ,selectedHotels} = action.settings
-
+            let {dateFrom, dateTo, nights, adults ,children,foodType, starsType ,currentPage ,selectedHotels} = action.settings
+            //console.log(selectedHotels)
 
             
             newState = newState.setIn (['isGetQueryString'], true)
@@ -312,14 +308,19 @@ const hotelsReducer = (state = initState, action) => {
             if (foodType) {
                 newState = newState.setIn (['foodType'], foodType)
             }
-            // не вносит изменения в ссылку по клику на пагинатор
-            if (currentPage) {
-                //console.log(currentPage)
-                newState = newState.setIn (['currentPage'], currentPage)
 
+            if (starsType) {
+                newState = newState.setIn (['starsType'], starsType)
             }
+           
+            if (currentPage) {
+                newState = newState.setIn (['currentPage'], currentPage)
+            }
+
             // когда диспатчит это еще нет отелей с сервера и списко пуст
-            if (selectedHotels) {
+            //console.log(selectedHotels)
+            if (selectedHotels || selectedHotels === '') {
+                console.log("SELECTED HOTELS REDUCER")
             let querySelectedHotels = selectedHotels.split(',')
             //console.log(querySelectedHotels)
             
@@ -340,25 +341,54 @@ const hotelsReducer = (state = initState, action) => {
 
             })
 
-           let newMainList = hotels.filter ((el)=>{
-               // console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
-               if (querySelectedHotels.indexOf(el.get('_id')) !== -1) {
-                   return false
-               } else {
-                   return true
-               }
+            let newMainList
 
-           })
+            console.log(selectedHotels)
+            if (selectedHotels === '') {
+                console.log('NO STARS TYPE')
+                if (starsType === '') {
+                    newMainList = hotels
+                    
+
+                } else {
+                    console.log('MAKING STARS TYPE')
+                    newMainList = hotels.filter ((el)=>{
+                        if ((el.get('stars').toString()) === starsType) {
+                            return true
+                        } else {
+                            return false
+                        }
+         
+                    })
+                }
+
+                
+
+
+            } else {
+                
+                newMainList = hotels.filter ((el)=>{
+                    // console.log((querySelectedHotels.indexOf(el.get('_id')) !== -1))
+                    if (querySelectedHotels.indexOf(el.get('_id')) !== -1) {
+                        return false
+                    } else {
+                        return true
+                    }
+     
+                })
+            }
+
+           
 
             //console.log(newSelectedList)
             newState = newState.setIn (['selectedHotels'], newSelectedList).setIn (['mainList'], newMainList)
 
-            }
+         }
 
             newState=newState.setIn (['priceListStatus'], true)
             return newState
 
-        }
+    }
 
         default:
         return newState

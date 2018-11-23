@@ -15,14 +15,14 @@ render (){
     let options = [1,2,3]
     let optionsA =options.map((el, i)=>{
         return(
-            <option key={i} selected={options[i] === this.props.adultValue} value={el}>{el} взрослый</option>
+            <option key={i} selected={(options[i] === this.props.adultValue) ? true: false} value={el}>{el} взрослый</option>
         )
     })
 
     let options2 = [0,1,2,3]
     let optionsС =options2.map((el, i)=>{
         return(
-            <option key={i} selected={options2[i] ===  this.props.childrenValue} value={el}>{el} ребенок</option>
+            <option key={i} selected={(options2[i] ===  this.props.childrenValue) ? true: false} value={el}>{el} ребенок</option>
         )
     })
 

@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-
 // immutable proptypes
 import ImmutablePropTypes from 'react-immutable-proptypes'
-
-
 // redux
 import { connect } from 'react-redux'
-
 // to see Router and other
-
 import queryString from 'query-string';
-
-
 // action
 import {fetchHotels} from '../../redux/hotelsActions'
 import {seacrhFormHandleChangeRedux, priceListActivate, linkWithQuerToProps} from '../../redux/hotelsActions'
-
-
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
 import Persons from './SearchFormParts/Persons'
@@ -26,13 +16,10 @@ import DatePikers from './SearchFormParts/DatePickers'
 import HotelsLists from './SearchFormParts/HotelsLists'
 import StarsForm from './SearchFormParts/StarsForm'
 import FoodForm from './SearchFormParts/FoodFrom'
-
 // main parts
 import PriceList from './PriceList'
-
 // react materialize
 import {Input, Button, Row, Col, Preloader} from 'react-materialize'
-
 // events flow
 import {mainFormFillEvents, queryStringEvent} from '../../events/events'
 
@@ -114,7 +101,6 @@ class Search extends Component{
           ]),
         hotelPending: PropTypes.bool.isRequired,
         hotelPendingErrors: PropTypes.string,
-        datesError: ImmutablePropTypes.listOf (PropTypes.string),
         formMessages:ImmutablePropTypes.listOf (PropTypes.string),
         // for Price List Component
         priceListStatus: PropTypes.bool,
@@ -138,37 +124,10 @@ class Search extends Component{
     // events listners
         mainFormFillEvents.addListener('handleSearchForm', this.handleChange )
         queryStringEvent.addListener('makeQueryString', this.createQueryLink )
-
-
-        // if (this.props.location.search !== '') {
-           
-        //     let query = this.props.location.search
-        //     // query = Base64.decode (this.props.location.search)
-        //     const parsedHash = queryString.parse(query);
-        //     //console.log(parsedHash)
-        //     this.props.dispatch (linkWithQuerToProps(parsedHash))
-            
-        //     // if (valid === true) {
-
-        //     //     // диспатчнуть новые пропсы для формы и создать как уже после поиска
-        //     // } else {
-        //     //     window.Materialize.toast ('Передана неверная ссылка',2000)
-        //     //     //редирект на главну, смотря что откроет
-        //     // }
-        //     }
     }
 
     componentWillReceiveProps (newProps) {
-       
-        if (newProps.datesError.size !== 0) {
-
-            for (let e of newProps.datesError) {
-                window.Materialize.toast(e, 3000)
-            }
-
-            
-        }
-
+    
         if (newProps.formMessages.size !== 0) {
 
             for (let e of newProps.formMessages) {
@@ -177,28 +136,14 @@ class Search extends Component{
             
         }
        
-         //console.log((this.props.isGetQueryString !== true && newProps.hotels.size !== 0))
-        // console.log(this.props.isGetQueryString)
-        // console.log(newProps.hotels.size)
-        
         
         if ( newProps.hotels.size !== 0 && this.props.isGetQueryString !== true) {
             
             if (this.props.location.search !== '') {
            
                 let query = this.props.location.search
-                // query = Base64.decode (this.props.location.search)
                 const parsedHash = queryString.parse(query);
-                //console.log(parsedHash)
                 this.props.dispatch (linkWithQuerToProps(parsedHash))
-                
-                // if (valid === true) {
-    
-                //     // диспатчнуть новые пропсы для формы и создать как уже после поиска
-                // } else {
-                //     window.Materialize.toast ('Передана неверная ссылка',2000)
-                //     //редирект на главну, смотря что откроет
-                // }
                 }
            
         }
@@ -211,35 +156,42 @@ class Search extends Component{
     }
 
     handleChange=(data)=>{
+
         let {value, name} = data
         this.props.dispatch (seacrhFormHandleChangeRedux (name, value ))   
     }
 
     searchButtonClick= ()=>{
-        // создаем ссылку из адресной строки по параметрам поиска и 
-        // let selectedHotelsValue = this.props.selectedHotels.toJS().map (el=>el._id)
-
        
         this.createQueryLink()
-
         this.props.dispatch (priceListActivate())
        
+    }
+
+    clearButtonClick= ()=>{
+        console.log("CLEAR")
+        //dispathc action with clear all form
     }
     
     createQueryLink = ()=>{
         let selectedHotelsValue = this.props.selectedHotels.toJS()
-        // console.log(selectedHotelsValue)
         selectedHotelsValue = selectedHotelsValue.map (el=>el._id)
-        // console.log(selectedHotelsValue)
+
+        let mainListHotelsValue = this.props.mainList.toJS()
+        mainListHotelsValue = mainListHotelsValue.map (el=>el._id)
+
         let forURL = queryString.stringify({ 
             dateFrom: this.props.dateFrom, 
             dateTo: this.props.dateTo, 
             nights:this.props.nights.toJS().toString(),
             adults:this.props.adults,
             children:this.props.children,
+            starsType: this.props.starsType,
             foodType: this.props.foodType,
             currentPage:this.props.currentPage,
             selectedHotels:selectedHotelsValue.toString(),
+            mainList: mainListHotelsValue.toString(),
+
             
         })
               
@@ -295,7 +247,9 @@ class Search extends Component{
 
             <Row>
                 <Col s={6}>
-                    <StarsForm/>
+                    <StarsForm
+                    stars= {this.props.starsType}
+                    />
                 </Col>
 
                 <Col s={6}>
@@ -353,7 +307,7 @@ class Search extends Component{
                 <Button
                 id='searchButton'
                 disabled = {this.props.hotelPendingErrors !== '' 
-                || this.props.datesError.size !== 0 ||  this.props.formMessages.size !== 0 
+                || this.props.formMessages.size !== 0 
                 || this.props.dateFrom === null 
                 || this.props.dateTo === null ? true : false} 
                 large 
@@ -361,6 +315,14 @@ class Search extends Component{
                 waves='light' 
                 icon='search' 
                 onClick={this.searchButtonClick}
+                />
+                <Button
+                id='clearButton'
+                large 
+                className='blue right'
+                waves='light' 
+                icon='clear' 
+                onClick={this.clearButtonClick}
                 />
                 </Col>
                 
@@ -375,7 +337,7 @@ class Search extends Component{
                     nights={this.props.nights}
                     adults={this.props.adults}
                     children={this.props.children}
-                    toShow={(this.props.selectedHotels.size === 0) ? this.props.hotels: this.props.selectedHotels}
+                    toShow={(this.props.selectedHotels.size === 0) ? this.props.mainList: this.props.selectedHotels}
                     dispatch={this.props.dispatch}
                     currentPage={this.props.currentPage}
                     
@@ -398,9 +360,9 @@ let mapStateToProps = (state) => {
         selectedHotels:state.hotelsData.get ('selectedHotels'),
         hotelPending: state.hotelsData.get ('hotelPending'),
         hotelPendingErrors: state.hotelsData.get ('hotelPendingErrors'),
-        datesError: state.hotelsData.get ('datesError'),
         formMessages: state.hotelsData.get ('formMessages'),
         foodType:state.hotelsData.get ('foodType'),
+        starsType: state.hotelsData.get ('starsType'),
         // props for PriceList
         priceListStatus: state.hotelsData.get ('priceListStatus'),
         dateFrom:state.hotelsData.get ('dateFrom'),
