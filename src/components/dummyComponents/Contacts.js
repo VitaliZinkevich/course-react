@@ -37,12 +37,26 @@ doneMessage=()=>{
     
     return (
 
-      <main >
+      <main>
         <div className='row'>
 
             <div className='col s6'>
-            <p className="flow-text">
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
+            
+                
+                <div className="card horizontal z-depth-4 margin-top-50">
+               
+                  <div className="card-stacked">
+                    <div className="card-content">
+
+                    <div>  <i className="material-icons Large">assignment_ind</i><p>Vitali Zinkevich</p></div>
+                    <div>  <i className="material-icons Large">email</i> <p>vitalizinkevich@gmail.com</p></div>
+                    <div>  <i className="material-icons Large">contact_phone</i> <p>+375 29 338 00 91</p></div>
+                    <div>  <i className="material-icons Large">link</i> <p><a href='https://www.linkedin.com/feed/?trk=onboarding-landing'>I am at linkedIn</a></p></div>
+
+                    </div>
+                  </div>
+                </div>
+                
             </div>
 
             <div className='col s6 contactForm'>
@@ -65,7 +79,8 @@ doneMessage=()=>{
               
               <Button
               id='sendMsg'
-              onClick={this.doneMessage}>Отправить
+              onClick={this.doneMessage}
+              className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'>Отправить
               </Button></div>): null}
               
 

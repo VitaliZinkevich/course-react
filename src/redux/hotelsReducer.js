@@ -314,7 +314,7 @@ const hotelsReducer = (state = initState, action) => {
             }
            
             if (currentPage) {
-                newState = newState.setIn (['currentPage'], currentPage)
+                newState = newState.setIn (['currentPage'], parseInt (currentPage))
             }
 
             // когда диспатчит это еще нет отелей с сервера и списко пуст
@@ -343,10 +343,11 @@ const hotelsReducer = (state = initState, action) => {
 
             let newMainList
 
-            console.log(selectedHotels)
+            
             if (selectedHotels === '') {
                 console.log('NO STARS TYPE')
-                if (starsType === '') {
+                
+                if (starsType === 'Любой') {
                     newMainList = hotels
                     
 
@@ -354,6 +355,7 @@ const hotelsReducer = (state = initState, action) => {
                     console.log('MAKING STARS TYPE')
                     newMainList = hotels.filter ((el)=>{
                         if ((el.get('stars').toString()) === starsType) {
+                            console.log(((el.get('stars').toString()) === starsType))
                             return true
                         } else {
                             return false
@@ -390,6 +392,26 @@ const hotelsReducer = (state = initState, action) => {
 
     }
 
+
+        case 'CLEAR_FORM':{
+            newState = newState
+            .setIn (['mainList'], newState.getIn (['hotels']))
+            .setIn (['selectedHotels'], fromJS([]))
+            .setIn (['search'], '')
+            .setIn (['foodType'], 'Any')
+            .setIn (['starsType'], 'Любой')
+            .setIn (['dateFrom'], null)
+            .setIn (['dateTo'], null)
+            .setIn (['nights'], fromJS([1]))
+            .setIn (['adults'], 1)
+            .setIn (['children'],0)
+            .setIn (['formMessages'],fromJS([]))
+            .setIn (['priceListStatus'],false)
+            .setIn (['currentPage'],1)
+
+            return newState
+
+        }
         default:
         return newState
         }

@@ -4,9 +4,18 @@ import {getAuth} from '../../redux/authAction'
 import {Link} from "react-router-dom"
 import {Preloader} from 'react-materialize'
 
+import PropTypes from 'prop-types';
+// immutable proptypes
+import ImmutablePropTypes from 'react-immutable-proptypes'
+
 class SingIn extends PureComponent {
 
-    
+    static propTypes ={
+            authPending: PropTypes.bool,
+            isAuth: PropTypes.bool,
+            rejectedError: PropTypes.instanceOf(ImmutablePropTypes.list)
+    }
+
     state = {
         email: '',
         password: '',
@@ -27,12 +36,6 @@ class SingIn extends PureComponent {
         }
     }
     
-    componentWillUnmount(){
-        console.log('unmount')
-    }
-
-
-
     handleChange=(e, index=null)=>{
         
         this.setState ({[e.target.name]: e.target.value}, ()=>{this.validate (this.state)})
@@ -66,6 +69,7 @@ class SingIn extends PureComponent {
     }
 
   render() {
+      //console.log(typeof (null))
 
    let  fromVar = null
    if (this.props.location.state === undefined) {
@@ -77,7 +81,9 @@ class SingIn extends PureComponent {
     return (
         <main className='row'>
         <div className='offset-s3 col s6 center margin-top-50' > 
-            {this.props.authPending === true ? (<Preloader size='big'/>) : (<>
+            {this.props.authPending === true ? (<Preloader 
+            color='green'
+            size='big'/>) : (<>
                 
                 <input 
                 placeholder='Электронная почта' 
@@ -98,11 +104,15 @@ class SingIn extends PureComponent {
                 <button  
                 onClick={this.submit} 
                 disabled={this.state.errors.length !== 0}
-                className='waves-effect waves-light btn blue margin-top-25'  >
+                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'  >
                 Войти
                 </button>
                 {this.state.message === '' ? 
-                (<p className='margin-top-25'><strong>Или <Link to={{pathname:"/singup" , state: {from: fromVar }}}>зарегистрируйтесь</Link></strong> </p>) : 
+                (<div className='margin-top-25'><button
+                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong '
+                >
+                <Link className='white-text' to={{pathname:"/singup" , state: {from: fromVar }}}>  Или зарегистрируйтесь</Link>
+                </button> </div>) : 
                 (null)}
                 <div>
                 {this.state.message !== '' ? (<div className='center margin-top-25'>{this.state.message} <br/><Link to={`/singup`}> <strong>Зарегистрироваться</strong></Link></div> ) : 

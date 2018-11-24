@@ -1,8 +1,12 @@
 import React, { PureComponent } from 'react'
 import {Row, Input} from 'react-materialize'
-
+import PropTypes from 'prop-types';
 
 export default class MainContacts extends PureComponent {
+  
+  static propTypes ={
+    handleChange: PropTypes.func.isRequired
+  }
 
   render() {
     

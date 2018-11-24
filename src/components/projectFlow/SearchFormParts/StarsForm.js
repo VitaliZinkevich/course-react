@@ -3,10 +3,13 @@ import React, { PureComponent } from 'react'
 import {Input} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
 
-export class StarsForm extends PureComponent {
-//   static propTypes = {
+import PropTypes from 'prop-types';
 
-//   }
+export class StarsForm extends PureComponent {
+    
+    static propTypes={
+        stars:PropTypes.string,
+    }
 
   render() {
     let starsTypes = [ 'Любой','2','3','4','5']

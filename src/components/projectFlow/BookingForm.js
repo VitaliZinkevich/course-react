@@ -1,4 +1,7 @@
 import React, { PureComponent } from 'react'
+
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import axios from 'axios'
 import TouristForm from './booking/TouristForm'
 import OrderDetailes from './booking/OrderDetailes'
@@ -17,6 +20,52 @@ import { connect } from 'react-redux'
 
  class BookingForm extends PureComponent {
   
+  // date:date,
+  // night:night,
+  // hotel:hotel.toJS(), 
+  // room:room.toJS(), 
+  // adults:this.props.adults, 
+  // children:this.props.children,
+
+  static propTypes = {
+    
+    buyOptions: ImmutablePropTypes.map(
+        ImmutablePropTypes.contains({
+        date:PropTypes.string,
+        night:PropTypes.number,
+        hotel:PropTypes.shape({
+          _id: PropTypes.string,
+          name: PropTypes.string,
+          type: PropTypes.string,
+          stars: PropTypes.number,
+          rooms: PropTypes.arrayOf( PropTypes.shape ({
+                  name:PropTypes.string.isRequired,
+                  accomodation: PropTypes.arrayOf(PropTypes.string),
+                  price: PropTypes.shape(
+                    PropTypes.shape({
+                      adult:PropTypes.number,
+                      children:PropTypes.number ,
+                  }))
+              })
+
+          ),
+      }), 
+        room:PropTypes.shape ({
+          name:PropTypes.string,
+          accomodation: PropTypes.arrayOf(PropTypes.string),
+          price: PropTypes.shape(
+            PropTypes.shape({
+              adult:PropTypes.number,
+              children:PropTypes.number ,
+          }))
+      }), 
+        adults:PropTypes.number, 
+        children:PropTypes.number,
+    }))
+     ,
+    userName: PropTypes.string
+  }
+
   constructor(props) {
     super(props);
     
@@ -25,13 +74,10 @@ import { connect } from 'react-redux'
     
 
     if (this.props.buyOptions === null) {
-      
-      // нет этих пропсов с опциями. вход не из прайс листа
-      // this.props.history.push ('/')
-           
+             
     } else {
-      // console.log(this.props.buyOptions.get ('adults'))
-      number = parseInt (this.props.buyOptions.get ('adults'))+ parseInt (this.props.buyOptions.get ('children'))
+      number = parseInt (this.props.buyOptions.get ('adults'))+ 
+      parseInt (this.props.buyOptions.get ('children'))
    
       touristDataforState = []
       for (let i = 0; i < number; i++) {
@@ -56,6 +102,9 @@ import { connect } from 'react-redux'
       openModal: false}
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
 
 
 
@@ -82,7 +131,6 @@ if (canSendToServer) {
   statusPayment: 1,
 
 },{withCredentials: true}).then ((res)=>{
-  // redirect after done w order to orders
 
   this.props.dispatch (reNewOrders())
   
@@ -92,8 +140,6 @@ if (canSendToServer) {
       this.props.dispatch (delBookingOpt())})},3000)
     
   
-  // re new orders dispath
-  //this.props.dispath (reNewOrders(userName))
 })}
 
 }
@@ -166,12 +212,28 @@ validate=(state)=>{
   
 render() {
 
-  
+
+  console.log("BOOKING FORM")
+           
+            
+              let price
+
+              if (this.props.buyOptions !== null) {
+
+                price  = parseInt (((this.props.buyOptions.getIn(['room', 'price', 'adult'])) * 
+                parseInt (this.props.buyOptions.getIn(['adults']))) + (
+                parseInt (this.props.buyOptions.getIn(['room', 'price', 'children']))* 
+                parseInt (this.props.buyOptions.getIn(['children'])))) * 
+                parseInt (this.props.buyOptions.getIn(['night']))   
+                
+                //console.log(price)
+              }
+
   let formForEachTouristData = [];
 
   if (this.props.buyOptions !== null)  {
 
-    let number = parseInt (this.props.buyOptions.getIn(['adults']))+ parseInt (this.props.buyOptions.getIn(['children']))
+  let number = parseInt (this.props.buyOptions.getIn(['adults']))+ parseInt (this.props.buyOptions.getIn(['children']))
 
     //console.log(number)
     for (let i = 0; i<number; i++) {
@@ -186,7 +248,8 @@ render() {
           
         {this.props.buyOptions === null ? (<div className='center'><h2>
           Оформление заявок только через прайс лист со страницы поиска</h2><br/>  
-        <Link to={`/`}><h3>На страницу поиска</h3></Link></div>) : (<div>
+        <Link to={`/`}><h3>На страницу поиска</h3></Link></div>) : (
+         <div>
               <div className='row'>
               <div className='col s12'>
               <p className="black-text flow-text">Статусы заявки</p></div>
@@ -211,12 +274,8 @@ render() {
               </div>
 
               <div className='col s2 center'>
-                <p className='black-text'>Стоимость тура</p>
-                <div>{parseInt (this.props.buyOptions.getIn(['room', 'price', 'adult'])) * 
-                parseInt (this.props.buyOptions.getIn(['adults'])) + 
-                parseInt (this.props.buyOptions.getIn(['room', 'price', 'children']))* 
-                parseInt (this.props.buyOptions.getIn(['children']))
-                *parseInt (this.props.buyOptions.getIn(['night'])) }</div>
+                <p className='black-text'>Стоимость</p>
+                <div>{price}</div>
               </div>
               </div>
 
@@ -242,9 +301,10 @@ render() {
              
             <div className='center'>
             <Button
-              className="saveButton green btn-large"
-              waves='green'
-              onClick={this.saveOrder}
+            className='saveButton waves-effect white-text waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'
+            disabled={this.state.openModal === true}
+            waves='green'
+            onClick={this.saveOrder}
               >Забронировать
               </Button>
             </div>
@@ -276,6 +336,7 @@ render() {
 let mapStateToProps = (state) => {
     
   return {
+    
     buyOptions: state.bookingReducer.get ('buyOptions'),
     userName: state.auth.get ('userName')
     

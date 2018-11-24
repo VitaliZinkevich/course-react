@@ -1,8 +1,14 @@
 import React, { PureComponent } from 'react'
 import {Input} from 'react-materialize'
 import {mainFormFillEvents} from '../../../events/events'
+import PropTypes from 'prop-types';
 
 export class FoodForm extends PureComponent {
+
+    static propTypes = {
+        foodType:PropTypes.string,
+       
+    }
 
   render() {
 

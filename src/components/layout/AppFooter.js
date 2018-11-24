@@ -8,14 +8,16 @@ const AppFooter = ()=>{
 
     return (
         
-      <Footer copyrights="vitali zinkevich"
+      <Footer 
+      className='blue white-text'
+      copyrights='Vitali Zinkevich'
       moreLinks={
-        <Link to='/contacts' className="grey-text text-lighten-4 right">Контакты</Link>
+      <Link to='/contacts' className="white-text right">Контакты</Link>
       }
       links={
         <>
-         <Link to='/' className="grey-text text-lighten-4 right">Поиск</Link><br/>
-         <Link to='/about' className="grey-text text-lighten-4 right">О компании</Link>
+         <Link to='/' className="white-text right">Поиск</Link><br/>
+         <Link to='/about' className="white-text right">О компании</Link>
          
         </>}
       >   

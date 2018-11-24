@@ -3,7 +3,52 @@ import {CollapsibleItem, Collapsible,Row, Col} from 'react-materialize'
 
 import HotelListItem from './HotelListItem'
 
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+
 export class HotelsLists extends PureComponent {
+
+    static propTypes={
+        hotels: ImmutablePropTypes.listOf (ImmutablePropTypes.contains({
+          _id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          type: PropTypes.string.isRequired,
+          stars: PropTypes.number.isRequired,
+          rooms: ImmutablePropTypes.listOf(
+              ImmutablePropTypes.contains ({
+                  name:PropTypes.string.isRequired,
+                  accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
+                  price: ImmutablePropTypes.map(
+                      ImmutablePropTypes.contains({
+                      adult:PropTypes.number,
+                      children:PropTypes.number ,
+                  }))
+              })
+    
+          ),
+      })),
+      selectedHotels:ImmutablePropTypes.listOf (ImmutablePropTypes.contains({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        stars: PropTypes.number.isRequired,
+        rooms: ImmutablePropTypes.listOf(
+            ImmutablePropTypes.contains ({
+                name:PropTypes.string.isRequired,
+                accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
+                price: ImmutablePropTypes.map(
+                    ImmutablePropTypes.contains({
+                    adult:PropTypes.number,
+                    children:PropTypes.number ,
+                }))
+            })
+  
+        ),
+    }))
+      }
+
+ 
+
 
   render() {
      console.log ('RENDER HOTEL LIST')
@@ -52,7 +97,7 @@ export class HotelsLists extends PureComponent {
       })
 
     return (
-      <div>
+      <div> 
             <Row>
                 <Col s={8}>
 

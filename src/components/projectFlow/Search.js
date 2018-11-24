@@ -7,8 +7,7 @@ import { connect } from 'react-redux'
 // to see Router and other
 import queryString from 'query-string';
 // action
-import {fetchHotels} from '../../redux/hotelsActions'
-import {seacrhFormHandleChangeRedux, priceListActivate, linkWithQuerToProps} from '../../redux/hotelsActions'
+import {fetchHotels, clearForm, seacrhFormHandleChangeRedux, priceListActivate, linkWithQuerToProps} from '../../redux/hotelsActions'
 // form parts 
 import NightsForm from './SearchFormParts/NightsForm'
 import Persons from './SearchFormParts/Persons'
@@ -107,6 +106,8 @@ class Search extends Component{
         dateFrom:PropTypes.string,
         dateTo:PropTypes.string,
         nights:ImmutablePropTypes.listOf(PropTypes.number),
+        foodType:PropTypes.string,
+        starsType: PropTypes.string,
         adults:PropTypes.number,
         children:PropTypes.number,
         isGetQueryString: PropTypes.bool
@@ -131,6 +132,7 @@ class Search extends Component{
         if (newProps.formMessages.size !== 0) {
 
             for (let e of newProps.formMessages) {
+                
                 window.Materialize.toast(e, 3000)
             }
             
@@ -165,11 +167,16 @@ class Search extends Component{
        
         this.createQueryLink()
         this.props.dispatch (priceListActivate())
-       
+        
     }
 
     clearButtonClick= ()=>{
-        console.log("CLEAR")
+        
+        this.props.dispatch (clearForm())
+        this.props.history.push({
+            pathname: '/',
+            search: ''
+          })
         //dispathc action with clear all form
     }
     
@@ -280,14 +287,16 @@ class Search extends Component{
             {this.props.hotelPending === true ? (
                 <Row className='center'>
                 <Col s={12}>
-                    <Preloader flashing/>
+                    <Preloader 
+                    color='green'
+                    flashing/>
                 </Col>
                 </Row>) : (   
                            <Row >
                            {(this.props.hotelPendingErrors === '') ? (
                                 
                             <Col s={12}>
-                            <h6 className='green-text'>Отелей в списке {this.props.mainList.size}</h6>
+                            <h5 className='green-text'>Отелей в списке {this.props.mainList.size}</h5>
                             <HotelsLists 
                             hotels={this.props.mainList}
                             selectedHotels={this.props.selectedHotels}
@@ -311,15 +320,16 @@ class Search extends Component{
                 || this.props.dateFrom === null 
                 || this.props.dateTo === null ? true : false} 
                 large 
-                className='green right'
+                className='orange darken-3 right z-depth-4'
                 waves='light' 
                 icon='search' 
                 onClick={this.searchButtonClick}
                 />
+
                 <Button
                 id='clearButton'
                 large 
-                className='blue right'
+                className='orange lighten-3 right z-depth-4 textstrong'
                 waves='light' 
                 icon='clear' 
                 onClick={this.clearButtonClick}

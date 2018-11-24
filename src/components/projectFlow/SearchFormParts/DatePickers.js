@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import {Input} from 'react-materialize'
 
-
+import PropTypes from 'prop-types';
 
 
 //event flow
@@ -10,6 +10,11 @@ import {mainFormFillEvents} from '../../../events/events'
 
 class DatePickers extends  Component{
     
+    static propTypes = {
+        dateFrom:PropTypes.string,
+        dateTo:PropTypes.string,
+    }
+
     handleChangeDates=(e, value)=>{
         mainFormFillEvents.emit('handleSearchForm', {name: e.target.name, value})
     }
@@ -18,8 +23,7 @@ class DatePickers extends  Component{
         
         if (this.props.valueFrom !== null) {
             this.setState({})
-            
-        }
+            }
     }
 
 render (){
@@ -56,7 +60,7 @@ render (){
         type='date' 
         onChange={(e, value)=>{this.handleChangeDates(e, value)}}
         options={dateOptions}
-        
+           
         />
 
         <Input

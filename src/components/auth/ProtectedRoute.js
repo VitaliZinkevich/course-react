@@ -1,15 +1,14 @@
 import React from "react";
-import {
-  Route,
-  Redirect,
-  
-} from "react-router-dom";
+import { Route, Redirect} from "react-router-dom";
+import PropTypes from 'prop-types';
+
+
 
 import { connect } from 'react-redux'
 
 
  function ProtectedRoute({ component: Component, ...rest }) {
-   //console.log(rest)
+   
   return (
     <Route
       {...rest}
@@ -35,6 +34,10 @@ let mapStateToProps = (state) => {
   return {
       authStatus: state.auth.get ('isAuth'),
       }
+}
+
+ProtectedRoute.propTypes= {
+  authStatus: PropTypes.bool,
 }
 
 export default connect (mapStateToProps)(ProtectedRoute)

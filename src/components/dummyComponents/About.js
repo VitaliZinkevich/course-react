@@ -4,6 +4,8 @@ import React from 'react'
 const About = ()=>{
     //console.log (props)
     return (
+
+      
     <main className=''> 
     <div>
     <p className="flow-text">What is Lorem Ipsum?</p>

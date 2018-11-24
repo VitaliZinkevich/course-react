@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react'
 import {Link} from "react-router-dom"
 import {connect} from 'react-redux'
@@ -5,7 +6,16 @@ import {getAuth} from '../../redux/authAction'
 import axios from 'axios'
 import {Preloader} from 'react-materialize'
 
+
+
+
+
  class SingUp extends PureComponent {
+
+    static propTypes ={
+        authPending: PropTypes.bool,
+        isAuth: PropTypes.bool,
+    }
 
     state = {
         email: null,
@@ -68,13 +78,13 @@ import {Preloader} from 'react-materialize'
     }
 
   render() {
-      console.log(this.props)
+   
     return (
     <main className='row'>
 
 
             <div className='offset-s3 col s6 center  margin-top-50'>
-             {this.props.authPending === true ? (<Preloader size='big'/>) : (<>
+             {this.props.authPending === true ? (<Preloader color='green' size='big'/>) : (<>
                 <input placeholder='Электронная почта' type='email' name='email' onChange={(e)=>{this.handleChange(e)}}/>
                 <span className='red-text'>{this.state.errors[0]}</span>
                 <input placeholder='Пароль' type='password' name ='password'  onChange={(e)=>{this.handleChange(e)}}/>
@@ -85,7 +95,7 @@ import {Preloader} from 'react-materialize'
                 <button  
                 onClick={this.submit} 
                 disabled={this.state.errors.length !== 0}
-                className='waves-effect waves-light btn blue margin-top-25'>
+                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'>
                 Зарегистрироваться        
                 </button>
                 

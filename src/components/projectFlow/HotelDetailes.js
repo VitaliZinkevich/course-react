@@ -1,10 +1,36 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import {Carousel} from 'react-materialize'
 import {fetchHotels} from '../../redux/hotelsActions'
 
 
- class HotelDetailes extends PureComponent {
+ class HotelDetailes extends Component {
+
+  static propTypes = {
+    hotels: ImmutablePropTypes.listOf(
+      ImmutablePropTypes.contains({
+          _id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          type: PropTypes.string.isRequired,
+          stars: PropTypes.number.isRequired,
+          rooms: ImmutablePropTypes.listOf(
+              ImmutablePropTypes.contains ({
+                  name:PropTypes.string.isRequired,
+                  accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
+                  price: ImmutablePropTypes.map(
+                      ImmutablePropTypes.contains({
+                      adult:PropTypes.number,
+                      children:PropTypes.number ,
+                  }))
+              })
+
+          ),
+      })
+  ),
+  }
+
 
   state={
     modalMessage: false
@@ -34,7 +60,7 @@ import {fetchHotels} from '../../redux/hotelsActions'
         {(hotel !== null) ? hotel.getIn (['description', 'text']) : 'Загрузка'}
         {(fotos !== null) ? <Carousel 
         options={{fullWidth: true, indicators: true,noWrap:true}} 
-        images={fotos} 
+        images={fotos.toJS()} 
         className='margin-arround'/> : 'Загрузка'}
       </main>
     )

@@ -1,7 +1,18 @@
 import React, { PureComponent } from 'react'
 import moment from 'moment'
+import PropTypes from 'prop-types';
+
 
 export default class OrderDetailes extends PureComponent {
+  
+  static propTypes ={
+      hotel: PropTypes.string.isRequired,
+      room:PropTypes.string.isRequired,
+      night:PropTypes.number.isRequired,
+      date:PropTypes.string.isRequired,
+      ad:PropTypes.number.isRequired,
+      ch:PropTypes.number.isRequired,
+  }
   render() {
 
     let start = moment(this.props.date, "DD-MM-YYYY")

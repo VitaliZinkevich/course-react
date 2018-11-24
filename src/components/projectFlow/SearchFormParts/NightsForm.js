@@ -4,11 +4,18 @@ import {Input} from 'react-materialize'
 
 import {mainFormFillEvents} from '../../../events/events'
 
-// + 1 ночь к расчетам
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+// + 1 ночь к расчетам дней
 
 
 class NightsForm extends PureComponent {
   
+  static propTypes={
+    valueNights:ImmutablePropTypes.listOf(PropTypes.number)
+  }
+
+
   handleNights=(e, ind)=>{
     mainFormFillEvents.emit ('handleSearchForm' , {name: e.target.name, value: ind+1})
   }

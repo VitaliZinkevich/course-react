@@ -43,20 +43,58 @@ main {
   margin: 0 10px 0 10px
 }
 
+#clearButton i{
+  color: black;
+}
+
 .picker__date-display{
   display: none;
 }
 
+/* .priceList{
+  display: flex;
+  flex-wrap: wrap; 
+
+} */
+
+.starText{
+  display: flex;
+  justify-content: space-around; 
+  align-items: center
+}
+
+.hotelList {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  align-items: center
+}
+
+.priceList {
+
+}
+
 .priceListItem {
   display: flex;
-  flex-wrap: nowrap; 
-   justify-content: space-around;  
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  align-items: center
+} 
+
+.roomName{
+  text-align: center
 }
 
 .buyButtons {
   display: flex;
-  flex-wrap: nowrap; 
-   justify-content: space-between;  
+  flex-wrap: wrap; 
+  margin: 5px 0 5px 0;
+}   
+
+.guestsText{
+  display: flex;
+  justify-content: space-around; 
+  align-items: center
 }
 
 input::placeholder {
@@ -100,4 +138,20 @@ input::placeholder {
   margin: 10px 10px 10px 10px;
  }
 
- 
+ .toast {
+   background-color: blue;
+   font-weight: 900;
+ }
+
+ .textstrong {
+  font-weight: 900;
+ }
+
+ #nav-mobile {
+   background-color:#0061ff;
+   font-weight: 900;
+ }
+
+ li.waves-effect.active {
+   background-color: orange
+ }

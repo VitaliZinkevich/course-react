@@ -4,10 +4,45 @@ import {Icon} from 'react-materialize'
 
 import { Link } from "react-router-dom";
 
+import PropTypes from 'prop-types';
 
 
 export default class PriceListItem extends Component {
   
+  static propTypes = {
+  date:PropTypes.string,
+  hotel:PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    stars: PropTypes.number,
+    rooms: PropTypes.arrayOf(
+      PropTypes.shape ({
+            name:PropTypes.string,
+            accomodation: PropTypes.arrayOf(PropTypes.string),
+            price: PropTypes.shape(
+                PropTypes.shape({
+                adult:PropTypes.number,
+                children:PropTypes.number ,
+            }))
+        })
+
+    ),
+}),
+  night: PropTypes.number.isRequired,
+  room: PropTypes.shape ({
+          name:PropTypes.string,
+          accomodation: PropTypes.arrayOf(PropTypes.string),
+          price: PropTypes.shape(
+              PropTypes.shape({
+              adult:PropTypes.number,
+              children:PropTypes.number ,
+          }))
+      })
+
+  ,
+  adult:PropTypes.number.isRequired,
+  chield:PropTypes.number.isRequired,}
   
   
   render() {
@@ -29,13 +64,15 @@ export default class PriceListItem extends Component {
         <div>{this.props.hotel.get ('type')}</div>
 
         
-        <div>
+        <div className='roomName'>
           {this.props.room.get ('name')}
         </div>
-        <div >
+        <div className='guestsText'>
         <Icon>person</Icon> {this.props.adult} <Icon>child_care</Icon> {this.props.chield} 
          </div>
-        <div className='grey'>{(parseInt(this.props.chield)*parseInt((this.props.room.getIn (['price' ,'children'])))+(parseInt(this.props.adult)*parseInt(this.props.room.getIn (['price', 'adult']))))*this.props.night}</div>
+        <div><strong> {(parseInt(this.props.chield)*parseInt((this.props.room.getIn (['price' ,'children'])))+
+        (parseInt(this.props.adult)*parseInt(this.props.room.getIn (['price', 'adult']))))*this.props.night} 
+        </ strong> RUR </div>
       
       </div>
     )

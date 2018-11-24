@@ -1,9 +1,17 @@
 import React, { PureComponent } from 'react'
 import {Input, Row} from 'react-materialize'
-
+import PropTypes from 'prop-types';
 
 export default class TouristhtmlForm extends PureComponent {
 
+
+
+  static propTypes ={
+    handleChange: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
+
+
+  }
 
   render() {
     let dateOptions = {

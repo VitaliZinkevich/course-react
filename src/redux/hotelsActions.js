@@ -49,5 +49,13 @@ const linkWithQuerToProps=function(settings) {
   };
 }
 
+const CLEAR_FORM = 'CLEAR_FORM'
+const clearForm=function() {
+  return {
+    type: CLEAR_FORM,
+    
+  };
+}
 
-export {fetchHotels, seacrhFormHandleChangeRedux, priceListActivate, paginationActivePage, linkWithQuerToProps}
+
+export {clearForm, fetchHotels, seacrhFormHandleChangeRedux, priceListActivate, paginationActivePage, linkWithQuerToProps}
