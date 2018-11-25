@@ -108,11 +108,10 @@ class SingIn extends PureComponent {
                 Войти
                 </button>
                 {this.state.message === '' ? 
-                (<div className='margin-top-25'><button
-                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong '
-                >
-                <Link className='white-text' to={{pathname:"/singup" , state: {from: fromVar }}}>  Или зарегистрируйтесь</Link>
-                </button> </div>) : 
+                (<div className='margin-top-25'>
+                
+                <Link className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong white-text' to={{pathname:"/singup" , state: {from: fromVar }}}>  Или зарегистрируйтесь</Link>
+                </div>) : 
                 (null)}
                 <div>
                 {this.state.message !== '' ? (<div className='center margin-top-25'>{this.state.message} <br/><Link to={`/singup`}> <strong>Зарегистрироваться</strong></Link></div> ) : 

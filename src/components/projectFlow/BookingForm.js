@@ -137,7 +137,7 @@ if (canSendToServer) {
   setTimeout(()=>{
     this.setState({openModal: false}, ()=>{
       this.props.history.push('/myorders')
-      this.props.dispatch (delBookingOpt())})},3000)
+      this.props.dispatch (delBookingOpt())})},1500)
     
   
 })}

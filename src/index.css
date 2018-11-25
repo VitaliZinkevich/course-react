@@ -40,12 +40,10 @@ main {
 }
 
 #clearButton {
-  margin: 0 10px 0 10px
-}
-
-#clearButton i{
+  margin: 0 10px 0 10px;
   color: black;
 }
+
 
 .picker__date-display{
   display: none;

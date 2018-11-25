@@ -115,7 +115,7 @@ class Search extends Component{
     }
 
    componentDidMount(){
-      
+    window.scrollTo(0, 0)
     // если пропсы неизменного списка пусты просим список у сервера    
         if (this.props.hotels.size === 0){
             this.props.dispatch (fetchHotels)
@@ -171,12 +171,14 @@ class Search extends Component{
     }
 
     clearButtonClick= ()=>{
-        
+        console.log("CLEAR BUTTON")
+        window.scrollTo(0, 0)
         this.props.dispatch (clearForm())
         this.props.history.push({
             pathname: '/',
             search: ''
           })
+         
         //dispathc action with clear all form
     }
     
@@ -314,6 +316,7 @@ class Search extends Component{
                 
                 <Col s={12}>
                 <Button
+                title="Поиск по заданным параметрам"
                 id='searchButton'
                 disabled = {this.props.hotelPendingErrors !== '' 
                 || this.props.formMessages.size !== 0 
@@ -327,6 +330,7 @@ class Search extends Component{
                 />
 
                 <Button
+                title="Очистить форму поиска"
                 id='clearButton'
                 large 
                 className='orange lighten-3 right z-depth-4 textstrong'

@@ -240,7 +240,7 @@ const users =[
                             {name:'Двухместный  двухкомнатный люкс', accomodation:['2+0', '2+1','2+2','3+0', '3+1','3+2'], price:{adult: 1600, children: 500} }]}
               ]
         )
-      }, 100)
+      }, 1500)
   })
 
   app.post('/neworder', function (req, res) {
