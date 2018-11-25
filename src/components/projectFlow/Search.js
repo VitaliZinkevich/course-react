@@ -115,7 +115,7 @@ class Search extends Component{
     }
 
    componentDidMount(){
-    window.scrollTo(0, 0)
+    
     // если пропсы неизменного списка пусты просим список у сервера    
         if (this.props.hotels.size === 0){
             this.props.dispatch (fetchHotels)
@@ -316,7 +316,7 @@ class Search extends Component{
                 
                 <Col s={12}>
                 <Button
-                title="Поиск по заданным параметрам"
+                title="Поиск по заданным парамтрам"
                 id='searchButton'
                 disabled = {this.props.hotelPendingErrors !== '' 
                 || this.props.formMessages.size !== 0 
@@ -330,7 +330,7 @@ class Search extends Component{
                 />
 
                 <Button
-                title="Очистить форму поиска"
+                title="Очистить форму"
                 id='clearButton'
                 large 
                 className='orange lighten-3 right z-depth-4 textstrong'
