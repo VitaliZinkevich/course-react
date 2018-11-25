@@ -11,10 +11,9 @@ npm install
 
 ## Конфигурация/ Set up
 
-Скопировать файлы Navbar.js (./src/components/layout/Navbar.js) и NavItem.js (./src/components/layout/NavItem.js) в установленный пакет react-materialize в ./node_modules/react-materialize/lib заменив файлы пакета
+Скопировать файлы Navbar.js (./src/components/layout/Navbar.js) и NavItem.js (./src/components/layout/NavItem.js) в установленный пакет react-materialize в ./node_modules/react-materialize/lib заменив файлы пакета.
 
-
-
+По ходу выполнения приходилось вносить коррективы в библиотеку для корректной работы DOM валидатора с тегом <a>
 
 ## Старт/ Start
 
