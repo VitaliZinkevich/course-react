@@ -17,14 +17,16 @@ export class FoodForm extends PureComponent {
 
 
     let foodOptions = foodTypes.map ((el, index)=>{
+    //selected={foodTypesvalues[index] === this.props.foodValue ? true: false}
         return (
-            <option key = {index} selected={foodTypesvalues[index] === this.props.foodValue ? true: false} value={foodTypesvalues[index]}>{el}</option>
+            <option key = {index} value={foodTypesvalues[index]}>{el}</option>
         )
     })
     
     return (
-    <div > <Input 
-        
+    <div > 
+        <Input 
+        value={this.props.foodValue.toString()}
         onChange={(e)=>{
             mainFormFillEvents.emit ('handleSearchForm', {
                 name: e.target.name,

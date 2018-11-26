@@ -8,7 +8,7 @@ let initState = {
     isAuth: false,
     role:'user',
     rejectedError: null,
-    orders:null,
+    orders:[],
     
 }
 
@@ -59,7 +59,7 @@ const authReducer = (state = initState, action) => {
         }
 
         case 'RE_NEW_ORDERS_FULFILLED': {
-            console.log(action.payload.data)
+           // console.log(action.payload.data)
             newState = newState.setIn(['orders'], fromJS (action.payload.data))
             return newState
         }

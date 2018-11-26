@@ -1,34 +1,14 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes'
+
 import { connect } from 'react-redux'
 import {Carousel} from 'react-materialize'
 import {fetchHotels} from '../../redux/hotelsActions'
-
+import {hotelObjPropTypeArray} from './propTypes'
 
  class HotelDetailes extends Component {
 
   static propTypes = {
-    hotels: ImmutablePropTypes.listOf(
-      ImmutablePropTypes.contains({
-          _id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          type: PropTypes.string.isRequired,
-          stars: PropTypes.number.isRequired,
-          rooms: ImmutablePropTypes.listOf(
-              ImmutablePropTypes.contains ({
-                  name:PropTypes.string.isRequired,
-                  accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
-                  price: ImmutablePropTypes.map(
-                      ImmutablePropTypes.contains({
-                      adult:PropTypes.number,
-                      children:PropTypes.number ,
-                  }))
-              })
-
-          ),
-      })
-  ),
+    hotels: hotelObjPropTypeArray,
   }
 
 

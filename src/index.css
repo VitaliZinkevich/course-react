@@ -136,6 +136,10 @@ input::placeholder {
   margin: 10px 10px 10px 10px;
  }
 
+ .margin-ordres-list {
+  margin: 10px 0 10px 0;
+ }
+
  .toast {
    background-color: blue;
    font-weight: 900;
@@ -152,4 +156,37 @@ input::placeholder {
 
  li.waves-effect.active {
    background-color: orange
+ }
+
+
+ .d-fr-status {
+  display: flex;
+  flex-wrap: wrap; 
+  /* justify-content: space-around; 
+  align-items: center */
+ }
+
+ .d-fr-living {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-around; 
+  align-items: center 
+ }
+
+ .touristdata {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: start; 
+  /* align-items: center  */
+ }
+
+ .ml5{
+  margin-left: 5px;
+ }
+
+ .contacts {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-around; 
+      
  }

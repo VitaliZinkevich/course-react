@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react'
 
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes'
+import {singleObjHotel, singleRoom} from './propTypes'
+
+//import {singleObjHotel} from 
 import axios from 'axios'
 import TouristForm from './booking/TouristForm'
 import OrderDetailes from './booking/OrderDetailes'
@@ -29,40 +31,17 @@ import { connect } from 'react-redux'
 
   static propTypes = {
     
-    buyOptions: ImmutablePropTypes.map(
-        ImmutablePropTypes.contains({
+    buyOptions: PropTypes.oneOfType ([
+      PropTypes.shape(),
+      PropTypes.shape({
         date:PropTypes.string,
         night:PropTypes.number,
-        hotel:PropTypes.shape({
-          _id: PropTypes.string,
-          name: PropTypes.string,
-          type: PropTypes.string,
-          stars: PropTypes.number,
-          rooms: PropTypes.arrayOf( PropTypes.shape ({
-                  name:PropTypes.string.isRequired,
-                  accomodation: PropTypes.arrayOf(PropTypes.string),
-                  price: PropTypes.shape(
-                    PropTypes.shape({
-                      adult:PropTypes.number,
-                      children:PropTypes.number ,
-                  }))
-              })
-
-          ),
-      }), 
-        room:PropTypes.shape ({
-          name:PropTypes.string,
-          accomodation: PropTypes.arrayOf(PropTypes.string),
-          price: PropTypes.shape(
-            PropTypes.shape({
-              adult:PropTypes.number,
-              children:PropTypes.number ,
-          }))
-      }), 
+        hotel: singleObjHotel , 
+        room:singleRoom, 
         adults:PropTypes.number, 
         children:PropTypes.number,
-    }))
-     ,
+    })
+    ]) ,
     userName: PropTypes.string
   }
 
@@ -267,7 +246,7 @@ render() {
                 <div className='col s5'>
                 <p className='black-text'>Статус оплаты</p>
                 <Input s={12} type='select' disabled>
-                  <option value='1'>Неоплачено</option>
+                  <option value='1'>Не оплачено</option>
                   <option value='2'>Оплачено</option>
                   <option value='3'>Частично оплачено</option>
                 </Input>

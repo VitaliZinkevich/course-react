@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import {hotelObjPropTypeArray} from './propTypes'
 import PriceListItem from './PriceListParts/PriceListItem'
 import moment from 'moment'
 import {Pagination} from 'react-materialize'
@@ -21,26 +22,7 @@ class PriceList extends PureComponent {
     nights:ImmutablePropTypes.listOf(PropTypes.number),
     adults:PropTypes.number,
     children:PropTypes.number,
-    toShow: ImmutablePropTypes.listOf(
-      ImmutablePropTypes.contains({
-          _id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          type: PropTypes.string.isRequired,
-          stars: PropTypes.number.isRequired,
-          rooms: ImmutablePropTypes.listOf(
-              ImmutablePropTypes.contains ({
-                  name:PropTypes.string.isRequired,
-                  accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
-                  price: ImmutablePropTypes.map(
-                      ImmutablePropTypes.contains({
-                      adult:PropTypes.number,
-                      children:PropTypes.number ,
-                  }))
-              })
-
-          ),
-      })
-  ),
+    toShow: hotelObjPropTypeArray,
     
     dispatch: PropTypes.func,
     currentPage:PropTypes.number,

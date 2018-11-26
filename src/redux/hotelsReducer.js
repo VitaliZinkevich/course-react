@@ -88,24 +88,24 @@ const hotelsReducer = (state = initState, action) => {
                 let newMainList = null
                 
                 if (newState.get ('search') === '' && (newState.get ('starsType')) === 'Любой'){
-                    console.log('ALL CLEAR')
+                    // console.log('ALL CLEAR')
                     newMainList = newState.get ('mainList').push (addtoMainList)
                 }
 
                 //console.log (addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase()))
                 if (newState.get ('starsType') === 'Любой' && newState.get ('search')!=="" && addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase()) !== -1){
-                    console.log('starsType CLEAR seacrh ++++')
+                    // console.log('starsType CLEAR seacrh ++++')
                     newMainList = newState.get ('mainList').push (addtoMainList)
                 }
 
                 if (newState.get ('search') === '' && parseInt(newState.get ('starsType')) === addtoMainList.get ('stars')) {
-                    console.log('seacrh CLEAR starsType ++++')
+                    // console.log('seacrh CLEAR starsType ++++')
 
                     newMainList = newState.get ('mainList').push (addtoMainList)
                 } 
 
                 if (newState.get ('search') !== "" && addtoMainList.get('name').toLowerCase().indexOf (newState.get ('search').toLowerCase())!== -1 && parseInt(newState.get ('starsType')) === addtoMainList.get ('stars')) {
-                    console.log('seacrh ++++ starsType ++++')
+                    // console.log('seacrh ++++ starsType ++++')
                     newMainList = newState.get ('mainList').push (addtoMainList)
                 } 
                 
@@ -320,7 +320,7 @@ const hotelsReducer = (state = initState, action) => {
             // когда диспатчит это еще нет отелей с сервера и списко пуст
             //console.log(selectedHotels)
             if (selectedHotels || selectedHotels === '') {
-                console.log("SELECTED HOTELS REDUCER")
+                // console.log("SELECTED HOTELS REDUCER")
             let querySelectedHotels = selectedHotels.split(',')
             //console.log(querySelectedHotels)
             
@@ -345,17 +345,17 @@ const hotelsReducer = (state = initState, action) => {
 
             
             if (selectedHotels === '') {
-                console.log('NO STARS TYPE')
+                // console.log('NO STARS TYPE')
                 
                 if (starsType === 'Любой') {
                     newMainList = hotels
                     
 
                 } else {
-                    console.log('MAKING STARS TYPE')
+                    // console.log('MAKING STARS TYPE')
                     newMainList = hotels.filter ((el)=>{
                         if ((el.get('stars').toString()) === starsType) {
-                            console.log(((el.get('stars').toString()) === starsType))
+                            // console.log(((el.get('stars').toString()) === starsType))
                             return true
                         } else {
                             return false
@@ -433,12 +433,12 @@ function checkErrors (startFrom, startTo) {
 
    if (start.isValid()) {
    } else {
-    errors.push('Выберете дату С')
+    errors.push('Выберите дату С')
    }
 
    if (end.isValid()) {
    } else {
-        errors.push('Выберете дату ПО')
+        errors.push('Выберите дату ПО')
     }
    
    

@@ -14,13 +14,15 @@ export class StarsForm extends PureComponent {
   render() {
     let starsTypes = [ 'Любой','2','3','4','5']
     let startsOptions = starsTypes.map ((el,index)=>{
+        // selected={starsTypes[index] === this.props.stars ? true: false}
         return (
-            <option key = {index} selected={starsTypes[index] === this.props.stars ? true: false} value={el}>{el}</option>
+            <option key = {index} value={el}>{el}</option>
         )
     })
 
     return (
         <Input s={12} 
+        value={this.props.stars.toString()}
         onChange={(e)=>{
             mainFormFillEvents.emit ('handleSearchForm', {
                 name: e.target.name,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // immutable proptypes
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import {hotelObjPropTypeArray} from './propTypes'
 // redux
 import { connect } from 'react-redux'
 // to see Router and other
@@ -27,81 +28,12 @@ import {mainFormFillEvents, queryStringEvent} from '../../events/events'
 class Search extends Component{
     
     static propTypes= {
-        hotels:PropTypes.oneOfType ([
-            ImmutablePropTypes.listOf(),
-            ImmutablePropTypes.listOf(
-                ImmutablePropTypes.contains({
-                    _id: PropTypes.string.isRequired,
-                    name: PropTypes.string.isRequired,
-                    type: PropTypes.string.isRequired,
-                    stars: PropTypes.number.isRequired,
-                    rooms: ImmutablePropTypes.listOf(
-                        ImmutablePropTypes.contains ({
-                            name:PropTypes.string.isRequired,
-                            accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
-                            price: ImmutablePropTypes.map(
-                                ImmutablePropTypes.contains({
-                                adult:PropTypes.number,
-                                children:PropTypes.number ,
-                            }))
-                        })
-    
-                    ),
-                })
-            ),
-        ]),
-        mainList:PropTypes.oneOfType([
-            ImmutablePropTypes.listOf(),
-            ImmutablePropTypes.listOf(
-                ImmutablePropTypes.contains({
-                    _id: PropTypes.string.isRequired,
-                    name: PropTypes.string.isRequired,
-                    type: PropTypes.string.isRequired,
-                    stars: PropTypes.number.isRequired,
-                    rooms: ImmutablePropTypes.listOf(
-                        ImmutablePropTypes.contains ({
-                            name:PropTypes.string.isRequired,
-                            accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
-                            price: ImmutablePropTypes.map(
-                                ImmutablePropTypes.contains({
-                                adult:PropTypes.number,
-                                children:PropTypes.number ,
-                            }))
-                        })
-    
-                    ),
-                })
-            )
-            
-          ]),
-        selectedHotels:PropTypes.oneOfType([
-            ImmutablePropTypes.listOf(),
-            ImmutablePropTypes.listOf(
-                ImmutablePropTypes.contains({
-                    _id: PropTypes.string.isRequired,
-                    name: PropTypes.string.isRequired,
-                    type: PropTypes.string.isRequired,
-                    stars: PropTypes.number.isRequired,
-                    rooms: ImmutablePropTypes.listOf(
-                        ImmutablePropTypes.contains ({
-                            name:PropTypes.string.isRequired,
-                            accomodation: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
-                            price: ImmutablePropTypes.map(
-                                ImmutablePropTypes.contains({
-                                adult:PropTypes.number,
-                                children:PropTypes.number ,
-                            }))
-                        })
-    
-                    ),
-                })
-            )
-            
-          ]),
-        hotelPending: PropTypes.bool.isRequired,
+        hotels: hotelObjPropTypeArray,
+        mainList:hotelObjPropTypeArray,
+        selectedHotels:hotelObjPropTypeArray,
+        hotelPending: PropTypes.bool,
         hotelPendingErrors: PropTypes.string,
         formMessages:ImmutablePropTypes.listOf (PropTypes.string),
-        // for Price List Component
         priceListStatus: PropTypes.bool,
         dateFrom:PropTypes.string,
         dateTo:PropTypes.string,

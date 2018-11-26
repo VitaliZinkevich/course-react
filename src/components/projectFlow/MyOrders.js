@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes'
+import {ordersPropTypesArray} from './propTypes'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {Input, Modal} from 'react-materialize'
+import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
 
 
  class MyOrders extends PureComponent {
@@ -11,35 +11,8 @@ import {Input, Modal} from 'react-materialize'
   static propTypes = {
     role: PropTypes.string,
     userName: PropTypes.string,
-    orders: PropTypes.oneOfType ([
-      ImmutablePropTypes.listOf(),
-      ImmutablePropTypes.listOf ( 
-        ImmutablePropTypes.contains({
-          number: PropTypes.number,
-          hotel: PropTypes.string,
-          room: PropTypes.string,
-          date: PropTypes.string,
-          night: PropTypes.number,
-          adults: PropTypes.number,
-          children: PropTypes.number,
-          contactAdress: PropTypes.string,
-          contactTel: PropTypes.string,
-          touristsData: ImmutablePropTypes.listOf(
-            ImmutablePropTypes.contains({
-              firstName: PropTypes.string,
-              lastName: PropTypes.string,
-              passSeries: PropTypes.string,
-              passNumber: PropTypes.string,
-              passValidTill: PropTypes.string,
-            })
-          ),
-          statusConfirmed: PropTypes.number,
-          statusPayment: PropTypes.number,
-        }
-
-        )
-      )])
-    // state.auth.get ('orders')
+    orders: ordersPropTypesArray
+    
   }
 
   
@@ -73,13 +46,15 @@ import {Input, Modal} from 'react-materialize'
       orderStatus: val.target.name,
       statusValue: val.target.value
     }
-    let newOrdersChanges = []
+    let newOrdersChanges = [...this.state.orderChanges]
     newOrdersChanges.push(changeObj)
     this.setState({orderChanges: newOrdersChanges})
     }
 
     render() {
       console.log("RENDER MY ORDERS")
+      console.log(this.props)
+      //console.log(this.state.orderChanges)
         let jsOrders
         let viewOrders
 
@@ -91,22 +66,45 @@ import {Input, Modal} from 'react-materialize'
 
                 let touristList = el.touristsData.map ((elem, index)=>{
                  return (
-                   <span key={index}>
-                   {elem.firstName} <br/>
-                   {elem.lastName} <br/>
-                   {elem.passNumber} <br/>
-                   </span>
+                  <div key={index} className='ml5'>
+                   
+                   <div>
+                     <p><strong>Имя </strong>  {elem.firstName}</p>
+                     <p><strong>Фамилия </strong> {elem.lastName}</p>
+                     <p><strong>Серия паспорта </strong>{elem.passSeries}</p>
+                     <p><strong>Номер паспорта </strong>{elem.passNumber}</p>
+                   </div>
+                   
+                  </div>
+                  
    
                  )
    
                 })
-   
-                 return (
 
-               <tr key={el.number}>
-                   <td>{el.number}</td>
-                   <td>
-                   <Input 
+                return (
+
+
+              <CollapsibleItem 
+              key={el.number} 
+              header={`Заказ номер ${el.number.toString()} |
+              ${el.statusConfirmed === 1 ? 'Бронирование':( el.statusConfirmed === 2)? 'Подтверждено' : 'Аннулировано'} |
+              ${el.statusPayment === 1 ? 'Не оплачено': el.statusPayment === 2? 'Оплачено' : "Частично оплачено"}`} 
+              className='z-depth-4 margin-ordres-list'>
+                
+                <div className='row'>
+                <div className='col s6'>
+                <strong>Статус заявки</strong> 
+                </div>
+                <div className='col s6'>
+                <strong> Статус оплаты</strong>
+                </div>
+                </div>
+                
+                <div className='row d-fr-status'>
+                   
+                  <Input 
+                   s={6}
                    name='statusConfirmed' 
                    onChange={(e)=>{this.handleInputs(el.number, e)}} 
                    type='select' 
@@ -117,28 +115,84 @@ import {Input, Modal} from 'react-materialize'
                      <option  value='2'>Подтверждено</option>
                      <option  value='3'>Аннулировано</option>
                    </Input>
-                   </td> 
-                   <td stule={{width:'300px'}}>
+                  
                    <Input 
+                   s={6}
                    name='statusPayment' 
                    onChange={(e)=>{this.handleInputs(el.number, e)}} 
                    type='select' defaultValue={el.statusPayment} 
                    disabled={this.props.role === 'user'}
                    className='black-text'>
-                   
-                     <option  value='1'>Неоплачено</option>
+                     <option  value='1'>Не оплачено</option>
                      <option  value='2'>Оплачено</option>
                      <option  value='3'>Частично оплачено</option>
                    </Input>
-                   </td>
-                   <td>{el.hotel}</td>
-                   <td>{el.room}</td>
-                   <td>{el.date}</td>
-                   <td>{el.night}</td>
-                   <td>{el.contactTel}</td>
-                   <td>{touristList}</td>
+                   
+                </div>
+                <strong > Проживание</strong>
+                <div className='d-fr-living'>
+                   <div><p><strong>Отель </strong></p> {el.hotel}</div>
+                   <div><p><strong>Номер </strong></p>{el.room}</div>
+                   <div><p><strong>Дата начала проживания </strong></p>{el.date}</div>
+                   <div><p><strong>Количество ночей </strong></p>{el.night}</div>
+                </div>
+                <p className='margin-top-25'><strong> Контакты</strong></p>
+                <div className='contacts'>
+                <div ><p><strong>Контактыный телефон </strong> {el.contactTel}</p></div>
+                <div className='ml5'><p><strong>Адрес  </strong> {el.contactAdress}</p></div>
+                </div>
+
+                
+                <Collapsible className='blue lighten-3'>
+
+                <CollapsibleItem header='Туристы по заявке'>
+                
+                <div className='touristdata'>
+                {touristList}
+                </div>
+                
+                </CollapsibleItem>
+                </Collapsible>
+
+
                   
-               </tr>
+              </CollapsibleItem>
+
+              //  <tr key={el.number}>
+              //      <td>{el.number}</td>
+              //      <td style={{minWidth:'100px'}}>
+              //      <Input 
+              //      name='statusConfirmed' 
+              //      onChange={(e)=>{this.handleInputs(el.number, e)}} 
+              //      type='select' 
+              //      defaultValue={el.statusConfirmed} 
+              //      disabled={this.props.role === 'user'}
+              //      >
+              //        <option  value='1'>Бронирование</option>
+              //        <option  value='2'>Подтверждено</option>
+              //        <option  value='3'>Аннулировано</option>
+              //      </Input>
+              //      </td> 
+              //      <td style={{minWidth:'125px'}}>
+              //      <Input 
+              //      name='statusPayment' 
+              //      onChange={(e)=>{this.handleInputs(el.number, e)}} 
+              //      type='select' defaultValue={el.statusPayment} 
+              //      disabled={this.props.role === 'user'}
+              //      className='black-text'>
+              //        <option  value='1'>Не оплачено</option>
+              //        <option  value='2'>Оплачено</option>
+              //        <option  value='3'>Частично оплачено</option>
+              //      </Input>
+              //      </td>
+              //      <td>{el.hotel}</td>
+              //      <td>{el.room}</td>
+              //      <td>{el.date}</td>
+              //      <td>{el.night}</td>
+              //      <td>{el.contactTel}</td>
+              //      <td>{touristList}</td>
+                  
+              //  </tr>
    
                  )
                })
@@ -157,8 +211,12 @@ import {Input, Modal} from 'react-materialize'
         {(jsOrders.length === 0) ? <h5 className='center margin-top-25'>Дорогой {this.props.userName}. У вас нет заказов</h5>: (
           <div>
           <h5 className='center'>Заказы пользователя {this.props.userName}</h5>
+          
+          <Collapsible accordion>
+            {viewOrders}
+          </Collapsible>
 
-          <table className='centered responsive-table'>
+          {/* <table className='centered responsive-table'>
             <thead>
               <tr>
                   
@@ -179,7 +237,8 @@ import {Input, Modal} from 'react-materialize'
             {viewOrders}
             </tbody>
 
-          </table>
+          </table> */}
+
           {this.props.role === 'admin'? (<div className='center'>
           <button 
           disabled={( this.state.orderChanges.length === 0 || this.state.openModal === true)}

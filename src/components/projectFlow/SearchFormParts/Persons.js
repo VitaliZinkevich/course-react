@@ -24,7 +24,7 @@ render (){
     let optionsA =options.map((el, i)=>{
         //selected={(options[i] === this.props.adultValue) ? true: false}
         return(
-            <option key={i} selected={(options[i] === this.props.adultValue) ? true: false} value={el}>{el} взрослый</option>
+            <option key={i} value={el}>{el} взрослый</option>
         )
     })
 
@@ -32,7 +32,7 @@ render (){
     let optionsС =options2.map((el, i)=>{
         //selected={(options2[i] ===  this.props.childrenValue? true: false})
         return(
-            <option key={i} selected={(options2[i] ===  this.props.childrenValue) ? true: false}  value={el}>{el} ребенок</option>
+            <option key={i} value={el}>{el} ребенок</option>
         )
     })
 
@@ -40,6 +40,7 @@ render (){
         <div>
             
             <Input 
+            value={this.props.adultValue.toString()}
             icon='person'
             name ='adults'
             s={6} 
@@ -52,7 +53,7 @@ render (){
             </Input>
             
             <Input 
-           
+            value = {this.props.childrenValue.toString()}
             name ='children'
             icon='child_care'
             s={6} 
