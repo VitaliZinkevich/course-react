@@ -9,7 +9,7 @@ import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 // import async staff for redux
-import logger from 'redux-logger'
+// import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import promise from 'redux-promise-middleware'
 
@@ -17,7 +17,7 @@ import promise from 'redux-promise-middleware'
 import combinedReducer from './redux/reducer'
 
 
-const store = createStore(combinedReducer, applyMiddleware(promise(),thunk, logger));
+const store = createStore(combinedReducer, applyMiddleware(promise(),thunk,/* logger*/));
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

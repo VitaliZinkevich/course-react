@@ -51,7 +51,7 @@ export class HotelsLists extends PureComponent {
 
 
   render() {
-     console.log ('RENDER HOTEL LIST')
+    //  console.log ('RENDER HOTEL LIST')
      //console.log (this.props)
 
      let collapsibleItemsMinsk = this.props.hotels.filter((el)=>{return(

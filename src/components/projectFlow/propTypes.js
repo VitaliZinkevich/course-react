@@ -51,9 +51,7 @@ const ordersPropTypesArray = PropTypes.oneOfType ([
         ),
         statusConfirmed: PropTypes.number,
         statusPayment: PropTypes.number,
-      }
-
-      )
+      })
     )])
 
     const singleObjHotel = PropTypes.shape({

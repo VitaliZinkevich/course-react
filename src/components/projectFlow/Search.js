@@ -84,7 +84,7 @@ class Search extends Component{
     }
 
     componentWillUnmount (){
-        console.log('SEARCH UNMOUNT')
+        //console.log('SEARCH UNMOUNT')
         mainFormFillEvents.removeListener('handleSearchForm', this.handleChange)
         queryStringEvent.removeListener('makeQueryString', this.createQueryLink )
     }
@@ -103,7 +103,7 @@ class Search extends Component{
     }
 
     clearButtonClick= ()=>{
-        console.log("CLEAR BUTTON")
+        // console.log("CLEAR BUTTON")
         window.scrollTo(0, 0)
         this.props.dispatch (clearForm())
         this.props.history.push({
@@ -145,7 +145,7 @@ class Search extends Component{
   
     render() {
 
-       console.log ("RENDER SEARCH")
+    //    console.log ("RENDER SEARCH")
        
 
        

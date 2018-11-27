@@ -450,23 +450,21 @@ exports[`Snapshot test for search form parts 2`] = `
       id="input_21"
       name="adults"
       onChange={[Function]}
+      value="1"
     >
       <option
-        selected={true}
         value={1}
       >
         1
          взрослый
       </option>
       <option
-        selected={false}
         value={2}
       >
         2
          взрослый
       </option>
       <option
-        selected={false}
         value={3}
       >
         3
@@ -495,30 +493,27 @@ exports[`Snapshot test for search form parts 2`] = `
       id="input_22"
       name="children"
       onChange={[Function]}
+      value="0"
     >
       <option
-        selected={true}
         value={0}
       >
         0
          ребенок
       </option>
       <option
-        selected={false}
         value={1}
       >
         1
          ребенок
       </option>
       <option
-        selected={false}
         value={2}
       >
         2
          ребенок
       </option>
       <option
-        selected={false}
         value={3}
       >
         3
@@ -619,7 +614,9 @@ exports[`Snapshot test for search form parts 4`] = `
               <p>
                 санаторий
               </p>
-              <p>
+              <p
+                className="starText"
+              >
                  
                 <i
                   className="material-icons"
@@ -655,7 +652,9 @@ exports[`Snapshot test for search form parts 4`] = `
               <p>
                 санаторий
               </p>
-              <p>
+              <p
+                className="starText"
+              >
                  
                 <i
                   className="material-icons"
@@ -730,6 +729,7 @@ exports[`Snapshot test for search form parts 5`] = `
     id="input_27"
     name="starsType"
     onChange={[Function]}
+    value="5"
   >
     <option
       value="Любой"
@@ -762,7 +762,6 @@ exports[`Snapshot test for search form parts 5`] = `
 
 exports[`Snapshot test for search form parts 6`] = `
 <div>
-   
   <div
     className="col input-field s12"
   >
@@ -784,39 +783,34 @@ exports[`Snapshot test for search form parts 6`] = `
       id="input_28"
       name="foodType"
       onChange={[Function]}
+      value="Any"
     >
       <option
-        selected={true}
         value="Any"
       >
         Любое
       </option>
       <option
-        selected={false}
         value="AO"
       >
         Без питания
       </option>
       <option
-        selected={false}
         value="BB"
       >
         Завтраки
       </option>
       <option
-        selected={false}
         value="HB"
       >
         Завтрак и ужин
       </option>
       <option
-        selected={false}
         value="FB"
       >
         Завтрак, обед и ужин
       </option>
       <option
-        selected={false}
         value="ALL"
       >
         Все включено

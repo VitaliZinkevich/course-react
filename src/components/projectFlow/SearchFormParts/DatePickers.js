@@ -28,7 +28,7 @@ class DatePickers extends  Component{
 
 render (){
 
-    console.log('RENDER DATEPICKERS')
+    // console.log('RENDER DATEPICKERS')
  
     // максимальная дата доступная в календаре
     let result = new Date()

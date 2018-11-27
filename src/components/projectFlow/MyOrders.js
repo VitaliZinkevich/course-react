@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types';
 import {ordersPropTypesArray} from './propTypes'
 import {connect} from 'react-redux'
+import {reNewOrders} from '../../redux/authAction'
 import axios from 'axios'
 import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
 
@@ -26,6 +27,10 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
     window.scrollTo(0, 0)
   }
 
+  componentWillReceiveProps (newProps){
+  //console.log(newProps)
+  }
+
   saveOrder = ()=>{
   
     
@@ -34,7 +39,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
   .then ((res)=>{
     this.setState({openModal:true,orderChanges: []})
     setTimeout(()=>{this.setState({openModal:false})}, 2000)
-    
+    this.props.dispatch (reNewOrders())
   })
 
   }
@@ -52,8 +57,8 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
     }
 
     render() {
-      console.log("RENDER MY ORDERS")
-      console.log(this.props)
+      // console.log("RENDER MY ORDERS")
+      // console.log(this.props)
       //console.log(this.state.orderChanges)
         let jsOrders
         let viewOrders
@@ -68,11 +73,12 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                  return (
                   <div key={index} className='ml5'>
                    
-                   <div>
-                     <p><strong>Имя </strong>  {elem.firstName}</p>
-                     <p><strong>Фамилия </strong> {elem.lastName}</p>
-                     <p><strong>Серия паспорта </strong>{elem.passSeries}</p>
-                     <p><strong>Номер паспорта </strong>{elem.passNumber}</p>
+                   <div className='tourist-data-ind'>
+                   <p>{index+1}</p>
+                     <p className='ml5'><strong>Имя </strong>  {elem.firstName}</p>
+                     <p className='ml5'><strong>Фамилия </strong> {elem.lastName}</p>
+                     <p className='ml5'><strong>Серия паспорта </strong>{elem.passSeries}</p>
+                     <p className='ml5'><strong>Номер паспорта </strong>{elem.passNumber}</p>
                    </div>
                    
                   </div>
@@ -82,12 +88,13 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
    
                 })
 
+               let orderNumber = el.number.toString()
                 return (
 
 
               <CollapsibleItem 
               key={el.number} 
-              header={`Заказ номер ${el.number.toString()} |
+              header={`Заказ номер ${orderNumber} |
               ${el.statusConfirmed === 1 ? 'Бронирование':( el.statusConfirmed === 2)? 'Подтверждено' : 'Аннулировано'} |
               ${el.statusPayment === 1 ? 'Не оплачено': el.statusPayment === 2? 'Оплачено' : "Частично оплачено"}`} 
               className='z-depth-4 margin-ordres-list'>
@@ -136,7 +143,8 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                    <div><p><strong>Дата начала проживания </strong></p>{el.date}</div>
                    <div><p><strong>Количество ночей </strong></p>{el.night}</div>
                 </div>
-                <p className='margin-top-25'><strong> Контакты</strong></p>
+                
+                <p ><strong> Контакты</strong></p>
                 <div className='contacts'>
                 <div ><p><strong>Контактыный телефон </strong> {el.contactTel}</p></div>
                 <div className='ml5'><p><strong>Адрес  </strong> {el.contactAdress}</p></div>

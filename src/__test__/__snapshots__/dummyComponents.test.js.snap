@@ -330,11 +330,69 @@ ShallowWrapper {
           <div
             className="col s6"
           >
-            <p
-              className="flow-text"
+            <div
+              className="card horizontal z-depth-4 margin-top-50"
             >
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). 
-            </p>
+              <div
+                className="card-stacked"
+              >
+                <div
+                  className="card-content"
+                >
+                  <div>
+                      
+                    <i
+                      className="material-icons Large"
+                    >
+                      assignment_ind
+                    </i>
+                    <p>
+                      Vitali Zinkevich
+                    </p>
+                  </div>
+                  <div>
+                      
+                    <i
+                      className="material-icons Large"
+                    >
+                      email
+                    </i>
+                     
+                    <p>
+                      vitalizinkevich@gmail.com
+                    </p>
+                  </div>
+                  <div>
+                      
+                    <i
+                      className="material-icons Large"
+                    >
+                      contact_phone
+                    </i>
+                     
+                    <p>
+                      +375 29 338 00 91
+                    </p>
+                  </div>
+                  <div>
+                      
+                    <i
+                      className="material-icons Large"
+                    >
+                      link
+                    </i>
+                     
+                    <p>
+                      <a
+                        href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                      >
+                        I am at linkedIn
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             className="col s6 contactForm"
@@ -364,6 +422,7 @@ ShallowWrapper {
                 type="textarea"
               />
               <Button
+                className="waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong"
                 id="sendMsg"
                 node="button"
                 onClick={[Function]}
@@ -401,11 +460,69 @@ ShallowWrapper {
             <div
               className="col s6"
             >
-              <p
-                className="flow-text"
+              <div
+                className="card horizontal z-depth-4 margin-top-50"
               >
-                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). 
-              </p>
+                <div
+                  className="card-stacked"
+                >
+                  <div
+                    className="card-content"
+                  >
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        assignment_ind
+                      </i>
+                      <p>
+                        Vitali Zinkevich
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        email
+                      </i>
+                       
+                      <p>
+                        vitalizinkevich@gmail.com
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        contact_phone
+                      </i>
+                       
+                      <p>
+                        +375 29 338 00 91
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        link
+                      </i>
+                       
+                      <p>
+                        <a
+                          href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                        >
+                          I am at linkedIn
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>,
             <div
               className="col s6 contactForm"
@@ -435,6 +552,7 @@ ShallowWrapper {
                   type="textarea"
                 />
                 <Button
+                  className="waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong"
                   id="sendMsg"
                   node="button"
                   onClick={[Function]}
@@ -453,11 +571,69 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": <p
-                className="flow-text"
+              "children": <div
+                className="card horizontal z-depth-4 margin-top-50"
               >
-                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). 
-              </p>,
+                <div
+                  className="card-stacked"
+                >
+                  <div
+                    className="card-content"
+                  >
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        assignment_ind
+                      </i>
+                      <p>
+                        Vitali Zinkevich
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        email
+                      </i>
+                       
+                      <p>
+                        vitalizinkevich@gmail.com
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        contact_phone
+                      </i>
+                       
+                      <p>
+                        +375 29 338 00 91
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        link
+                      </i>
+                       
+                      <p>
+                        <a
+                          href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                        >
+                          I am at linkedIn
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>,
               "className": "col s6",
             },
             "ref": null,
@@ -466,12 +642,408 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). ",
-                "className": "flow-text",
+                "children": <div
+                  className="card-stacked"
+                >
+                  <div
+                    className="card-content"
+                  >
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        assignment_ind
+                      </i>
+                      <p>
+                        Vitali Zinkevich
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        email
+                      </i>
+                       
+                      <p>
+                        vitalizinkevich@gmail.com
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        contact_phone
+                      </i>
+                       
+                      <p>
+                        +375 29 338 00 91
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        link
+                      </i>
+                       
+                      <p>
+                        <a
+                          href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                        >
+                          I am at linkedIn
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>,
+                "className": "card horizontal z-depth-4 margin-top-50",
               },
               "ref": null,
-              "rendered": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). ",
-              "type": "p",
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="card-content"
+                  >
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        assignment_ind
+                      </i>
+                      <p>
+                        Vitali Zinkevich
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        email
+                      </i>
+                       
+                      <p>
+                        vitalizinkevich@gmail.com
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        contact_phone
+                      </i>
+                       
+                      <p>
+                        +375 29 338 00 91
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        link
+                      </i>
+                       
+                      <p>
+                        <a
+                          href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                        >
+                          I am at linkedIn
+                        </a>
+                      </p>
+                    </div>
+                  </div>,
+                  "className": "card-stacked",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          assignment_ind
+                        </i>
+                        <p>
+                          Vitali Zinkevich
+                        </p>
+                      </div>,
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          email
+                        </i>
+                         
+                        <p>
+                          vitalizinkevich@gmail.com
+                        </p>
+                      </div>,
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          contact_phone
+                        </i>
+                         
+                        <p>
+                          +375 29 338 00 91
+                        </p>
+                      </div>,
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          link
+                        </i>
+                         
+                        <p>
+                          <a
+                            href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                          >
+                            I am at linkedIn
+                          </a>
+                        </p>
+                      </div>,
+                    ],
+                    "className": "card-content",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "  ",
+                          <i
+                            className="material-icons Large"
+                          >
+                            assignment_ind
+                          </i>,
+                          <p>
+                            Vitali Zinkevich
+                          </p>,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "  ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "assignment_ind",
+                            "className": "material-icons Large",
+                          },
+                          "ref": null,
+                          "rendered": "assignment_ind",
+                          "type": "i",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Vitali Zinkevich",
+                          },
+                          "ref": null,
+                          "rendered": "Vitali Zinkevich",
+                          "type": "p",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "  ",
+                          <i
+                            className="material-icons Large"
+                          >
+                            email
+                          </i>,
+                          " ",
+                          <p>
+                            vitalizinkevich@gmail.com
+                          </p>,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "  ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "email",
+                            "className": "material-icons Large",
+                          },
+                          "ref": null,
+                          "rendered": "email",
+                          "type": "i",
+                        },
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "vitalizinkevich@gmail.com",
+                          },
+                          "ref": null,
+                          "rendered": "vitalizinkevich@gmail.com",
+                          "type": "p",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "  ",
+                          <i
+                            className="material-icons Large"
+                          >
+                            contact_phone
+                          </i>,
+                          " ",
+                          <p>
+                            +375 29 338 00 91
+                          </p>,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "  ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "contact_phone",
+                            "className": "material-icons Large",
+                          },
+                          "ref": null,
+                          "rendered": "contact_phone",
+                          "type": "i",
+                        },
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "+375 29 338 00 91",
+                          },
+                          "ref": null,
+                          "rendered": "+375 29 338 00 91",
+                          "type": "p",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          "  ",
+                          <i
+                            className="material-icons Large"
+                          >
+                            link
+                          </i>,
+                          " ",
+                          <p>
+                            <a
+                              href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                            >
+                              I am at linkedIn
+                            </a>
+                          </p>,
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        "  ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "link",
+                            "className": "material-icons Large",
+                          },
+                          "ref": null,
+                          "rendered": "link",
+                          "type": "i",
+                        },
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <a
+                              href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                            >
+                              I am at linkedIn
+                            </a>,
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "I am at linkedIn",
+                              "href": "https://www.linkedin.com/feed/?trk=onboarding-landing",
+                            },
+                            "ref": null,
+                            "rendered": "I am at linkedIn",
+                            "type": "a",
+                          },
+                          "type": "p",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                  ],
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
             },
             "type": "div",
           },
@@ -505,6 +1077,7 @@ ShallowWrapper {
                   type="textarea"
                 />
                 <Button
+                  className="waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong"
                   id="sendMsg"
                   node="button"
                   onClick={[Function]}
@@ -543,6 +1116,7 @@ ShallowWrapper {
                     type="textarea"
                   />,
                   <Button
+                    className="waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong"
                     id="sendMsg"
                     node="button"
                     onClick={[Function]}
@@ -604,6 +1178,7 @@ ShallowWrapper {
                   "nodeType": "class",
                   "props": Object {
                     "children": "Отправить",
+                    "className": "waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong",
                     "id": "sendMsg",
                     "node": "button",
                     "onClick": [Function],
@@ -656,11 +1231,69 @@ ShallowWrapper {
             <div
               className="col s6"
             >
-              <p
-                className="flow-text"
+              <div
+                className="card horizontal z-depth-4 margin-top-50"
               >
-                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). 
-              </p>
+                <div
+                  className="card-stacked"
+                >
+                  <div
+                    className="card-content"
+                  >
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        assignment_ind
+                      </i>
+                      <p>
+                        Vitali Zinkevich
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        email
+                      </i>
+                       
+                      <p>
+                        vitalizinkevich@gmail.com
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        contact_phone
+                      </i>
+                       
+                      <p>
+                        +375 29 338 00 91
+                      </p>
+                    </div>
+                    <div>
+                        
+                      <i
+                        className="material-icons Large"
+                      >
+                        link
+                      </i>
+                       
+                      <p>
+                        <a
+                          href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                        >
+                          I am at linkedIn
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               className="col s6 contactForm"
@@ -690,6 +1323,7 @@ ShallowWrapper {
                   type="textarea"
                 />
                 <Button
+                  className="waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong"
                   id="sendMsg"
                   node="button"
                   onClick={[Function]}
@@ -727,11 +1361,69 @@ ShallowWrapper {
               <div
                 className="col s6"
               >
-                <p
-                  className="flow-text"
+                <div
+                  className="card horizontal z-depth-4 margin-top-50"
                 >
-                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). 
-                </p>
+                  <div
+                    className="card-stacked"
+                  >
+                    <div
+                      className="card-content"
+                    >
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          assignment_ind
+                        </i>
+                        <p>
+                          Vitali Zinkevich
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          email
+                        </i>
+                         
+                        <p>
+                          vitalizinkevich@gmail.com
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          contact_phone
+                        </i>
+                         
+                        <p>
+                          +375 29 338 00 91
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          link
+                        </i>
+                         
+                        <p>
+                          <a
+                            href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                          >
+                            I am at linkedIn
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>,
               <div
                 className="col s6 contactForm"
@@ -761,6 +1453,7 @@ ShallowWrapper {
                     type="textarea"
                   />
                   <Button
+                    className="waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong"
                     id="sendMsg"
                     node="button"
                     onClick={[Function]}
@@ -779,11 +1472,69 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": <p
-                  className="flow-text"
+                "children": <div
+                  className="card horizontal z-depth-4 margin-top-50"
                 >
-                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). 
-                </p>,
+                  <div
+                    className="card-stacked"
+                  >
+                    <div
+                      className="card-content"
+                    >
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          assignment_ind
+                        </i>
+                        <p>
+                          Vitali Zinkevich
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          email
+                        </i>
+                         
+                        <p>
+                          vitalizinkevich@gmail.com
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          contact_phone
+                        </i>
+                         
+                        <p>
+                          +375 29 338 00 91
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          link
+                        </i>
+                         
+                        <p>
+                          <a
+                            href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                          >
+                            I am at linkedIn
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>,
                 "className": "col s6",
               },
               "ref": null,
@@ -792,12 +1543,408 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). ",
-                  "className": "flow-text",
+                  "children": <div
+                    className="card-stacked"
+                  >
+                    <div
+                      className="card-content"
+                    >
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          assignment_ind
+                        </i>
+                        <p>
+                          Vitali Zinkevich
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          email
+                        </i>
+                         
+                        <p>
+                          vitalizinkevich@gmail.com
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          contact_phone
+                        </i>
+                         
+                        <p>
+                          +375 29 338 00 91
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          link
+                        </i>
+                         
+                        <p>
+                          <a
+                            href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                          >
+                            I am at linkedIn
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>,
+                  "className": "card horizontal z-depth-4 margin-top-50",
                 },
                 "ref": null,
-                "rendered": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). ",
-                "type": "p",
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <div
+                      className="card-content"
+                    >
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          assignment_ind
+                        </i>
+                        <p>
+                          Vitali Zinkevich
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          email
+                        </i>
+                         
+                        <p>
+                          vitalizinkevich@gmail.com
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          contact_phone
+                        </i>
+                         
+                        <p>
+                          +375 29 338 00 91
+                        </p>
+                      </div>
+                      <div>
+                          
+                        <i
+                          className="material-icons Large"
+                        >
+                          link
+                        </i>
+                         
+                        <p>
+                          <a
+                            href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                          >
+                            I am at linkedIn
+                          </a>
+                        </p>
+                      </div>
+                    </div>,
+                    "className": "card-stacked",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <div>
+                            
+                          <i
+                            className="material-icons Large"
+                          >
+                            assignment_ind
+                          </i>
+                          <p>
+                            Vitali Zinkevich
+                          </p>
+                        </div>,
+                        <div>
+                            
+                          <i
+                            className="material-icons Large"
+                          >
+                            email
+                          </i>
+                           
+                          <p>
+                            vitalizinkevich@gmail.com
+                          </p>
+                        </div>,
+                        <div>
+                            
+                          <i
+                            className="material-icons Large"
+                          >
+                            contact_phone
+                          </i>
+                           
+                          <p>
+                            +375 29 338 00 91
+                          </p>
+                        </div>,
+                        <div>
+                            
+                          <i
+                            className="material-icons Large"
+                          >
+                            link
+                          </i>
+                           
+                          <p>
+                            <a
+                              href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                            >
+                              I am at linkedIn
+                            </a>
+                          </p>
+                        </div>,
+                      ],
+                      "className": "card-content",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            "  ",
+                            <i
+                              className="material-icons Large"
+                            >
+                              assignment_ind
+                            </i>,
+                            <p>
+                              Vitali Zinkevich
+                            </p>,
+                          ],
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          "  ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "assignment_ind",
+                              "className": "material-icons Large",
+                            },
+                            "ref": null,
+                            "rendered": "assignment_ind",
+                            "type": "i",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Vitali Zinkevich",
+                            },
+                            "ref": null,
+                            "rendered": "Vitali Zinkevich",
+                            "type": "p",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            "  ",
+                            <i
+                              className="material-icons Large"
+                            >
+                              email
+                            </i>,
+                            " ",
+                            <p>
+                              vitalizinkevich@gmail.com
+                            </p>,
+                          ],
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          "  ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "email",
+                              "className": "material-icons Large",
+                            },
+                            "ref": null,
+                            "rendered": "email",
+                            "type": "i",
+                          },
+                          " ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "vitalizinkevich@gmail.com",
+                            },
+                            "ref": null,
+                            "rendered": "vitalizinkevich@gmail.com",
+                            "type": "p",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            "  ",
+                            <i
+                              className="material-icons Large"
+                            >
+                              contact_phone
+                            </i>,
+                            " ",
+                            <p>
+                              +375 29 338 00 91
+                            </p>,
+                          ],
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          "  ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "contact_phone",
+                              "className": "material-icons Large",
+                            },
+                            "ref": null,
+                            "rendered": "contact_phone",
+                            "type": "i",
+                          },
+                          " ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "+375 29 338 00 91",
+                            },
+                            "ref": null,
+                            "rendered": "+375 29 338 00 91",
+                            "type": "p",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            "  ",
+                            <i
+                              className="material-icons Large"
+                            >
+                              link
+                            </i>,
+                            " ",
+                            <p>
+                              <a
+                                href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                              >
+                                I am at linkedIn
+                              </a>
+                            </p>,
+                          ],
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          "  ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "link",
+                              "className": "material-icons Large",
+                            },
+                            "ref": null,
+                            "rendered": "link",
+                            "type": "i",
+                          },
+                          " ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": <a
+                                href="https://www.linkedin.com/feed/?trk=onboarding-landing"
+                              >
+                                I am at linkedIn
+                              </a>,
+                            },
+                            "ref": null,
+                            "rendered": Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": "I am at linkedIn",
+                                "href": "https://www.linkedin.com/feed/?trk=onboarding-landing",
+                              },
+                              "ref": null,
+                              "rendered": "I am at linkedIn",
+                              "type": "a",
+                            },
+                            "type": "p",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                    ],
+                    "type": "div",
+                  },
+                  "type": "div",
+                },
+                "type": "div",
               },
               "type": "div",
             },
@@ -831,6 +1978,7 @@ ShallowWrapper {
                     type="textarea"
                   />
                   <Button
+                    className="waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong"
                     id="sendMsg"
                     node="button"
                     onClick={[Function]}
@@ -869,6 +2017,7 @@ ShallowWrapper {
                       type="textarea"
                     />,
                     <Button
+                      className="waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong"
                       id="sendMsg"
                       node="button"
                       onClick={[Function]}
@@ -930,6 +2079,7 @@ ShallowWrapper {
                     "nodeType": "class",
                     "props": Object {
                       "children": "Отправить",
+                      "className": "waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong",
                       "id": "sendMsg",
                       "node": "button",
                       "onClick": [Function],
@@ -1013,14 +2163,15 @@ ShallowWrapper {
         </h1>,
         <br />,
         <div
-          className="blue"
+          className="center"
         >
           <Link
-            className="white-text"
             replace={false}
             to="/"
           >
-            На главную страницу
+            <h2>
+              На главную страницу
+            </h2>
           </Link>
         </div>,
       ],
@@ -1054,13 +2205,14 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": <Link
-            className="white-text"
             replace={false}
             to="/"
           >
-            На главную страницу
+            <h2>
+              На главную страницу
+            </h2>
           </Link>,
-          "className": "blue",
+          "className": "center",
         },
         "ref": null,
         "rendered": Object {
@@ -1068,19 +2220,30 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": "На главную страницу",
-            "className": "white-text",
+            "children": <h2>
+              На главную страницу
+            </h2>,
             "replace": false,
             "to": "/",
           },
           "ref": null,
-          "rendered": "На главную страницу",
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "На главную страницу",
+            },
+            "ref": null,
+            "rendered": "На главную страницу",
+            "type": "h2",
+          },
           "type": [Function],
         },
         "type": "div",
       },
     ],
-    "type": "div",
+    "type": "main",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
@@ -1094,14 +2257,15 @@ ShallowWrapper {
           </h1>,
           <br />,
           <div
-            className="blue"
+            className="center"
           >
             <Link
-              className="white-text"
               replace={false}
               to="/"
             >
-              На главную страницу
+              <h2>
+                На главную страницу
+              </h2>
             </Link>
           </div>,
         ],
@@ -1135,13 +2299,14 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": <Link
-              className="white-text"
               replace={false}
               to="/"
             >
-              На главную страницу
+              <h2>
+                На главную страницу
+              </h2>
             </Link>,
-            "className": "blue",
+            "className": "center",
           },
           "ref": null,
           "rendered": Object {
@@ -1149,19 +2314,30 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "class",
             "props": Object {
-              "children": "На главную страницу",
-              "className": "white-text",
+              "children": <h2>
+                На главную страницу
+              </h2>,
               "replace": false,
               "to": "/",
             },
             "ref": null,
-            "rendered": "На главную страницу",
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "На главную страницу",
+              },
+              "ref": null,
+              "rendered": "На главную страницу",
+              "type": "h2",
+            },
             "type": [Function],
           },
           "type": "div",
         },
       ],
-      "type": "div",
+      "type": "main",
     },
   ],
   Symbol(enzyme.__options__): Object {

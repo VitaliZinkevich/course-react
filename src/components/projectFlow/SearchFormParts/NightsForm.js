@@ -21,7 +21,7 @@ class NightsForm extends PureComponent {
   }
 
   render() {
-    console.log("RENDER NIGHTS")
+    // console.log("RENDER NIGHTS")
     let startArray = []
     for (let i = 1; i!==22;  i++) {
       startArray.push(i)

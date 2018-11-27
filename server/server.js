@@ -245,7 +245,7 @@ const users =[
 
   app.post('/neworder', function (req, res) {
     console.log('SERVER RECIVED NEW ORDER')
-
+console.log(req.body)
     users.forEach((el)=>{
         if (el.email === req.session.user) {
             el.orders.push(req.body)
@@ -323,7 +323,7 @@ const users =[
                     if (el.orderNumber === elemUO.number) {
                         console.log('===')
                         console.log(elemUO[el.orderStatus])
-                        elemUO[el.orderStatus]=el.statusValue
+                        elemUO[el.orderStatus]=parseInt(el.statusValue)
                         console.log(elemUO[el.orderStatus])
                     }
                 })
@@ -337,14 +337,27 @@ const users =[
 
    if (req.session.user) {
        console.log("GOT USER AT RENEWORDERS")
+    let currentUser = users.find(el=>el.email === req.session.user)
+    if (currentUser.role === "admin") {
+        console.log('RENEW AFTER CHANGE ADMIN')
+        let orders=[]
+        users.forEach ((el)=>{
+            orders = orders.concat(el.orders)
+            })
+            orders = orders.reverse()
+            res.json(orders)
 
+    }  else {
 
-       users.forEach((el)=>{
-           if (el.email === req.session.user){
-               console.log('SEND NEW ORDERS')
-            res.json(el.orders)
-           }
-       })
+        users.forEach((el)=>{
+            if (el.email === req.session.user){
+                console.log('SEND NEW ORDERS')
+             res.json(el.orders)
+            }
+        })
+    }     
+
+       
     
    } else {
     console.log("NO USER AT RENEWORDERS")

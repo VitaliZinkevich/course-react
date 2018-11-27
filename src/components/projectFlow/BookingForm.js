@@ -192,7 +192,7 @@ validate=(state)=>{
 render() {
 
 
-  console.log("BOOKING FORM")
+  //console.log("BOOKING FORM")
            
             
               let price
@@ -227,7 +227,7 @@ render() {
           
         {this.props.buyOptions === null ? (<div className='center'><h2>
           Оформление заявок только через прайс лист со страницы поиска</h2><br/>  
-        <Link to={`/`}><h3>На страницу поиска</h3></Link></div>) : (
+        <a href={`/`}><h3>На страницу поиска</h3></a></div>) : (
          <div>
               <div className='row'>
               <div className='col s12'>

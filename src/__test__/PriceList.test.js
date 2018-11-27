@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import PriceList from '../components/projectFlow/PriceList'
 

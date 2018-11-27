@@ -18,7 +18,7 @@ handlePersons=(e)=>{
 }
 
 render (){
-    console.log('PERSONS RENDER')
+    // console.log('PERSONS RENDER')
     
     let options = [1,2,3]
     let optionsA =options.map((el, i)=>{

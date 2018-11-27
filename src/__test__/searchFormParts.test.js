@@ -17,7 +17,7 @@ test('Snapshot test for search form parts', () => {
     const componentNightsForm = renderer.create(
       
       <NightsForm 
-      valueNights={[1]}
+      valueNights={fromJS([1])}
       />
     );
   
@@ -77,7 +77,7 @@ test('Snapshot test for search form parts', () => {
       
         <HotelsLists 
         hotels={mockHotels}
-        selectedHotels={[]}
+        selectedHotels={fromJS([])}
         />
   
           
@@ -89,7 +89,8 @@ test('Snapshot test for search form parts', () => {
 
     const componentStarsForm = renderer.create(
       
-        <StarsForm 
+        <StarsForm
+        stars={'5'} 
          />
         );
 

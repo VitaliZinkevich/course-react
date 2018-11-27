@@ -8,14 +8,20 @@ import { mount, shallow } from 'enzyme';
 
 import BookingForm from '../components/projectFlow/BookingForm'
 
-describe('Booking Form', function() {
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import combinedReducer from '../redux/reducer/'
 
+global.window.scrollTo = jest.fn()
+
+describe('Booking Form', function() {
+    const store = createStore(combinedReducer);
     it ('Render with no passing state',()=>{
-    let state  = {}
-    let instance = mount(<BookingForm location={state} history={[]}/>)
     
 
-    expect (instance.find('div').text()).toBe("Wrong enter")
+    let instance = mount(<Provider store={store}><BookingForm /></Provider>)
+    
+       expect (instance.find('div').text()).toBe("Оформление заявок только через прайс лист со страницы поискаНа страницу поиска")
     })
 
 
@@ -40,7 +46,7 @@ describe('Booking Form', function() {
                         children:0 }}
 
 
-        let instance = shallow(<BookingForm location={location} history={[]}/>)
+        let instance = shallow(<Provider store={store}><BookingForm /></Provider>)
         
         expect(instance).toMatchSnapshot();
     })

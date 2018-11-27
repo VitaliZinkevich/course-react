@@ -58,7 +58,7 @@ class PriceList extends PureComponent {
 
     
   render() {
-  console.log ('PRICELIST RENDER')
+  // console.log ('PRICELIST RENDER')
 
     let dateList = []
     let start = moment(this.props.dateFrom, "DD-MM-YYYY")

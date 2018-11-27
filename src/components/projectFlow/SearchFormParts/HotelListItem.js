@@ -32,7 +32,7 @@ export default class HotelListItem extends PureComponent {
 
 
   render() {
-    console.log (`RENDER HOTEL LIST ${this.props.hotel.get ('_id')}`)
+    // console.log (`RENDER HOTEL LIST ${this.props.hotel.get ('_id')}`)
     return (
          <div  className='hotelList'>
            
