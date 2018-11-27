@@ -2,7 +2,7 @@
 "Booking App" is final project by Vitali Zinkekevich for FD3 course at IT-academy
 
 Приложение для бронирования проживания. Предпологается, что пользователь понимает куда попал и ему предлагают узнать сколько будет стоить иммено его персональный вариант. <br/>
-This is app for hotel booking. Assumed, that user fully understands where he or she is. And user have been welcomed, to find out how much will be cost desirable hotel booking for his/her personal dates and nights duration.
+This is app for hotel booking. Assumed, that user fully understands where he or she is. And user goes to find out how much will be cost desirable hotel booking for his dates and nights duration.
 
 ## Установка/ Install
 
