@@ -107,6 +107,7 @@ if (canSendToServer) {
   statusConfirmed: 1,
   statusPayment: 1,
   price: price,
+  paymentPart: 0,
 
 },{withCredentials: true}).then ((res)=>{
 

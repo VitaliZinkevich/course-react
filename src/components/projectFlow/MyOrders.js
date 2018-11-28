@@ -19,7 +19,8 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
   
   state= {
     openModal: false,
-    orderChanges:[]
+    orderChanges:[],
+    paymentPartInput:{orderNumber: '', value: ''}
   }
   
 
@@ -46,20 +47,62 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
 
   handleInputs= (num, val)=>{
 
+    let changeObj
+      
+      changeObj = {
+        orderNumber: num,
+        orderStatus: val.target.name,
+        statusValue: val.target.value
+      }
+
+      let newOrdersChanges = [...this.state.orderChanges]
+      newOrdersChanges.push(changeObj)
+      this.setState({orderChanges: newOrdersChanges})
+   
+  }
+
+    handlePaymentPartInput =(number, value)=>{
+      // paymentPartInput:{orderNumber: '', value: 0}
+      // console.log(number, value)
+      let newPaymentPartInput= {}
+     
+      newPaymentPartInput.orderNumber = number
+      newPaymentPartInput.value =value
+
+      this.setState ({paymentPartInput : newPaymentPartInput})
+         
+    }
+
+
+
+    findWithAttr = (array, attr, value) => {
+      //console.log(array, attr, value)
+      for(var i = 0; i < array.length; i += 1) {
+        //console.log((array[i][attr] === value))
+          if(array[i][attr] === value) {
+              return i;
+          }
+      }
+      return -1;
+  }
+
+
+  addOrderChange=(num)=>{
     let changeObj = {
       orderNumber: num,
-      orderStatus: val.target.name,
-      statusValue: val.target.value
+      orderStatus: "paymentPart",
+      statusValue: this.state.paymentPartInput.value
+
     }
     let newOrdersChanges = [...this.state.orderChanges]
     newOrdersChanges.push(changeObj)
     this.setState({orderChanges: newOrdersChanges})
-    }
+  }
 
     render() {
       // console.log("RENDER MY ORDERS")
       // console.log(this.props)
-      //console.log(this.state.orderChanges)
+      // console.log(this.state.orderChanges)
         let jsOrders
         let viewOrders
 
@@ -89,14 +132,19 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 })
 
                let orderNumber = el.number.toString()
+               //console.log(el.statusPayment )
                 return (
 
 
               <CollapsibleItem 
               key={el.number} 
               header={`Заказ номер ${orderNumber} |
-              ${el.statusConfirmed === 1 ? 'Бронирование':( el.statusConfirmed === 2)? 'Подтверждено' : 'Аннулировано'} |
-              ${el.statusPayment === 1 ? 'Не оплачено': el.statusPayment === 2? 'Оплачено' : "Частично оплачено"} |  Цена ${el.price}`} 
+              ${el.statusConfirmed === 1 ? 'Бронирование':( el.statusConfirmed === 2)? 'Подтверждено' : 'Аннулировано'} 
+              |
+              ${el.statusPayment === 1 ? 'Не оплачено': el.statusPayment === 2? 'Оплачено' : "Частично оплачено"} 
+              |
+              Цена ${(el.price) ? ` ${el.price} | Оплачено ${(el.paymentPart === undefined ? null: el.paymentPart)} Долг ${el.price-el.paymentPart}`: ""} 
+              `} 
               className='z-depth-4 margin-ordres-list'>
                 
                 <div className='row'>
@@ -106,6 +154,21 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 <div className='col s6'>
                 <strong> Статус оплаты</strong>
                 <div>Цена {el.price}</div>
+                <div>Оплачено {el.paymentPart}</div>
+                <div>Долг {el.price-el.paymentPart}</div>
+                {el.statusPayment === 3 ? (
+                <><input
+                name='paymentPart'
+                placeholder='Полученная сумма'
+                // handlePaymentPartInput =(number, value)
+                onChange={(e)=>(this.handlePaymentPartInput(el.number, e.target.value))}
+
+                />
+                <button
+                 onClick={()=>{this.addOrderChange(el.number)}}
+                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
+                >Сохранить</button>
+                </>): null}
                 </div>
                 </div>
                 
@@ -157,6 +220,21 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 <p ><strong> Туристы по заявке</strong></p>
                 
                 {touristList}
+
+                  {this.props.role === 'admin'? (<div className='center'>
+                    <button 
+                    disabled={( this.state.orderChanges.length === 0 ||
+                       this.state.openModal === true ||
+                       (this.findWithAttr (this.state.orderChanges, "orderNumber" , el.number) === -1)
+                       )}
+                  
+                    className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-large' 
+                    onClick={this.saveOrder}
+                    
+                    >Сохранить</button>
+                    </div>
+                  ):
+                    null}
                 </div>
                 
               </CollapsibleItem>
@@ -242,17 +320,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
 
           </table> */}
 
-          {this.props.role === 'admin'? (<div className='center'>
-          <button 
-          disabled={( this.state.orderChanges.length === 0 || this.state.openModal === true)}
-         
-          className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-large' 
-          onClick={this.saveOrder}
-          
-          >Сохранить</button>
-          </div>
-         ):
-           null}
+        
           </div>
         )}
             <Modal
@@ -260,7 +328,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 actions={null}
                 >
                 <div className='center'>
-                <h2>Все заявки изменены</h2>
+                <h2>Заявка изменена</h2>
                 </div>
                
             </Modal>
