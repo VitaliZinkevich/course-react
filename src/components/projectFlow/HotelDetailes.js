@@ -30,7 +30,11 @@ import {hotelObjPropTypeArray} from './propTypes'
   if (this.props.hotels.size !== 0) {
      hotel = this.props.hotels.find (el=>el.get ('_id') === this.props.match.params.id) || undefined
      fotos = hotel.getIn (['description', 'fotos']) || undefined
-
+    if (fotos === undefined) {
+      fotos=[]
+    } else {
+      fotos= fotos.toJS()
+    }
   }
    
     
@@ -40,7 +44,7 @@ import {hotelObjPropTypeArray} from './propTypes'
         {(hotel !== null) ? hotel.getIn (['description', 'text']) : 'Загрузка'}
         {(fotos !== null) ? <Carousel 
         options={{fullWidth: true, indicators: true,noWrap:true}} 
-        images={fotos.toJS()} 
+        images={fotos} 
         className='margin-arround'/> : 'Загрузка'}
       </main>
     )

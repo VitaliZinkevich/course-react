@@ -49,9 +49,10 @@ export default class PriceListItem extends Component {
     let endDate = moment(this.props.date, "DD-MM-YYYY").add(this.props.night+1, 'd')
     let ckeckOutDate = `${(endDate.date().toString().length === 1) ? '0'+endDate.date() : endDate.date()}.${endDate.month()+1}.${endDate.year()}`
     // console.log ('PRICE LIST ITEM RENDER')
- 
+    
     
     return (
+      
       <div className='priceListItem'>
         <div>C {this.props.date}</div>
         <div>НОЧЕЙ {this.props.night}</div>
@@ -61,7 +62,7 @@ export default class PriceListItem extends Component {
         to={`/detailes/${this.props.hotel.get('_id')}`}
           >
         {this.props.hotel.get('name')}</Link></div>
-        <div>{this.props.hotel.get ('type')}</div>
+        
 
         
         <div className='roomName'>

@@ -44,7 +44,8 @@ const orders2 = [
              passNumber: '1234567',
              passValidTill: '23.11.2025' } ],
         statusConfirmed: 1,
-        statusPayment: 1 },
+        statusPayment: 1,
+        price:10000 },
         { number: 8518,
             hotel: 'Буг',
             room: 'Двухместный  двухкомнатный люкс',
@@ -61,7 +62,8 @@ const orders2 = [
                  passNumber: '7777777',
                  passValidTill: '30.11.2030' } ],
             statusConfirmed: 1,
-            statusPayment: 1 },
+            statusPayment: 1,
+            price:30000 },
             { number: 5252,
                 hotel: 'Белая вежа',
                 room: 'Двухместный двухкомнаный ',
@@ -93,7 +95,8 @@ const orders2 = [
                      passNumber: '1234568',
                      passValidTill: '24.11.2100' } ],
                 statusConfirmed: 1,
-                statusPayment: 1 }
+                statusPayment: 1,
+                price:10500 }
                       
           
       
@@ -126,7 +129,8 @@ const orders3 = [
              passNumber: '1234567',
              passValidTill: '24.11.2055' } ],
         statusConfirmed: 1,
-        statusPayment: 1 },
+        statusPayment: 1,
+        price:35000 },
         { number: 6007,
             hotel: 'Свитанак',
             room: 'Двухместный  2 корпус',
@@ -153,35 +157,9 @@ const orders3 = [
                  passNumber: '7894561',
                  passValidTill: '24.11.2080' } ],
             statusConfirmed: 1,
-            statusPayment: 1 },
-            { number: 6333,
-                hotel: 'Свитанак',
-                room: 'Двухместный  2 корпус',
-                date: '30.11.2018',
-                night: 1,
-                adults: 2,
-                children: 1,
-                contactAdress: 'Витебск',
-                contactTel: '375449874561',
-                touristsData: 
-                 [ { firstName: 'Витя',
-                     lastName: 'Витебский',
-                     passSeries: 'ВМ',
-                     passNumber: '7788999',
-                     passValidTill: '23.11.2025' },
-                   { firstName: 'Федор',
-                     lastName: 'Федоров',
-                     passSeries: 'ВМ',
-                     passNumber: '1234567',
-                     passValidTill: '24.11.2045' },
-                   { firstName: 'Андрюха',
-                     lastName: 'Андрюхин',
-                     passSeries: 'МР',
-                     passNumber: '1324567',
-                     passValidTill: '24.11.2055' } ],
-                statusConfirmed: 1,
-                statusPayment: 1 }
-
+            statusPayment: 1,
+            price: 70000 },
+           
 ]
 
 const users =[

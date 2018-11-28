@@ -11,8 +11,6 @@ import MainContacts from './booking/MainContacts'
 import {Input, Button, Modal} from 'react-materialize'
 //import { Route, Redirect } from 'react-router'
 
-import {Link} from "react-router-dom"
-
 import {reNewOrders} from '../../redux/authAction'
 import {delBookingOpt} from '../../redux/bookingAction'
 
@@ -87,10 +85,10 @@ import { connect } from 'react-redux'
 
 
 
-saveOrder=()=>{
+saveOrder=(price)=>{
 
 let canSendToServer = this.validate (this.state)
-
+//console.log(price)
 if (canSendToServer) {
 
   this.setState({openModal: true})
@@ -108,6 +106,7 @@ if (canSendToServer) {
   touristsData:this.state.touristsData,
   statusConfirmed: 1,
   statusPayment: 1,
+  price: price,
 
 },{withCredentials: true}).then ((res)=>{
 
@@ -283,7 +282,7 @@ render() {
             className='saveButton waves-effect white-text waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'
             disabled={this.state.openModal === true}
             waves='green'
-            onClick={this.saveOrder}
+            onClick={()=>{this.saveOrder(price)}}
               >Забронировать
               </Button>
             </div>

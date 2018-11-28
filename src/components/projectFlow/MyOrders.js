@@ -96,7 +96,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
               key={el.number} 
               header={`Заказ номер ${orderNumber} |
               ${el.statusConfirmed === 1 ? 'Бронирование':( el.statusConfirmed === 2)? 'Подтверждено' : 'Аннулировано'} |
-              ${el.statusPayment === 1 ? 'Не оплачено': el.statusPayment === 2? 'Оплачено' : "Частично оплачено"}`} 
+              ${el.statusPayment === 1 ? 'Не оплачено': el.statusPayment === 2? 'Оплачено' : "Частично оплачено"} |  Цена ${el.price}`} 
               className='z-depth-4 margin-ordres-list'>
                 
                 <div className='row'>
@@ -105,6 +105,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 </div>
                 <div className='col s6'>
                 <strong> Статус оплаты</strong>
+                <div>Цена {el.price}</div>
                 </div>
                 </div>
                 
@@ -134,6 +135,8 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                      <option  value='2'>Оплачено</option>
                      <option  value='3'>Частично оплачено</option>
                    </Input>
+
+                  
                    
                 </div>
                 <strong > Проживание</strong>
@@ -150,20 +153,12 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 <div className='ml5'><p><strong>Адрес  </strong> {el.contactAdress}</p></div>
                 </div>
 
-                
-                <Collapsible className='blue lighten-3'>
-
-                <CollapsibleItem header='Туристы по заявке'>
-                
                 <div className='touristdata'>
+                <p ><strong> Туристы по заявке</strong></p>
+                
                 {touristList}
                 </div>
                 
-                </CollapsibleItem>
-                </Collapsible>
-
-
-                  
               </CollapsibleItem>
 
               //  <tr key={el.number}>
