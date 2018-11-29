@@ -227,8 +227,8 @@ const users =[
   })
 
   app.post('/neworder', function (req, res) {
-    console.log('SERVER RECIVED NEW ORDER')
-console.log(req.body)
+    // console.log('SERVER RECIVED NEW ORDER')
+    // console.log(req.body)
     users.forEach((el)=>{
         if (el.email === req.session.user) {
             el.orders.push(req.body)
@@ -238,14 +238,14 @@ console.log(req.body)
   })
 
   app.post ('/contactmessage', (req,res)=>{
-    console.log('SERVER RECIVED CONTACT PAGE MSG')
-    console.log (req.body)
+    // console.log('SERVER RECIVED CONTACT PAGE MSG')
+    // console.log (req.body)
     res.send('Сообщение получено')
   })
 
   app.post ('/auth', (req,res)=>{
 
-  console.log('SERVER SEND AUTH STATUS')
+  //console.log('SERVER SEND AUTH STATUS')
   
   let user = users.find(el=>el.email === req.body.email)
   let orders=[]
@@ -289,11 +289,18 @@ console.log(req.body)
   })
 
   app.post ('/signup', (req,res)=>{
-
-    console.log('SERVER RECIEVED NEW USER')
-    req.session.user = req.body.email
-    users.push ({email: req.body.email ,role: 'user', pass: req.body.password, orders: []},)
-    res.end()
+    let haveUser = users.filter(el=>el.email === req.body.email)
+    //console.log('SERVER RECIEVED NEW USER')
+    //console.log(haveUser)
+    if (haveUser.length !== 0) {
+        res.send('Такой пользователь есть')
+    } else {
+        users.push ({email: req.body.email ,role: 'user', pass: req.body.password, orders: []},)
+        req.session.user = req.body.email
+        res.send('Пользователь зарегистрирован')
+    }
+    
+    
 
   })
 
@@ -306,14 +313,28 @@ console.log(req.body)
                     if (el.orderNumber === elemUO.number) {
 
                         if (el.orderStatus === "paymentPart") {
-                            console.log(elemUO[el.orderStatus])
-                            console.log(el.statusValue)
+                            // console.log(elemUO[el.orderStatus])
+                            // console.log(el.statusValue)
 
 
                             elemUO[el.orderStatus]+=parseInt(el.statusValue)
                             
                         } else {
-                            elemUO[el.orderStatus]=parseInt(el.statusValue)
+                        //    elemUO[el.orderStatus]=parseInt(el.statusValue)
+
+                        //    console.log( (el.orderStatus === 'statusPayment' && el.statusValue === 2))
+                        //    console.log(el.orderStatus === 'statusPayment')
+                        //    console.log(parseInt (el.statusValue) === 2)
+
+                            if (el.orderStatus === 'statusPayment' && parseInt (el.statusValue) === 2) {
+                                elemUO[el.orderStatus]=parseInt(el.statusValue)
+                                //console.log("FULL PAYMENT")
+                                elemUO.paymentPart = elemUO.price
+
+                            } else {
+                               elemUO[el.orderStatus]=parseInt(el.statusValue)
+                            }
+                            
                         }
 
                         
@@ -330,10 +351,10 @@ console.log(req.body)
   app.get ('/reneworders', (req,res)=>{
 
    if (req.session.user) {
-       console.log("GOT USER AT RENEWORDERS")
+    //    console.log("GOT USER AT RENEWORDERS")
     let currentUser = users.find(el=>el.email === req.session.user)
     if (currentUser.role === "admin") {
-        console.log('RENEW AFTER CHANGE ADMIN')
+        // console.log('RENEW AFTER CHANGE ADMIN')
         let orders=[]
         users.forEach ((el)=>{
             orders = orders.concat(el.orders)
@@ -345,7 +366,7 @@ console.log(req.body)
 
         users.forEach((el)=>{
             if (el.email === req.session.user){
-                console.log('SEND NEW ORDERS')
+                // console.log('SEND NEW ORDERS')
              res.json(el.orders)
             }
         })
@@ -354,7 +375,7 @@ console.log(req.body)
        
     
    } else {
-    console.log("NO USER AT RENEWORDERS")
+    // console.log("NO USER AT RENEWORDERS")
     res.json([])
    }
   })

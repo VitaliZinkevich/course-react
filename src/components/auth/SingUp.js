@@ -72,7 +72,11 @@ import {Preloader} from 'react-materialize'
             password: this.state.password
           },{withCredentials: true},).then ((res)=>{
               this.setState ({message: res.data})
-              this.props.dispatch (getAuth (this.state.email, this.state.password))
+             // console.log(res.data)
+              if (res.data === 'Такой пользователь есть') {
+              } else {
+                this.props.dispatch (getAuth (this.state.email, this.state.password))
+              }
           })
       
     }
@@ -101,7 +105,7 @@ import {Preloader} from 'react-materialize'
                 
                 <div>
                     {this.state.message !== ''  ? (<div className='center'>{this.state.message } <br/>
-                    <Link to={`/`}> К прайс листу</Link></div> ) : 
+                    <Link to={`/login`}> Войти</Link></div> ) : 
                     null}
                 </div>
              </>)}    

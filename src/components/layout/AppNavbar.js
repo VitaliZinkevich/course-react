@@ -26,18 +26,13 @@ render (){
         
      
         <NavItem><NavLink to='/'>Поиск</NavLink></NavItem>
-        {/* <Icon>fingerprint</Icon>
-        <Icon>face</Icon>
-        <Icon>shopping_cart</Icon> 
-        <Icon>lock_open</Icon>*/}
+        <NavItem><NavLink to='/about'> О компании</NavLink></NavItem>
+        <NavItem><NavLink to='/contacts'>Контакты </NavLink></NavItem>
         {this.props.isAuth === false ? (<NavItem><NavLink to='/login'>Войти</NavLink></NavItem>): null}
         {this.props.isAuth === false ? (<NavItem><NavLink to='/singup'>Зарегистрироваться</NavLink></NavItem>): null}
         {this.props.isAuth === true ? (<NavItem><NavLink to='/myorders'>Мои заказы</NavLink></NavItem>): null}
-                
-        <NavItem><NavLink to='/about'> О компании</NavLink></NavItem>
-        <NavItem><NavLink to='/contacts'>Контакты </NavLink></NavItem>
+        {this.props.isAuth === true ? (<NavItem><NavLink to='#'><button className='btn-floating blue darken-2'>{this.props.userName}</button></NavLink></NavItem>): null}       
         {this.props.isAuth === true ? (<NavItem onClick={()=>{this.props.dispatch(signOutAuth())}} ><NavLink to='' >Выйти</NavLink></NavItem>): null}
-
     </Navbar>
                   
     )
@@ -47,6 +42,7 @@ render (){
 
 let mapStateToProps = (state) => {
     return {
+        userName: state.auth.get ('userName'),
        isAuth: state.auth.get ('isAuth')
     }
 }

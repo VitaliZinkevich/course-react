@@ -115,7 +115,7 @@ class PriceList extends PureComponent {
                 showList.push (
                   
               <div key={dateIndex.toString()+hotelIndex.toString()+nightIndex.toString()+roomIndex.toString()}
-              className='buyButtons'>
+              className='buyButtons row'>
                  
                         <div className="col s10">
                         <PriceListItem
@@ -143,11 +143,7 @@ class PriceList extends PureComponent {
                         </div>
                         
                         </div>
-                 
-                  
-                 
-
-              </div>
+                </div>
 
                 )
     

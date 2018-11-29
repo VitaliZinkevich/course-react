@@ -18,6 +18,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
 
   
   state= {
+    openModalpeymentPart: false,
     openModal: false,
     orderChanges:[],
     paymentPartInput:{orderNumber: '', value: ''}
@@ -96,7 +97,13 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
     }
     let newOrdersChanges = [...this.state.orderChanges]
     newOrdersChanges.push(changeObj)
-    this.setState({orderChanges: newOrdersChanges})
+    let newPaymentPartInput = {...this.state.PaymentPartInput}
+    newPaymentPartInput.value = ''
+    newPaymentPartInput.orderNumber = ''
+    this.setState({orderChanges: newOrdersChanges,openModalpeymentPart: true, paymentPartInput: newPaymentPartInput}, ()=>{
+      setTimeout(()=>{this.setState({openModalpeymentPart:false})}, 2000)
+      
+    })
   }
 
     render() {
@@ -158,6 +165,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 <div>Долг {el.price-el.paymentPart}</div>
                 {el.statusPayment === 3 ? (
                 <><input
+                value={this.state.paymentPartInput.value}
                 name='paymentPart'
                 placeholder='Полученная сумма'
                 // handlePaymentPartInput =(number, value)
@@ -167,6 +175,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 <button
                  onClick={()=>{this.addOrderChange(el.number)}}
                 className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
+                disabled={ this.state.paymentPartInput.value === ''}
                 >Сохранить</button>
                 </>): null}
                 </div>
@@ -215,13 +224,15 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 <div ><p><strong>Контактыный телефон </strong> {el.contactTel}</p></div>
                 <div className='ml5'><p><strong>Адрес  </strong> {el.contactAdress}</p></div>
                 </div>
-
-                <div className='touristdata'>
                 <p ><strong> Туристы по заявке</strong></p>
+                <div className='touristdata'>
+                
                 
                 {touristList}
 
-                  {this.props.role === 'admin'? (<div className='center'>
+                  
+                </div>
+                {this.props.role === 'admin'? (<div className=''>
                     <button 
                     disabled={( this.state.orderChanges.length === 0 ||
                        this.state.openModal === true ||
@@ -235,8 +246,6 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                     </div>
                   ):
                     null}
-                </div>
-                
               </CollapsibleItem>
 
               //  <tr key={el.number}>
@@ -332,6 +341,18 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 </div>
                
             </Modal>
+            <Modal
+                open={this.state.openModalpeymentPart}
+                actions={null}
+                >
+                <div className='center'>
+                <h2>Частичная оплата записана</h2>
+                <p>Обновите данные на сервере</p>
+                </div>
+               
+            </Modal>
+
+            {/* openModalpeymentPart */}
       </main>
     )
   }
