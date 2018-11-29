@@ -78,7 +78,7 @@ class PriceList extends PureComponent {
     }
 
     let personsAcc = `${this.props.adults}+${this.props.children}`
-
+    //console.log(personsAcc)
     let hotelListwithSortedRooms = this.props.toShow.map ((hotel, index)=>{
    
       let newRooms
@@ -89,13 +89,15 @@ class PriceList extends PureComponent {
             return false
           }
         })
+        // console.log(newRooms)
+        hotel = hotel.setIn (['rooms'], newRooms)
         
-        hotel.set('rooms', newRooms)
-        
+        //console.log(hotel)
       
    
         return hotel
       })
+      //console.log(hotelListwithSortedRooms)
       
       hotelListwithSortedRooms = hotelListwithSortedRooms.filter (hotel => hotel.get ('rooms').size)
   

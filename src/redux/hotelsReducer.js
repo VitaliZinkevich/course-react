@@ -65,7 +65,7 @@ const hotelsReducer = (state = initState, action) => {
                 let newSelectedHotels = newState.get ('selectedHotels').push(addtoSelectedHotels)
                 //console.log ('RETURN')
                 
-                newState =newState.setIn(['mainList'],newMainList).setIn(['selectedHotels'],newSelectedHotels).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
+                newState =newState.setIn(['mainList'],newMainList).setIn(['selectedHotels'],newSelectedHotels).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights')))
                 return newState
             }
 
@@ -82,7 +82,7 @@ const hotelsReducer = (state = initState, action) => {
                     }
                 })
                
-                newState = newState.setIn(['selectedHotels'],newSelectedHotels).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
+                newState = newState.setIn(['selectedHotels'],newSelectedHotels).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo'), newState.get ('nights')))
                 //console.log (newState.get ('search').indexOf (addtoMainList.get('name')))
                 
                 let newMainList = null
@@ -149,7 +149,7 @@ const hotelsReducer = (state = initState, action) => {
 
                 if (newMainList.size === 0 ) {
                     errors = errors.push('Фильтр по НАЗВАНИЮ удаляет все элементы')
-                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights'))))
                     return newState   
                 } 
 
@@ -187,16 +187,16 @@ const hotelsReducer = (state = initState, action) => {
 
                 if (newMainList.size === 0 ) {
                     errors = errors.push('Фильтр по ЗВЕЗДНОСТИ удаляет все элементы')   
-                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights'))))
                     return newState
                     } 
                               
-                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
+                    newState = newState.setIn(['mainList'], newMainList).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights'))))
                     return newState
                 }
 
             if (action.formName === 'foodType') {
-                newState = newState.setIn (['foodType'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
+                newState = newState.setIn (['foodType'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights')))
                 
                return newState
 
@@ -205,9 +205,9 @@ const hotelsReducer = (state = initState, action) => {
             if (action.formName === 'children' || action.formName === 'adults') {
 
                 if (action.formName === 'children') {
-                    newState = newState.setIn (['children'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
+                    newState = newState.setIn (['children'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights')))
                 } else  {
-                    newState = newState.setIn (['adults'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo')))
+                    newState = newState.setIn (['adults'], action.fieldValue ).setIn(['formMessages'], checkErrors(newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights')))
                 }
  
                return newState
@@ -235,11 +235,14 @@ const hotelsReducer = (state = initState, action) => {
                 let errors = fromJS ([])
 
                 if (newNightsList.size===0) {
+                    //console.log('NO NIGHTS AT REDUX')
                     errors = errors.push('Количество НОЧЕЙ должно быть выбрано')
-                    newState= newState.setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo')))).setIn (['nights'], newNightsList )
+                    newState= newState.setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights')))).setIn (['nights'], newNightsList )
+                } else {
+                    newState = newState.setIn (['nights'], newNightsList ).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
                 }
 
-                newState = newState.setIn (['nights'], newNightsList ).setIn (['formMessages'], errors.concat (checkErrors(newState.get('dateFrom'), newState.get('dateTo'))))
+                
 
                 return newState
             }
@@ -252,7 +255,7 @@ const hotelsReducer = (state = initState, action) => {
                     newState = newState.setIn (['dateTo'], action.fieldValue)
                 }
 
-                newState = newState.setIn (['formMessages'], checkErrors (newState.get('dateFrom'), newState.get('dateTo')))
+                newState = newState.setIn (['formMessages'], checkErrors (newState.get('dateFrom'), newState.get('dateTo'),newState.get ('nights')))
                 
 
                 return newState
@@ -422,7 +425,7 @@ export default hotelsReducer
 
 // проверить даты и вернуть массив ошибок
 
-function checkErrors (startFrom, startTo) {
+function checkErrors (startFrom, startTo, nights = fromJS(['1'])) {
    
    let errors = []
 
@@ -453,7 +456,12 @@ function checkErrors (startFrom, startTo) {
         errors.push('Дата С такая же или раньше даты ПО')
     }
 
-   } 
+   }
+   
+   if (nights.size === 0) {
+    //console.log('NO NIGHTS AT FUNC')
+    errors.push('Количество НОЧЕЙ должно быть выбрано')
+   }
    
 return fromJS (errors)
 
