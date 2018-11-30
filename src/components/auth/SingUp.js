@@ -100,7 +100,7 @@ import {Preloader} from 'react-materialize'
                 onClick={this.submit} 
                 disabled={this.state.errors.length !== 0}
                 className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'>
-                Зарегистрироваться        
+                Регистрация        
                 </button>
                 
                 <div>

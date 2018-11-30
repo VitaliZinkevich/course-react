@@ -104,16 +104,16 @@ class SingIn extends PureComponent {
                 <button  
                 onClick={this.submit} 
                 disabled={this.state.errors.length !== 0}
-                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'  >
+                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 btn-large textstrong'  >
                 Войти
                 </button>
                 {this.state.message === '' ? 
                 (<div className='margin-top-25'>
-                <Link className='waves-effect waves-light btn orange darken-2 z-depth-4 btn-large margin-top-25 textstrong white-text' to={{pathname:"/singup" , state: {from: fromVar }}}>Или регистрация</Link>
+                <Link className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong white-text' to={{pathname:"/singup" , state: {from: fromVar }}}>Или регистрация</Link>
                 </div>) : 
                 (null)}
                 <div>
-                {this.state.message !== '' ? (<div className='center margin-top-25'>{this.state.message} <br/><Link to={`/singup`}> <strong>Зарегистрироваться</strong></Link></div> ) : 
+                {this.state.message !== '' ? (<div className='center margin-top-25'>{this.state.message} <br/><Link to={`/singup`}> <strong>Регистрация</strong></Link></div> ) : 
                 null }
                 </div>
                 </>

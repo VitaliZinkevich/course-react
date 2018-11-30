@@ -3,6 +3,7 @@
 const express = require('express')
 const app = express()
 const port = 8080
+var moment = require('moment');
 
 let session = require('express-session')
 let bodyParser = require('body-parser')
@@ -46,7 +47,9 @@ const orders2 = [
         statusConfirmed: 1,
         statusPayment: 1,
         price:10000,
-        paymentPart: 0 },
+        paymentPart: 0,
+        dateOfCreation: '2016-10-30T10:43:48.121Z',
+        orderCreatorEmail: '2', },
         { number: 8518,
             hotel: 'Буг',
             room: 'Двухместный  двухкомнатный люкс',
@@ -65,7 +68,9 @@ const orders2 = [
             statusConfirmed: 1,
             statusPayment: 1,
             price:30000,
-            paymentPart: 0 },
+            paymentPart: 0,
+            dateOfCreation: '2018-11-29T10:43:48.121Z',
+            orderCreatorEmail: '2', },
             { number: 5252,
                 hotel: 'Белая вежа',
                 room: 'Двухместный двухкомнаный ',
@@ -99,7 +104,9 @@ const orders2 = [
                 statusConfirmed: 1,
                 statusPayment: 1,
                 price:10500,
-                paymentPart: 0 }
+                paymentPart: 0,
+                dateOfCreation: '2017-11-20T10:43:48.121Z',
+                orderCreatorEmail: '2', }
                       
           
       
@@ -134,6 +141,8 @@ const orders3 = [
         statusConfirmed: 1,
         statusPayment: 1,
         price:35000,
+        dateOfCreation: '2018-11-26T10:43:48.121Z',
+        orderCreatorEmail: '3',
         paymentPart: 0 },
         { number: 6007,
             hotel: 'Свитанак',
@@ -163,7 +172,9 @@ const orders3 = [
             statusConfirmed: 1,
             statusPayment: 1,
             price: 70000,
-            paymentPart: 0 },
+            paymentPart: 0,
+            dateOfCreation: '2017-11-30T10:43:48.121Z',
+            orderCreatorEmail: '3', },
            
 ]
 
@@ -228,7 +239,7 @@ const users =[
 
   app.post('/neworder', function (req, res) {
     // console.log('SERVER RECIVED NEW ORDER')
-    // console.log(req.body)
+     console.log(req.body)
     users.forEach((el)=>{
         if (el.email === req.session.user) {
             el.orders.push(req.body)
@@ -252,21 +263,22 @@ const users =[
     if (user) {
        
         if (user.role === 'user') {
-          
-            orders = [...user.orders]
-        } else {
+          console.log(orders)
+            orders = [...user.orders].sort ((a,b)=>{
+                return moment(a.dateOfCreation).isBefore(b.dateOfCreation)})
+                
+        } else { // admin
             users.forEach ((el)=>{
             orders = orders.concat(el.orders)
             })
-            orders = orders.reverse()
+            orders = orders.sort ((a,b)=>{
+                return moment(a.dateOfCreation).isBefore(b.dateOfCreation)})
            
         }
         
         
         if (user.email === req.body.email  && user.pass === req.body.pass){
-
             req.session.user = user.email
-          
             setTimeout (()=>{
                 res.json ( {userName: user.email, authStatus: true, role: user.role, message: 'Есть пользователь', orders: orders})
             }, 1500)
@@ -359,7 +371,10 @@ const users =[
         users.forEach ((el)=>{
             orders = orders.concat(el.orders)
             })
-            orders = orders.reverse()
+        orders = orders.sort ((a,b)=>{
+            return moment(a.dateOfCreation).isBefore(b.dateOfCreation)
+            })
+
             res.json(orders)
 
     }  else {
@@ -367,7 +382,10 @@ const users =[
         users.forEach((el)=>{
             if (el.email === req.session.user){
                 // console.log('SEND NEW ORDERS')
-             res.json(el.orders)
+                let orders = el.orders.sort ((a,b)=>{
+                    return moment(a.dateOfCreation).isBefore(b.dateOfCreation)
+                })
+             res.json(orders)
             }
         })
     }     

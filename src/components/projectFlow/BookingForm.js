@@ -38,6 +38,7 @@ import { connect } from 'react-redux'
         room:singleRoom, 
         adults:PropTypes.number, 
         children:PropTypes.number,
+       
     })
     ]) ,
     userName: PropTypes.string
@@ -108,6 +109,8 @@ if (canSendToServer) {
   statusPayment: 1,
   price: price,
   paymentPart: 0,
+  dateOfCreation: new Date(),
+  orderCreatorEmail: this.props.userName
 
 },{withCredentials: true}).then ((res)=>{
 

@@ -6,7 +6,8 @@ import {reNewOrders} from '../../redux/authAction'
 import axios from 'axios'
 import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
 
-
+import moment from 'moment'
+moment.locale('ru')
  class MyOrders extends PureComponent {
 
   static propTypes = {
@@ -113,6 +114,8 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
         let jsOrders
         let viewOrders
 
+
+
         if (this.props.orders !== null ) {
 
             jsOrders = this.props.orders.toJS()
@@ -139,6 +142,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 })
 
                let orderNumber = el.number.toString()
+               
                //console.log(el.statusPayment )
                 return (
 
@@ -156,7 +160,10 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
                 
                 <div className='row'>
                 <div className='col s6'>
-                <strong>Статус заявки</strong> 
+                <div><strong>Статус заявки</strong> </div>
+
+                <div> <strong> Дата создания {moment (Date.parse (el.dateOfCreation)).locale('ru').format("DD.MM.YYYY, H:mm:ss")}</strong></div>
+                {this.props.role === 'admin' ? <div> <strong>Пользователь {el.orderCreatorEmail}</strong></div> : null}
                 </div>
                 <div className='col s6'>
                 <strong> Статус оплаты</strong>
@@ -300,7 +307,7 @@ import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
           
         {(jsOrders.length === 0) ? <h5 className='center margin-top-25'>Дорогой {this.props.userName}. У вас нет заказов</h5>: (
           <div>
-          <h5 className='center'>Заказы пользователя {this.props.userName}</h5>
+          <h5 className='center'>Пользователь {this.props.userName}, роль {this.props.role}</h5>
           
           <Collapsible accordion>
             {viewOrders}

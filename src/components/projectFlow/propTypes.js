@@ -52,6 +52,8 @@ const ordersPropTypesArray = PropTypes.oneOfType ([
         statusConfirmed: PropTypes.number,
         statusPayment: PropTypes.number,
         price:PropTypes.number,
+        dateOfCreation: PropTypes.string,
+        orderCreatorEmail: PropTypes.string
       })
     )])
 
