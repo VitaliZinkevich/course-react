@@ -239,7 +239,7 @@ const users =[
 
   app.post('/neworder', function (req, res) {
     // console.log('SERVER RECIVED NEW ORDER')
-     console.log(req.body)
+     // console.log(req.body)
     users.forEach((el)=>{
         if (el.email === req.session.user) {
             el.orders.push(req.body)
@@ -263,7 +263,7 @@ const users =[
     if (user) {
        
         if (user.role === 'user') {
-          console.log(orders)
+          //console.log(orders)
             orders = [...user.orders].sort ((a,b)=>{
                 return moment(a.dateOfCreation).isBefore(b.dateOfCreation)})
                 

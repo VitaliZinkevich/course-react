@@ -164,7 +164,7 @@ moment.locale('ru')
                 <div><strong>Статус заявки</strong> </div>
 
                 <div> <strong> Дата создания {moment (Date.parse (el.dateOfCreation)).locale('ru').format("DD.MM.YYYY, H:mm:ss")}</strong></div>
-                {this.props.role === 'admin' ? <div> <strong>Пользователь {el.orderCreatorEmail}</strong></div> : null}
+                {this.props.role === 'admin' ? <div> <strong>Заявка пользователя: {el.orderCreatorEmail}</strong></div> : null}
                 </div>
                 <div className='col s6'>
                 <strong> Статус оплаты</strong>
