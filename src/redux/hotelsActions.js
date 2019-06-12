@@ -4,12 +4,9 @@ import axios from 'axios'
 const fetchHotels = (dispatch)=>{
 
   
-    dispatch({type: 'HOTELS', payload: axios.get('http://localhost:8080/')})
+    dispatch({type: 'HOTELS', payload: axios.get('https://gcwv4tzqgb.execute-api.eu-west-1.amazonaws.com/second/hotels')})
     
-    
-    
-
-}
+  }
 
 
 

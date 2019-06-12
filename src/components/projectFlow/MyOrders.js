@@ -58,7 +58,7 @@ moment.locale('ru')
         statusValue: val.target.value
       }
 
-      let newOrdersChanges = [...this.state.orderChanges]
+      let news = [...this.state.orderChanges]
       newOrdersChanges.push(changeObj)
       this.setState({orderChanges: newOrdersChanges})
    
