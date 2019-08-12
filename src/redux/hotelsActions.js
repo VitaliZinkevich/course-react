@@ -2,10 +2,7 @@ import axios from 'axios'
 
 // запрос отелей с сервера для построения поисковой формы
 const fetchHotels = (dispatch)=>{
-
-  
-    dispatch({type: 'HOTELS', payload: axios.get('https://gcwv4tzqgb.execute-api.eu-west-1.amazonaws.com/second/hotels')})
-    
+    dispatch({type: 'HOTELS', payload: axios.get('https://5g1bclrzf9.execute-api.us-east-1.amazonaws.com/production/hotel')})
   }
 
 

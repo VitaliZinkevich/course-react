@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {getAuth} from '../../redux/authAction'
 import axios from 'axios'
 import {Preloader} from 'react-materialize'
-
+import { Auth } from 'aws-amplify';
 
 
 

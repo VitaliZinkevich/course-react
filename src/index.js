@@ -16,6 +16,44 @@ import promise from 'redux-promise-middleware'
 // import reducers 
 import combinedReducer from './redux/reducer'
 
+// import auth aws services
+import Amplify from 'aws-amplify';
+import amplifyConfig from './amplify.config';
+
+Amplify.configure({
+	Auth: {
+		mandatorySignIn: true,
+		region: amplifyConfig.REGION,
+		userPoolId: amplifyConfig.USER_POOL_ID,
+		identityPoolId: amplifyConfig.IDENTITY_POOL_ID,
+		userPoolWebClientId: amplifyConfig.APP_CLIENT_ID
+	},
+	API: {
+		endpoints: [
+			{
+				name: 'testApiCall',
+				endpoint: 'https://07r6ox7iib.execute-api.us-east-1.amazonaws.com/dev/hello',
+				region: 'us-east-1'
+			},
+			// {
+			// 	name: 'getOrders',
+			// 	endpoint: 'https://whd5793u70.execute-api.us-east-1.amazonaws.com/dev/todos',
+			// 	region: 'us-east-1'
+			// },
+			// {
+			// 	name: 'addOrder',
+			// 	endpoint: 'https://whd5793u70.execute-api.us-east-1.amazonaws.com/dev/todos',
+			// 	region: 'us-east-1'
+			// },
+			// {
+			// 	name: 'delOrder',
+			// 	endpoint: 'https://whd5793u70.execute-api.us-east-1.amazonaws.com/dev/todos',
+			// 	region: 'us-east-1'
+			// }
+
+		]
+	}
+});
 
 const store = createStore(combinedReducer, applyMiddleware(promise(),thunk,/* logger*/));
 
