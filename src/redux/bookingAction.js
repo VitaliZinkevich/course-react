@@ -1,3 +1,5 @@
+import { API } from "aws-amplify";
+
 const SAVE_BOOKING_OPTIONS='SAVE_BOOKING_OPTIONS';
 
 const saveBookingOpt=function(options) {
@@ -15,5 +17,22 @@ const delBookingOpt=function(options) {
    
 }
 
+const SAVE_ORDER = 'SAVE_ORDER'
 
-export {saveBookingOpt, delBookingOpt}
+const saveOrder=function(order) {
+  let payLoad = {
+    body:{
+        order,
+    },
+    headers:{
+       
+    }};
+  return {
+    type: SAVE_ORDER,
+    payload: API.post ('createOrder','' ,payLoad)
+      .then (data=> console.log(data))
+      .catch (err => console.log(err))
+    }
+}
+
+export {saveBookingOpt, delBookingOpt, saveOrder}

@@ -15,7 +15,7 @@ import {reNewOrders} from '../../redux/authAction'
 import {delBookingOpt} from '../../redux/bookingAction'
 
 import { connect } from 'react-redux'
-
+import {saveOrder} from '../../redux/bookingAction'
 
 
  class BookingForm extends PureComponent {
@@ -115,7 +115,9 @@ if (canSendToServer) {
 
   console.log(order)
 
-  axios.post('http://localhost:8080/neworder', order,{withCredentials: true}).then ((res)=>{
+  // axios.post('http://localhost:8080/neworder', order,{withCredentials: true})
+  
+  this.props.dispatch (saveOrder(order)).then ((res)=>{
 
   this.props.dispatch (reNewOrders())
   
@@ -304,6 +306,7 @@ render() {
                 header='Спасибо'
                 actions={null}>
                 <div className='center'>
+                {this.props.saved ? 'true' : 'false'}
                 <p>Заявка получена.</p>
                 <p>Вы будете переадресованы в раздел <strong>Мои заказы</strong> </p>
                 </div>
@@ -327,6 +330,7 @@ let mapStateToProps = (state) => {
   return {
     
     buyOptions: state.bookingReducer.get ('buyOptions'),
+    saved: state.bookingReducer.get ('saved'),
     userName: state.auth.get ('userName')
     
     }

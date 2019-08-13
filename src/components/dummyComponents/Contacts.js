@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react'
 import {Input, Button, Modal} from 'react-materialize'
 import axios from 'axios'
-import {API} from 'aws-amplify'
+import { API } from "aws-amplify";
 
 
 export default class Contacts extends PureComponent {

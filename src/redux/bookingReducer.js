@@ -3,8 +3,8 @@ import {fromJS} from 'immutable'
 
 let initState = {
     
-    buyOptions:null
-  
+    buyOptions:null,
+    saved: false
 }
 
 
@@ -20,7 +20,13 @@ const bookingReducer = (state = initState, action) => {
         }
         
         case 'DEL_BOOKING_OPTIONS':{
+            newState = newState.setIn (['saved'], false)
             newState = newState.setIn (['buyOptions'], null)
+            return newState
+        }
+
+        case 'SAVE_ORDER_FULFILLED':{
+            newState = newState.setIn (['saved'], true)
             return newState
         }
 
