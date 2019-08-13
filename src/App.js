@@ -26,7 +26,6 @@ class App extends Component{
   componentDidMount(){
    Auth.currentAuthenticatedUser()
     .then (data => {
-      console.log(data)
       if (data !== "not authenticated" ) {
         this.props.dispatch (setUser (data))
       }

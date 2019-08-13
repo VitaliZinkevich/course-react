@@ -94,25 +94,28 @@ if (canSendToServer) {
 
   this.setState({openModal: true})
 
-  axios.post('http://localhost:8080/neworder', {
-  number:Math.floor(Math.random()*10000),
-  hotel: this.props.buyOptions.getIn(['hotel', 'name']),
-  room: this.props.buyOptions.getIn(['room', 'name']),
-  date: this.props.buyOptions.getIn(['date']),
-  night: this.props.buyOptions.getIn(['night']),
-  adults:this.props.buyOptions.getIn(['adults']),
-  children:this.props.buyOptions.getIn(['children']),
-  contactAdress:this.state.contactAdress,
-  contactTel:this.state.contactTel,
-  touristsData:this.state.touristsData,
-  statusConfirmed: 1,
-  statusPayment: 1,
-  price: price,
-  paymentPart: 0,
-  dateOfCreation: new Date(),
-  orderCreatorEmail: this.props.userName
+  let order = {
+    number:Math.floor(Math.random()*10000),
+    hotel: this.props.buyOptions.getIn(['hotel', 'name']),
+    room: this.props.buyOptions.getIn(['room', 'name']),
+    date: this.props.buyOptions.getIn(['date']),
+    night: this.props.buyOptions.getIn(['night']),
+    adults:this.props.buyOptions.getIn(['adults']),
+    children:this.props.buyOptions.getIn(['children']),
+    contactAdress:this.state.contactAdress,
+    contactTel:this.state.contactTel,
+    touristsData:this.state.touristsData,
+    statusConfirmed: 1,
+    statusPayment: 1,
+    price: price,
+    paymentPart: 0,
+    dateOfCreation: new Date(),
+    orderCreatorEmail: this.props.userName
+  }
 
-},{withCredentials: true}).then ((res)=>{
+  console.log(order)
+
+  axios.post('http://localhost:8080/neworder', order,{withCredentials: true}).then ((res)=>{
 
   this.props.dispatch (reNewOrders())
   
@@ -122,7 +125,11 @@ if (canSendToServer) {
       this.props.dispatch (delBookingOpt())})},1500)
     
   
-})}
+})
+.catch ((err)=>{
+  console.log(err)
+})
+}
 
 }
 
