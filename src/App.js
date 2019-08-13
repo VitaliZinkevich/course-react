@@ -16,13 +16,22 @@ import MyOrders from './components/projectFlow/MyOrders'
 // auth 
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import SingIn from './components/auth/SingIn'
-//import './App.css';
+import { Auth } from 'aws-amplify';
 
-
+// redux
+import {setUser} from './redux/authAction'
+import { connect } from 'react-redux'
 
 class App extends Component{
   componentDidMount(){
-   
+   Auth.currentAuthenticatedUser()
+    .then (data => {
+      console.log(data)
+      if (data !== "not authenticated" ) {
+        this.props.dispatch (setUser (data))
+      }
+    })
+    .catch (err => console.log(err))
   }
   render() {
 
@@ -56,4 +65,4 @@ class App extends Component{
   }
 }
 
-export default App
+export default connect ()(App);

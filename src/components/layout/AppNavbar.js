@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {signOutAuth} from '../../redux/authAction'
 
 import PropTypes from 'prop-types';
-
+import { Auth } from 'aws-amplify';
 
 class NavbarApp extends React.Component{
     

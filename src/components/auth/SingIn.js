@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import {getAuth} from '../../redux/authAction'
+import {getAuth, setUser} from '../../redux/authAction'
 import {Link} from "react-router-dom"
 import {Preloader} from 'react-materialize'
+
+import {API} from 'aws-amplify'
 
 import PropTypes from 'prop-types';
 // immutable proptypes
@@ -13,7 +15,7 @@ class SingIn extends PureComponent {
     static propTypes ={
             authPending: PropTypes.bool,
             isAuth: PropTypes.bool,
-            rejectedError: PropTypes.instanceOf(ImmutablePropTypes.list)
+            rejectedError: PropTypes.string
     }
 
     state = {
@@ -24,15 +26,13 @@ class SingIn extends PureComponent {
     }
 
     componentWillReceiveProps(newProps){
-        
+
         if (newProps.isAuth === true) {
-            
             if (this.props.location.state !== undefined) {
                 this.props.history.push (this.props.location.state.from)
             } else {
                 this.props.history.push ('/')
             }
-           
         }
     }
     
@@ -56,20 +56,18 @@ class SingIn extends PureComponent {
 
 
 
-    submit= async()=>{
+    submit = ()=>{
         
-        this.props.dispatch (getAuth(this.state.email, this.state.password)).then ((res)=>{
-            if (res.value.data.message !=='Есть пользователь') {
-                this.setState({message: res.value.data.message})
-            }
+        this.props.dispatch (getAuth(this.state.email, this.state.password)).then ((user)=>{
+            this.props.dispatch (setUser (user.value))
             
-       
+        }).catch (err=>{
         })
-           
     }
 
+    
+
   render() {
-      //console.log(typeof (null))
 
    let  fromVar = null
    if (this.props.location.state === undefined) {
@@ -107,15 +105,23 @@ class SingIn extends PureComponent {
                 className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 btn-large textstrong'  >
                 Войти
                 </button>
-                {this.state.message === '' ? 
-                (<div className='margin-top-25'>
+                <br />
+                
+                {this.props.rejectedError}
+
+                <div className='margin-top-25'>
                 <Link className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong white-text' to={{pathname:"/singup" , state: {from: fromVar }}}>Или регистрация</Link>
-                </div>) : 
+                </div>
+
+                {/* {this.state.message === '' ? 
+                    (<div className='margin-top-25'>
+                    <Link className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong white-text' to={{pathname:"/singup" , state: {from: fromVar }}}>Или регистрация</Link>
+                    </div>) : 
                 (null)}
                 <div>
-                {this.state.message !== '' ? (<div className='center margin-top-25'>{this.state.message} <br/><Link to={`/singup`}> <strong>Регистрация</strong></Link></div> ) : 
-                null }
-                </div>
+                    {this.state.message !== '' ? (<div className='center margin-top-25'>{this.state.message} <br/><Link to={`/singup`}> <strong>Регистрация</strong></Link></div> ): 
+                    null }
+                </div> */}
                 </>
             )}
 

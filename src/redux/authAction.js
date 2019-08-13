@@ -1,16 +1,21 @@
 import axios from 'axios'
+import { Auth } from 'aws-amplify';
 
 const GET_AUTH='GET_AUTH';
 
 const getAuth=function(email, pass) {
   return {
     type: GET_AUTH,
-    payload: axios.post('http://localhost:8080/auth', {
-      email: email,
-      pass: pass
-    },{withCredentials: true}),
+    payload: Auth.signIn (email, pass) 
   }
-    
+}
+
+const SET_USER = 'SET_USER';
+const setUser = function (user) {
+  return {
+    type: SET_USER,
+    payload: user 
+  }
 }
 
 // const SET_AUTH='SET_AUTH';
@@ -28,7 +33,6 @@ const SING_OUT='SING_OUT';
 const signOutAuth=function() {
   return {
     type: SING_OUT,
-    
   }
     
 }
@@ -45,4 +49,4 @@ const reNewOrders=function() {
     
 }
 
-export {getAuth, signOutAuth, reNewOrders}
+export {getAuth, signOutAuth, reNewOrders, setUser}

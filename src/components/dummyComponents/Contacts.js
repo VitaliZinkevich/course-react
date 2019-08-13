@@ -2,6 +2,8 @@
 import React, { PureComponent } from 'react'
 import {Input, Button, Modal} from 'react-materialize'
 import axios from 'axios'
+import {API} from 'aws-amplify'
+
 
 export default class Contacts extends PureComponent {
 
@@ -35,6 +37,11 @@ doneMessage=()=>{
     )
   }
 }
+callProtected = ()=>{
+  API.get('testApiCall', '')
+    .then (data=> console.log(data))
+    .catch (err => console.log(err))
+}
 
 
   render() {
@@ -56,7 +63,11 @@ doneMessage=()=>{
                     <div>  <i className="material-icons Large">email</i> <p>vitalizinkevich@gmail.com</p></div>
                     <div>  <i className="material-icons Large">contact_phone</i> <p>+375 29 338 00 91</p></div>
                     <div>  <i className="material-icons Large">link</i> <p><a href='https://www.linkedin.com/feed/?trk=onboarding-landing'>I am at linkedIn</a></p></div>
-
+                    <button  
+                onClick={this.callProtected} 
+                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 btn-large textstrong'  >
+                защищенный роут
+                </button>
                     </div>
                   </div>
                 </div>
