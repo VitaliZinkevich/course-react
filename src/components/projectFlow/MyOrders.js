@@ -28,11 +28,12 @@ moment.locale('ru')
   
 
   componentDidMount() {
-    window.scrollTo(0, 0)
+    this.props.dispatch (reNewOrders());
+    window.scrollTo(0, 0);
   }
 
   componentWillReceiveProps (newProps){
-  //console.log(newProps)
+
   }
 
   saveOrder = ()=>{

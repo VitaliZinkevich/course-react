@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { Auth } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
+
 
 const GET_AUTH='GET_AUTH';
 
@@ -39,12 +40,10 @@ const signOutAuth=function() {
 
 
 const RE_NEW_ORDERS='RE_NEW_ORDERS';
-
 const reNewOrders=function() {
   return {
     type: RE_NEW_ORDERS,
-    payload: axios.get('http://localhost:8080/reneworders',{withCredentials: true}),
-    
+    payload: API.get ('getOrder','')
   }
     
 }

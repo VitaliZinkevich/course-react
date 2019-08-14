@@ -24,9 +24,6 @@ const authReducer = (state = initState, action) => {
         case 'GET_AUTH_FULFILLED':{
             newState = newState.setIn(['authPending'], false )
             .setIn(['isAuth'], true )
-            // .setIn(['role'], 'user')
-            // .setIn(['orders'], [])
-            
             return newState
         }
 
@@ -34,6 +31,12 @@ const authReducer = (state = initState, action) => {
             newState = newState.setIn(['authPending'], false )
             .setIn(['userName'], fromJS (action.payload.attributes.email))
             .setIn(['isAuth'], true )
+            console.log(action.payload.signInUserSession.idToken.payload["cognito:groups"])
+            if (action.payload.signInUserSession.idToken.payload["cognito:groups"]) {
+                console.log(action.payload.signInUserSession.idToken.payload["cognito:groups"][0])
+                newState = newState.setIn(['role'], fromJS (action.payload.signInUserSession.idToken.payload["cognito:groups"][0]));
+            }
+            
             return newState
         }
 
@@ -58,9 +61,9 @@ const authReducer = (state = initState, action) => {
             .setIn(['userName'],  '')
             return newState;
         }
+
         case 'RE_NEW_ORDERS_FULFILLED': {
-           // console.log(action.payload.data)
-            newState = newState.setIn(['orders'], fromJS (action.payload.data))
+            newState = newState.setIn(['orders'], fromJS (action.payload))
             return newState;
         }
             

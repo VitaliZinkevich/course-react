@@ -9,7 +9,7 @@ import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 // import async staff for redux
-// import logger from 'redux-logger'
+import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import promise from 'redux-promise-middleware'
 
@@ -40,11 +40,11 @@ Amplify.configure({
 				endpoint: 'https://6rdltt91gc.execute-api.us-east-1.amazonaws.com/dev/order',
 				region: 'us-east-1'
 			},
-			// {
-			// 	name: 'addOrder',
-			// 	endpoint: 'https://whd5793u70.execute-api.us-east-1.amazonaws.com/dev/todos',
-			// 	region: 'us-east-1'
-			// },
+			{
+				name: 'getOrder',
+				endpoint: 'https://6rdltt91gc.execute-api.us-east-1.amazonaws.com/dev/order',
+				region: 'us-east-1'
+			},
 			// {
 			// 	name: 'delOrder',
 			// 	endpoint: 'https://whd5793u70.execute-api.us-east-1.amazonaws.com/dev/todos',
@@ -55,7 +55,7 @@ Amplify.configure({
 	}
 });
 
-const store = createStore(combinedReducer, applyMiddleware(promise(),thunk,/* logger*/));
+const store = createStore(combinedReducer, applyMiddleware(promise(),thunk, logger));
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

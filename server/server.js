@@ -185,7 +185,7 @@ const users =[
     {email: "4" ,role: "user", pass: "4", orders : []},
   ] 
 
-
+ // done
   app.get("/", (req, res) => {
    
     setTimeout(function () {
@@ -237,6 +237,7 @@ const users =[
       }, 1500)
   })
 
+  // done
   app.post("/neworder", function (req, res) {
     // console.log("SERVER RECIVED NEW ORDER")
      // console.log(req.body)
@@ -248,6 +249,7 @@ const users =[
     res.send("Спасибо, завка получена")
   })
 
+  
   app.post ("/contactmessage", (req,res)=>{
     // console.log("SERVER RECIVED CONTACT PAGE MSG")
     // console.log (req.body)

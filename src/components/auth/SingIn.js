@@ -60,7 +60,6 @@ class SingIn extends PureComponent {
         
         this.props.dispatch (getAuth(this.state.email, this.state.password)).then ((user)=>{
             this.props.dispatch (setUser (user.value))
-            
         }).catch (err=>{
         })
     }
