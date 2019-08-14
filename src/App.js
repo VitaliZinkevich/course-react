@@ -30,7 +30,9 @@ class App extends Component{
         this.props.dispatch (setUser (data))
       }
     })
-    .catch (err => console.log(err))
+    .catch (err => {
+      // console.log(err)
+    })
   }
   render() {
 

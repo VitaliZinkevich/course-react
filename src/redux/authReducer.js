@@ -31,12 +31,9 @@ const authReducer = (state = initState, action) => {
             newState = newState.setIn(['authPending'], false )
             .setIn(['userName'], fromJS (action.payload.attributes.email))
             .setIn(['isAuth'], true )
-            console.log(action.payload.signInUserSession.idToken.payload["cognito:groups"])
             if (action.payload.signInUserSession.idToken.payload["cognito:groups"]) {
-                console.log(action.payload.signInUserSession.idToken.payload["cognito:groups"][0])
                 newState = newState.setIn(['role'], fromJS (action.payload.signInUserSession.idToken.payload["cognito:groups"][0]));
             }
-            
             return newState
         }
 
@@ -59,6 +56,7 @@ const authReducer = (state = initState, action) => {
             Auth.signOut({ global: true })
             newState = newState.setIn(['isAuth'], false)
             .setIn(['userName'],  '')
+            .setIn(['role'],  'user')
             return newState;
         }
 

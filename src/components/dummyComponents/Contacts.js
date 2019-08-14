@@ -3,15 +3,14 @@ import React, { PureComponent } from 'react'
 import {Input, Button, Modal} from 'react-materialize'
 import axios from 'axios'
 import { API } from "aws-amplify";
-
-
-export default class Contacts extends PureComponent {
+import { connect } from 'react-redux'
+import {sendContactForm} from '../../redux/contactActions'
+class Contacts extends PureComponent {
 
 state={
   email:'',
   message:'',
   openModal:false,
-  send:false
 }
 
 componentDidMount(){
@@ -29,20 +28,17 @@ doneMessage=()=>{
   if (this.state.email === '' || this.state.message === '') {
     window.Materialize.toast ('Заполните все поля', 2000)
   } else {
-    this.setState ({send: true})
-    axios.post ('http://localhost:8080/contactmessage', {email: this.state.email, message: this.state.message}).then(
+    //this.setState ({send: true})
+    // axios.post ('http://localhost:8080/contactmessage', {email: this.state.email, message: this.state.message})
+    
+    this.props.dispatch (sendContactForm ({email: this.state.email, message: this.state.message})).then(
       (res)=>{ 
         this.setState ({openModal: true})
       }
     )
   }
-}
-callProtected = ()=>{
-  API.get('testApiCall', '')
-    .then (data=> console.log(data))
-    .catch (err => console.log(err))
-}
 
+}
 
   render() {
     
@@ -63,11 +59,6 @@ callProtected = ()=>{
                     <div>  <i className="material-icons Large">email</i> <p>vitalizinkevich@gmail.com</p></div>
                     <div>  <i className="material-icons Large">contact_phone</i> <p>+375 29 338 00 91</p></div>
                     <div>  <i className="material-icons Large">link</i> <p><a href='https://www.linkedin.com/feed/?trk=onboarding-landing'>I am at linkedIn</a></p></div>
-                    <button  
-                onClick={this.callProtected} 
-                className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 btn-large textstrong'  >
-                защищенный роут
-                </button>
                     </div>
                   </div>
                 </div>
@@ -77,7 +68,7 @@ callProtected = ()=>{
             <div className='col s6 contactForm'>
 
             
-            {this.state.send === false ? (<div className='contactForm'>
+            {this.props.send === false ? (<div className='contactForm'>
             <p className="flow-text">Спросить</p>
             <Input
               name='email'
@@ -112,3 +103,12 @@ callProtected = ()=>{
     )
   }
 }
+
+let mapStateToProps = (state) => {
+  return {
+    send: state.contacts.get ('send'),
+  }
+}
+
+
+export default  connect (mapStateToProps)(Contacts);

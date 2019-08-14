@@ -31,8 +31,8 @@ Amplify.configure({
 	API: {
 		endpoints: [
 			{
-				name: 'testApiCall',
-				endpoint: 'https://07r6ox7iib.execute-api.us-east-1.amazonaws.com/dev/hello',
+				name: 'contactFormMessage',
+				endpoint: 'https://i2i74uoj72.execute-api.us-east-1.amazonaws.com/dev/contactmessage',
 				region: 'us-east-1'
 			},
 			{
