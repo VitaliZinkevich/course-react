@@ -5,9 +5,16 @@ import axios from 'axios'
 import { API } from "aws-amplify";
 import { connect } from 'react-redux'
 import {sendContactForm} from '../../redux/contactActions'
+import { s3Upload } from "../../libs/awsLib";
+import amplifyConfig from '../../amplify.config'
+
+
+
 class Contacts extends PureComponent {
 
-state={
+file = null;
+
+state = {
   email:'',
   message:'',
   openModal:false,
@@ -40,6 +47,28 @@ doneMessage=()=>{
 
 }
 
+handleFileChange=(event)=>{
+  this.file = event.target.files[0];
+}
+
+handleUploadFile = async (event)=>{
+  event.preventDefault();
+  
+  if (this.file && this.file.size > amplifyConfig.MAX_ATTACHMENT_SIZE) {
+    alert(`Please pick a file smaller than ${amplifyConfig.MAX_ATTACHMENT_SIZE/1000000} MB.`);
+    return;
+  }
+  
+  try {
+    await s3Upload(this.file).then (res=>console.log(res))
+    // this.props.history.push("/");
+  } catch (e) {
+    alert(e);
+  }
+
+
+}
+
   render() {
     
     return (
@@ -60,6 +89,17 @@ doneMessage=()=>{
                     <div>  <i className="material-icons Large">contact_phone</i> <p>+375 29 338 00 91</p></div>
                     <div>  <i className="material-icons Large">link</i> <p><a href='https://www.linkedin.com/feed/?trk=onboarding-landing'>I am at linkedIn</a></p></div>
                     </div>
+                    <>
+                  <input 
+                    onChange={this.handleFileChange}
+                    type='file'
+                    name="uploadVauch"
+                    accept="image/png, image/jpeg" />
+                  <button
+                    onClick={this.handleUploadFile}
+                    className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
+                    >Загрузить ваучер</button>
+                    </>
                   </div>
                 </div>
                 

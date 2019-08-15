@@ -28,6 +28,11 @@ Amplify.configure({
 		identityPoolId: amplifyConfig.IDENTITY_POOL_ID,
 		userPoolWebClientId: amplifyConfig.APP_CLIENT_ID
 	},
+	Storage: {
+		region: amplifyConfig.s3.REGION,
+		bucket: amplifyConfig.s3.BUCKET,
+		identityPoolId: amplifyConfig.IDENTITY_POOL_ID
+	},
 	API: {
 		endpoints: [
 			{

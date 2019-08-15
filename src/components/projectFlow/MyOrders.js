@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import {reNewOrders} from '../../redux/authAction'
 import axios from 'axios'
 import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
+import { s3Upload } from "../../libs/awsLib";
+import amplifyConfig from '../../amplify.config'
 
 import moment from 'moment'
 
@@ -18,6 +20,7 @@ moment.locale('ru')
     
   }
 
+  file = null;
   
   state= {
     openModalpeymentPart: false,
@@ -109,6 +112,28 @@ moment.locale('ru')
     })
   }
 
+  handleFileChange=(event)=>{
+    this.file = event.target.files[0];
+  }
+
+  handleUploadFile = async (event)=>{
+    event.preventDefault();
+	  
+		if (this.file && this.file.size > amplifyConfig.MAX_ATTACHMENT_SIZE) {
+		  alert(`Please pick a file smaller than ${amplifyConfig.MAX_ATTACHMENT_SIZE/1000000} MB.`);
+		  return;
+		}
+	  
+  	try {
+		  await s3Upload(this.file).then (res=>console.log(res))
+		  // this.props.history.push("/");
+		} catch (e) {
+		  alert(e);
+    }
+
+
+  }
+
     render() {
       // console.log("RENDER MY ORDERS")
       // console.log(this.props)
@@ -181,6 +206,9 @@ moment.locale('ru')
                 onChange={(e)=>(this.handlePaymentPartInput(el.number, e.target.value))}
 
                 />
+                
+
+
                 <button
                  onClick={()=>{this.addOrderChange(el.number)}}
                 className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
@@ -241,6 +269,28 @@ moment.locale('ru')
 
                   
                 </div>
+
+                <div>
+                  {this.props.role === 'admin' ? (
+                  <>
+                  <input 
+                    onChange={this.handleFileChange}
+                    type='file'
+                    name="uploadVauch"
+                    accept="image/png, image/jpeg" />
+                  <button
+                    onClick={this.handleUploadFile}
+                    className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
+                    >Загрузить ваучер</button>
+                    </>
+                    ) : (
+                  <button
+                    className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
+                  >Скачать ваучер</button>
+                  )}
+                </div>
+
+
                 {this.props.role === 'admin'? (<div className=''>
                     <button 
                     disabled={( this.state.orderChanges.length === 0 ||
