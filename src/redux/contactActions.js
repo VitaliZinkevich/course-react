@@ -13,8 +13,8 @@ const sendContactForm=function(messageData) {
   return {
     type: CONTACT_FORM_SENDED,
     payload: API.post ('contactFormMessage','' , payLoad)
-    .then (data=> console.log(data))
-    .catch (err => console.log(err))}
-}
+        .then (data=> console.log(data))
+        .catch (err => console.log(err))};
+};
 
-export {sendContactForm}
+export {sendContactForm};

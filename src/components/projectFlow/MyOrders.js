@@ -5,7 +5,6 @@ import {connect} from 'react-redux'
 import {reNewOrders} from '../../redux/authAction'
 import {updateOrder} from '../../redux/bookingAction'
 
-// import axios from 'axios'
 import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
 // import { s3Upload } from "../../libs/awsLib";
 // import amplifyConfig from '../../amplify.config'
@@ -44,12 +43,7 @@ moment.locale('ru')
   }
 
   saveOrder = ()=>{
-  // let toServer = this.state.orderChanges
-  // axios.post('http://localhost:8080/ordersChange', {changes: toServer},{withCredentials: true})
-  
-  
-  
-  this.props.dispatch(updateOrder(this.state.orderChanges))
+   this.props.dispatch(updateOrder(this.state.orderChanges))
   .then ((res)=>{
     this.setState({openModal:true,orderChanges: []})
     setTimeout(()=>{this.setState({openModal:false})}, 2000)

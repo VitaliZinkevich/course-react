@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { Auth, API } from 'aws-amplify';
 
 

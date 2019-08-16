@@ -34,16 +34,18 @@ const hotelsReducer = (state = initState, action) => {
         
         case 'HOTELS_PENDING':{
         newState = newState.setIn (['hotelPending'], true)
-        return newState
+        return newState;
         }
 
         case 'HOTELS_FULFILLED':{
-        newState = newState.setIn (['hotelPending'], false).setIn(['hotels'] , fromJS (action.payload.data)).setIn(['mainList'] , fromJS (action.payload.data))
-        return newState}
+        newState = newState.setIn (['hotelPending'], false).setIn(['hotels'] , fromJS (action.payload)).setIn(['mainList'] , fromJS (action.payload))
+        return newState
+        }
 
         case 'HOTELS_REJECTED':{
         newState = newState.setIn (['hotelPending'] ,false).setIn(['hotelPendingErrors'], action.payload)
-        return newState}
+        return newState
+        }
 
         case 'SEARCH_FORM_CHANGE': {
             

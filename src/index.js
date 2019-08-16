@@ -36,6 +36,11 @@ Amplify.configure({
 	API: {
 		endpoints: [
 			{
+				name: 'getHotels',
+				endpoint: 'https://5g1bclrzf9.execute-api.us-east-1.amazonaws.com/production/hotel',
+				region: 'us-east-1'
+			},
+			{
 				name: 'contactFormMessage',
 				endpoint: 'https://i2i74uoj72.execute-api.us-east-1.amazonaws.com/dev/contactmessage',
 				region: 'us-east-1'

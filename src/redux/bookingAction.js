@@ -37,12 +37,12 @@ const saveOrder=function(order) {
 const UPDATE_ORDER = "UPDATE_ORDER"
 const updateOrder=function(ordersToUpdate) {
   let payLoad = {
-    body:{
-      ordersToUpdate,
-    },
-    headers:{
-       
-    }};
+      body:{
+        ordersToUpdate,
+      },
+      headers:{}
+    };
+
   return {
     type: UPDATE_ORDER,
     payload: API.put ('updateOrder','' , payLoad)

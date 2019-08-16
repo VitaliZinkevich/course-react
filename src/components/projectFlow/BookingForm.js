@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {singleObjHotel, singleRoom} from './propTypes'
 
 //import {singleObjHotel} from 
-import axios from 'axios'
 import TouristForm from './booking/TouristForm'
 import OrderDetailes from './booking/OrderDetailes'
 import MainContacts from './booking/MainContacts'
@@ -115,10 +114,7 @@ if (canSendToServer) {
 
   console.log(order)
 
-  // axios.post('http://localhost:8080/neworder', order,{withCredentials: true})
-  
   this.props.dispatch (saveOrder(order)).then ((res)=>{
-
   this.props.dispatch (reNewOrders())
   
   setTimeout(()=>{

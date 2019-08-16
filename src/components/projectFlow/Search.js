@@ -23,8 +23,6 @@ import {Input, Button, Row, Col, Preloader} from 'react-materialize'
 // events flow
 import {mainFormFillEvents, queryStringEvent} from '../../events/events'
 
-
-
 class Search extends Component{
     
     static propTypes= {
@@ -50,7 +48,7 @@ class Search extends Component{
     
     // если пропсы неизменного списка пусты просим список у сервера    
         if (this.props.hotels.size === 0){
-            this.props.dispatch (fetchHotels)
+            this.props.dispatch (fetchHotels());
 
         }
 
@@ -60,14 +58,12 @@ class Search extends Component{
     }
 
     componentWillReceiveProps (newProps) {
-    
+        console.log(newProps)
         if (newProps.formMessages.size !== 0) {
 
             for (let e of newProps.formMessages) {
-                
                 window.Materialize.toast(e, 3000)
             }
-            
         }
        
         
