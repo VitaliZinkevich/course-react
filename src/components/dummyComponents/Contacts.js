@@ -1,12 +1,12 @@
 
 import React, { PureComponent } from 'react'
 import {Input, Button, Modal} from 'react-materialize'
-import axios from 'axios'
+
 import { API } from "aws-amplify";
 import { connect } from 'react-redux'
 import {sendContactForm} from '../../redux/contactActions'
-import { s3Upload } from "../../libs/awsLib";
-import amplifyConfig from '../../amplify.config'
+// import { s3Upload } from "../../libs/awsLib";
+// import amplifyConfig from '../../amplify.config'
 
 
 
@@ -47,27 +47,25 @@ doneMessage=()=>{
 
 }
 
-handleFileChange=(event)=>{
-  this.file = event.target.files[0];
-}
+// handleFileChange=(event)=>{
+//   this.file = event.target.files[0];
+// }
 
-handleUploadFile = async (event)=>{
-  event.preventDefault();
+// handleUploadFile = async (event)=>{
+//   event.preventDefault();
   
-  if (this.file && this.file.size > amplifyConfig.MAX_ATTACHMENT_SIZE) {
-    alert(`Please pick a file smaller than ${amplifyConfig.MAX_ATTACHMENT_SIZE/1000000} MB.`);
-    return;
-  }
+//   if (this.file && this.file.size > amplifyConfig.MAX_ATTACHMENT_SIZE) {
+//     alert(`Please pick a file smaller than ${amplifyConfig.MAX_ATTACHMENT_SIZE/1000000} MB.`);
+//     return;
+//   }
   
-  try {
-    await s3Upload(this.file).then (res=>console.log(res))
-    // this.props.history.push("/");
-  } catch (e) {
-    alert(e);
-  }
-
-
-}
+//   try {
+//     await s3Upload(this.file).then (res=>console.log(res))
+//     // this.props.history.push("/");
+//   } catch (e) {
+//     alert(e);
+//   }
+// }
 
   render() {
     

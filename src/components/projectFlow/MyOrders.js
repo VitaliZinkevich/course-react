@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import {ordersPropTypesArray} from './propTypes'
 import {connect} from 'react-redux'
 import {reNewOrders} from '../../redux/authAction'
-import axios from 'axios'
+import {updateOrder} from '../../redux/bookingAction'
+
+// import axios from 'axios'
 import {Input, Modal, Collapsible, CollapsibleItem} from 'react-materialize'
-import { s3Upload } from "../../libs/awsLib";
-import amplifyConfig from '../../amplify.config'
+// import { s3Upload } from "../../libs/awsLib";
+// import amplifyConfig from '../../amplify.config'
+// import {Preloader} from 'react-materialize'
+
 
 import moment from 'moment'
 
@@ -20,7 +24,7 @@ moment.locale('ru')
     
   }
 
-  file = null;
+  //file = null;
   
   state= {
     openModalpeymentPart: false,
@@ -40,10 +44,12 @@ moment.locale('ru')
   }
 
   saveOrder = ()=>{
+  // let toServer = this.state.orderChanges
+  // axios.post('http://localhost:8080/ordersChange', {changes: toServer},{withCredentials: true})
   
-    
-  let toServer = this.state.orderChanges
-  axios.post('http://localhost:8080/ordersChange', {changes: toServer},{withCredentials: true})
+  
+  
+  this.props.dispatch(updateOrder(this.state.orderChanges))
   .then ((res)=>{
     this.setState({openModal:true,orderChanges: []})
     setTimeout(()=>{this.setState({openModal:false})}, 2000)
@@ -52,37 +58,46 @@ moment.locale('ru')
 
   }
 
-  handleInputs= (num, val)=>{
-
-    let changeObj
+  handleInputs= (order, event)=>{
+ 
+    // let changeObj
       
-      changeObj = {
-        orderNumber: num,
-        orderStatus: val.target.name,
-        statusValue: val.target.value
-      }
+    //   changeObj = {
+    //     orderNumber: num,
+    //     orderStatus: val.target.name,
+    //     statusValue: val.target.value
+    //   }
 
-      let newOrdersChanges = [...this.state.orderChanges]
-      newOrdersChanges.push(changeObj)
-      this.setState({orderChanges: newOrdersChanges})
-   
+    let {name, value} = event.target;
+    
+
+    let index = this.findWithAttr(this.state.orderChanges, 'number', order.number);
+
+    if ( index === -1){
+      order[name] = Number (value);
+      let newOrdersChanges = [...this.state.orderChanges];
+      newOrdersChanges.push(order);
+      this.setState({orderChanges: newOrdersChanges});
+    } else {
+      let newOrdersChanges = [...this.state.orderChanges];
+      newOrdersChanges[index][name] = Number (value);
+      this.setState({orderChanges: newOrdersChanges});
+    }
   }
 
-    handlePaymentPartInput =(number, value)=>{
-      // paymentPartInput:{orderNumber: '', value: 0}
-      // console.log(number, value)
-      let newPaymentPartInput= {}
-     
-      newPaymentPartInput.orderNumber = number
-      newPaymentPartInput.value =value
+  // handlePaymentPartInput =(number, value)=>{
+  //   // paymentPartInput:{orderNumber: '', value: 0}
+  //   // console.log(number, value)
+  //   let newPaymentPartInput= {}
+    
+  //   newPaymentPartInput.orderNumber = number
+  //   newPaymentPartInput.value =value
 
-      this.setState ({paymentPartInput : newPaymentPartInput})
-         
-    }
+  //   this.setState ({paymentPartInput : newPaymentPartInput})
+        
+  // }
 
-
-
-    findWithAttr = (array, attr, value) => {
+  findWithAttr = (array, attr, value) => {
       //console.log(array, attr, value)
       for(var i = 0; i < array.length; i += 1) {
         //console.log((array[i][attr] === value))
@@ -94,45 +109,43 @@ moment.locale('ru')
   }
 
 
-  addOrderChange=(num)=>{
-    let changeObj = {
-      orderNumber: num,
-      orderStatus: "paymentPart",
-      statusValue: this.state.paymentPartInput.value
+  // addOrderChange=(num)=>{
+  //   let changeObj = {
+  //     orderNumber: num,
+  //     orderStatus: "paymentPart",
+  //     statusValue: this.state.paymentPartInput.value
 
-    }
-    let newOrdersChanges = [...this.state.orderChanges]
-    newOrdersChanges.push(changeObj)
-    let newPaymentPartInput = {...this.state.PaymentPartInput}
-    newPaymentPartInput.value = ''
-    newPaymentPartInput.orderNumber = ''
-    this.setState({orderChanges: newOrdersChanges,openModalpeymentPart: true, paymentPartInput: newPaymentPartInput}, ()=>{
-      setTimeout(()=>{this.setState({openModalpeymentPart:false})}, 2000)
+  //   }
+  //   let newOrdersChanges = [...this.state.orderChanges]
+  //   newOrdersChanges.push(changeObj)
+  //   let newPaymentPartInput = {...this.state.PaymentPartInput}
+  //   newPaymentPartInput.value = ''
+  //   newPaymentPartInput.orderNumber = ''
+  //   this.setState({orderChanges: newOrdersChanges,openModalpeymentPart: true, paymentPartInput: newPaymentPartInput}, ()=>{
+  //     setTimeout(()=>{this.setState({openModalpeymentPart:false})}, 2000)
       
-    })
-  }
+  //   })
+  // }
 
-  handleFileChange=(event)=>{
-    this.file = event.target.files[0];
-  }
+  // handleFileChange=(event)=>{
+  //   this.file = event.target.files[0];
+  // }
 
-  handleUploadFile = async (event)=>{
-    event.preventDefault();
+  // handleUploadFile = async (event)=>{
+  //   event.preventDefault();
 	  
-		if (this.file && this.file.size > amplifyConfig.MAX_ATTACHMENT_SIZE) {
-		  alert(`Please pick a file smaller than ${amplifyConfig.MAX_ATTACHMENT_SIZE/1000000} MB.`);
-		  return;
-		}
+	// 	if (this.file && this.file.size > amplifyConfig.MAX_ATTACHMENT_SIZE) {
+	// 	  alert(`Please pick a file smaller than ${amplifyConfig.MAX_ATTACHMENT_SIZE/1000000} MB.`);
+	// 	  return;
+	// 	}
 	  
-  	try {
-		  await s3Upload(this.file).then (res=>console.log(res))
-		  // this.props.history.push("/");
-		} catch (e) {
-		  alert(e);
-    }
-
-
-  }
+  // 	try {
+	// 	  await s3Upload(this.file).then (res=>console.log(res))
+	// 	  // this.props.history.push("/");
+	// 	} catch (e) {
+	// 	  alert(e);
+  //   }
+  // }
 
     render() {
       // console.log("RENDER MY ORDERS")
@@ -171,9 +184,10 @@ moment.locale('ru')
                let orderNumber = el.number.toString()
                
                //console.log(el.statusPayment )
-                return (
+            return (
 
-
+              
+              
               <CollapsibleItem 
               key={el.number} 
               header={`Заказ номер ${orderNumber} |
@@ -197,7 +211,9 @@ moment.locale('ru')
                 <div>Цена {el.price}</div>
                 <div>Оплачено {el.paymentPart}</div>
                 <div>Долг {el.price-el.paymentPart}</div>
-                {el.statusPayment === 3 ? (
+                
+                {/* {el.statusPayment === 3 ? (
+
                 <><input
                 value={this.state.paymentPartInput.value}
                 name='paymentPart'
@@ -214,7 +230,8 @@ moment.locale('ru')
                 className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
                 disabled={ this.state.paymentPartInput.value === ''}
                 >Сохранить</button>
-                </>): null}
+                </>): null} */}
+
                 </div>
                 </div>
                 
@@ -223,7 +240,7 @@ moment.locale('ru')
                   <Input 
                    s={6}
                    name='statusConfirmed' 
-                   onChange={(e)=>{this.handleInputs(el.number, e)}} 
+                   onChange={(e)=>{this.handleInputs(el, e)}} 
                    type='select' 
                    defaultValue={el.statusConfirmed} 
                    disabled={this.props.role === 'user'}
@@ -236,7 +253,7 @@ moment.locale('ru')
                    <Input 
                    s={6}
                    name='statusPayment' 
-                   onChange={(e)=>{this.handleInputs(el.number, e)}} 
+                   onChange={(e)=>{this.handleInputs(el, e)}} 
                    type='select' defaultValue={el.statusPayment} 
                    disabled={this.props.role === 'user'}
                    className='black-text'>
@@ -270,7 +287,7 @@ moment.locale('ru')
                   
                 </div>
 
-                <div>
+                {/* <div>
                   {this.props.role === 'admin' ? (
                   <>
                   <input 
@@ -288,14 +305,14 @@ moment.locale('ru')
                     className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
                   >Скачать ваучер</button>
                   )}
-                </div>
+                </div> */}
 
 
                 {this.props.role === 'admin'? (<div className=''>
                     <button 
                     disabled={( this.state.orderChanges.length === 0 ||
                        this.state.openModal === true ||
-                       (this.findWithAttr (this.state.orderChanges, "orderNumber" , el.number) === -1)
+                       (this.findWithAttr (this.state.orderChanges, "number" , el.number) === -1)
                        )}
                   
                     className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-large' 
@@ -306,44 +323,7 @@ moment.locale('ru')
                   ):
                     null}
               </CollapsibleItem>
-
-              //  <tr key={el.number}>
-              //      <td>{el.number}</td>
-              //      <td style={{minWidth:'100px'}}>
-              //      <Input 
-              //      name='statusConfirmed' 
-              //      onChange={(e)=>{this.handleInputs(el.number, e)}} 
-              //      type='select' 
-              //      defaultValue={el.statusConfirmed} 
-              //      disabled={this.props.role === 'user'}
-              //      >
-              //        <option  value='1'>Бронирование</option>
-              //        <option  value='2'>Подтверждено</option>
-              //        <option  value='3'>Аннулировано</option>
-              //      </Input>
-              //      </td> 
-              //      <td style={{minWidth:'125px'}}>
-              //      <Input 
-              //      name='statusPayment' 
-              //      onChange={(e)=>{this.handleInputs(el.number, e)}} 
-              //      type='select' defaultValue={el.statusPayment} 
-              //      disabled={this.props.role === 'user'}
-              //      className='black-text'>
-              //        <option  value='1'>Не оплачено</option>
-              //        <option  value='2'>Оплачено</option>
-              //        <option  value='3'>Частично оплачено</option>
-              //      </Input>
-              //      </td>
-              //      <td>{el.hotel}</td>
-              //      <td>{el.room}</td>
-              //      <td>{el.date}</td>
-              //      <td>{el.night}</td>
-              //      <td>{el.contactTel}</td>
-              //      <td>{touristList}</td>
-                  
-              //  </tr>
-   
-                 )
+              )
                })
 
              

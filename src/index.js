@@ -50,11 +50,11 @@ Amplify.configure({
 				endpoint: 'https://6rdltt91gc.execute-api.us-east-1.amazonaws.com/dev/order',
 				region: 'us-east-1'
 			},
-			// {
-			// 	name: 'delOrder',
-			// 	endpoint: 'https://whd5793u70.execute-api.us-east-1.amazonaws.com/dev/todos',
-			// 	region: 'us-east-1'
-			// }
+			{
+				name: 'updateOrder',
+				endpoint: 'https://6rdltt91gc.execute-api.us-east-1.amazonaws.com/dev/order',
+				region: 'us-east-1'
+			}
 
 		]
 	}

@@ -249,13 +249,14 @@ const users =[
     res.send("Спасибо, завка получена")
   })
 
-  
+  //done
   app.post ("/contactmessage", (req,res)=>{
     // console.log("SERVER RECIVED CONTACT PAGE MSG")
     // console.log (req.body)
     res.send("Сообщение получено")
   })
 
+  // done 
   app.post ("/auth", (req,res)=>{
 
   //console.log("SERVER SEND AUTH STATUS")
@@ -301,7 +302,7 @@ const users =[
     }
 
   })
-
+  // done 
   app.post ("/signup", (req,res)=>{
     let haveUser = users.filter(el=>el.email === req.body.email)
     //console.log("SERVER RECIEVED NEW USER")
@@ -317,7 +318,7 @@ const users =[
     
 
   })
-
+ // done
   app.post ("/ordersChange", (req, res)=>{
       
         let changeArray = req.body.changes
@@ -348,12 +349,7 @@ const users =[
                             } else {
                                elemUO[el.orderStatus]=parseInt(el.statusValue)
                             }
-                            
                         }
-
-                        
-                        
-                        //console.log(elemUO[el.orderStatus])
                     }
                 })
             })
@@ -361,7 +357,7 @@ const users =[
 
         res.send (true)
   })
-
+  // done
   app.get ("/reneworders", (req,res)=>{
 
    if (req.session.user) {

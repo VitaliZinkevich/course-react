@@ -18,7 +18,6 @@ const delBookingOpt=function(options) {
 }
 
 const SAVE_ORDER = 'SAVE_ORDER'
-
 const saveOrder=function(order) {
   let payLoad = {
     body:{
@@ -35,4 +34,23 @@ const saveOrder=function(order) {
     }
 }
 
-export {saveBookingOpt, delBookingOpt, saveOrder}
+const UPDATE_ORDER = "UPDATE_ORDER"
+const updateOrder=function(ordersToUpdate) {
+  let payLoad = {
+    body:{
+      ordersToUpdate,
+    },
+    headers:{
+       
+    }};
+  return {
+    type: UPDATE_ORDER,
+    payload: API.put ('updateOrder','' , payLoad)
+      .then (data=> console.log(data))
+      .catch (err => console.log(err))
+    }
+}
+
+
+
+export {saveBookingOpt, delBookingOpt, saveOrder, updateOrder}
