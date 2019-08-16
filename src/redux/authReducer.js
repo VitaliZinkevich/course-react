@@ -60,8 +60,15 @@ const authReducer = (state = initState, action) => {
             return newState;
         }
 
+        case 'RE_NEW_ORDERS_PENDING': {
+            newState = newState.setIn(['authPending'], true)
+            return newState;
+        }
+
         case 'RE_NEW_ORDERS_FULFILLED': {
-            newState = newState.setIn(['orders'], fromJS (action.payload))
+            newState = newState
+                .setIn(['orders'], fromJS (action.payload))
+                .setIn(['authPending'], false)
             return newState;
         }
             

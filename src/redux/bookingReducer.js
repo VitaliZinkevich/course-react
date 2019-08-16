@@ -4,7 +4,8 @@ import {fromJS} from 'immutable'
 let initState = {
     
     buyOptions:null,
-    saved: false
+    saved: false,
+    orderPending: false
 }
 
 
@@ -26,8 +27,30 @@ const bookingReducer = (state = initState, action) => {
         }
 
         case 'SAVE_ORDER_FULFILLED':{
-            newState = newState.setIn (['saved'], true)
+            newState = newState
+                .setIn (['saved'], true)
+                .setIn (['orderPending'], false)
             return newState
+        }
+
+        case 'SAVE_ORDER_PENDING':{
+            newState = newState.setIn (['orderPending'], true)
+            return newState
+
+           
+        }
+
+        case 'UPDATE_ORDER_PENDING':{
+            newState = newState.setIn (['orderPending'], true)
+            return newState
+
+            
+        }
+        case 'UPDATE_ORDER_FULFILLED':{
+            newState = newState.setIn (['orderPending'], false)
+            return newState
+
+            
         }
 
     default:
