@@ -26,7 +26,7 @@ moment.locale('ru')
   //file = null;
   
   state= {
-    openModalpeymentPart: false,
+    // openModalpeymentPart: false,
     openModal: false,
     orderChanges:[],
     paymentPartInput:{orderNumber: '', value: ''}
@@ -338,7 +338,7 @@ moment.locale('ru')
       
   return (
     <main>
-        {this.props.authPending ? this.pending(): ((jsOrders.length === 0) ? <h5 className='center margin-top-25'>Дорогой {this.props.userName}. У вас нет заказов</h5>: (
+        {(this.props.authPending || this.props.orderPending) ? this.pending(): ((jsOrders.length === 0) ? <h5 className='center margin-top-25'>Дорогой {this.props.userName}. У вас нет заказов</h5>: (
         <div>
         <h5 className='center'>Пользователь {this.props.userName}, роль {this.props.role}</h5>
         
@@ -378,11 +378,11 @@ moment.locale('ru')
               actions={null}
               >
               <div className='center'>
-              <h2>Заявка изменена</h2>
+              <h2>Изменения успешно сохранены</h2>
               </div>
              
           </Modal>
-          <Modal
+          {/* <Modal
               open={this.state.openModalpeymentPart}
               actions={null}
               >
@@ -391,7 +391,7 @@ moment.locale('ru')
               <p>Обновите данные на сервере</p>
               </div>
              
-          </Modal>
+          </Modal> */}
 
           {/* openModalpeymentPart */}
     </main>
@@ -413,6 +413,7 @@ let mapStateToProps = (state) => {
     userName: state.auth.get ('userName'),
     orders: state.auth.get ('orders'),
     authPending: state.auth.get('authPending'),
+    orderPending: state.bookingReducer.get('orderPending'),
     }
 }
 

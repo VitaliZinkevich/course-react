@@ -1,6 +1,5 @@
-
 import React, { PureComponent } from 'react'
-import {Input, Button, Modal} from 'react-materialize'
+import {Input, Button, Modal, Row, Col} from 'react-materialize'
 
 import { API } from "aws-amplify";
 import { connect } from 'react-redux'
@@ -9,8 +8,6 @@ import {sendContactForm} from '../../redux/contactActions'
 import {Preloader} from 'react-materialize'
 // import { s3Upload } from "../../libs/awsLib";
 // import amplifyConfig from '../../amplify.config'
-
-
 
 class Contacts extends PureComponent {
 
@@ -27,9 +24,7 @@ componentDidMount(){
 }
 
 handleChange=(e)=>{
-
   this.setState ({[e.target.name]: e.target.value})
-
 }
 
 doneMessage=()=>{
@@ -66,71 +61,84 @@ doneMessage=()=>{
 //     alert(e);
 //   }
 // }
+contactForm = ()=>{
+  return (
+    <div className='row'>
 
+    <div className='col s6'>
+    
+        
+        <div className="card horizontal z-depth-4 margin-top-50">
+       
+          <div className="card-stacked">
+            <div className="card-content">
+
+            <div>  <i className="material-icons Large">assignment_ind</i><p>Vitali Zinkevich</p></div>
+            <div>  <i className="material-icons Large">email</i> <p>vitalizinkevich@gmail.com</p></div>
+            <div>  <i className="material-icons Large">contact_phone</i> <p>+375 29 338 00 91</p></div>
+            <div>  <i className="material-icons Large">link</i> <p><a href='https://www.linkedin.com/feed/?trk=onboarding-landing'>I am at linkedIn</a></p></div>
+            </div>
+            {/* <>
+              <input 
+                  onChange={this.handleFileChange}
+                  type='file'
+                  name="uploadVauch"
+                  accept="image/png, image/jpeg" />
+              <button
+                  onClick={this.handleUploadFile}
+                  className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
+                >Загрузить ваучер</button>
+            </> */}
+          </div>
+        </div>
+        
+    </div>
+  
+  <div className='col s6 contactForm'>
+  {this.props.send === false ? (<div className='contactForm'>
+  <p className="flow-text">Спросить</p>
+  <Input
+    name='email'
+    icon='email'
+    label='Почта'
+    onChange={this.handleChange}
+    ></Input>
+
+    <Input type='textarea' 
+    icon='message'
+    label='Сообщение'
+    name='message'
+    onChange={this.handleChange}/>
+    
+    <Button
+    id='sendMsg'
+    onClick={this.doneMessage}
+    className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'>Отправить
+    </Button></div>): "Ваше сообщение отправлено"}
+    
+  {!!this.props.contactFormErrors ? <p> {this.props.contactFormErrors} </p>: null}
+  </div>
+  </div>)
+}
+
+pending = ()=>{
+  return (
+    <Row className='center'>
+      <Col s={12}>
+          <Preloader 
+          className='margin-top-50'
+          color='green'
+          flashing/>
+      </Col>
+    </Row>
+  )
+}
   render() {
     
     return (
-
       <main>
-        <div className='row'>
-
-            <div className='col s6'>
-            
-                
-                <div className="card horizontal z-depth-4 margin-top-50">
-               
-                  <div className="card-stacked">
-                    <div className="card-content">
-
-                    <div>  <i className="material-icons Large">assignment_ind</i><p>Vitali Zinkevich</p></div>
-                    <div>  <i className="material-icons Large">email</i> <p>vitalizinkevich@gmail.com</p></div>
-                    <div>  <i className="material-icons Large">contact_phone</i> <p>+375 29 338 00 91</p></div>
-                    <div>  <i className="material-icons Large">link</i> <p><a href='https://www.linkedin.com/feed/?trk=onboarding-landing'>I am at linkedIn</a></p></div>
-                    </div>
-                    {/* <>
-                      <input 
-                          onChange={this.handleFileChange}
-                          type='file'
-                          name="uploadVauch"
-                          accept="image/png, image/jpeg" />
-                      <button
-                          onClick={this.handleUploadFile}
-                          className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-arround textstrong btn-small'
-                        >Загрузить ваучер</button>
-                    </> */}
-                  </div>
-                </div>
-                
-            </div>
-
-            <div className='col s6 contactForm'>
-            
-            
-            {this.props.send === false ? (<div className='contactForm'>
-            <p className="flow-text">Спросить</p>
-            <Input
-              name='email'
-              icon='email'
-              label='Почта'
-              onChange={this.handleChange}
-              ></Input>
-
-              <Input type='textarea' 
-              icon='message'
-              label='Сообщение'
-              name='message'
-              onChange={this.handleChange}/>
-              
-              <Button
-              id='sendMsg'
-              onClick={this.doneMessage}
-              className='waves-effect waves-light btn orange darken-2 z-depth-4 margin-top-25 textstrong'>Отправить
-              </Button></div>): null}
-              
-            {!!this.props.contactFormErrors ? <p> {this.props.contactFormErrors} </p>: null}
-            </div>
-        </div>
-        <Modal
+            {this.state.openModal ?  this.pending() : this.contactForm()}
+        {/* <Modal
           open={this.state.openModal}
           header='Спасибо'
           actions={null}
@@ -140,7 +148,7 @@ doneMessage=()=>{
                     color='green'
                     flashing/>
                     
-        </Modal>
+        </Modal> */}
     </main>
     )
   }
